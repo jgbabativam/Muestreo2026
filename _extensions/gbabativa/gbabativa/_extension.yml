@@ -1,0 +1,13 @@
+title: Plantilla
+author: Giovany Babativa-Márquez, PhD
+version: 0.0.1
+contributes:
+  formats: 
+    revealjs:
+      logo: logo.png
+      theme: GB.scss
+      slide-number: c/t
+      show-slide-number: all
+      title-slide-attributes:
+        data-background-color: "#FFFFFF"
+      preview-links: true

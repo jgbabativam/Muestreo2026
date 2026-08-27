@@ -1,0 +1,30 @@
+# Quarto
+/.quarto/
+*_cache/
+*_files/
+/site_libs/
+/draft/
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# LaTeX intermediate files (Programa, apuntes)
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+*.bbl
+*.blg
+*.synctex.gz
+*.tex.bak
+*.tex.sav
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*~
