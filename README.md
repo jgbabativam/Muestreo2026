@@ -113,7 +113,7 @@ Video guía de instalación:
 | Tema                                           |Material de apoyo                              | Material de clase                                                        |
 | :--------------------------------------------- | :---------------------------------------------| :----------------------------------------------------------------------- |
 | Conceptos básicos de probabilidad e inferencia | --                                            | [Introducción](https://jgbabativam.github.io/Muestreo/Semana1.html)      |
-| Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana2.html)  |
+| Muestreo MAS, BER y estimadores                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana2.html)  |
 | Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana3.html)  |
 | Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana4.html)  |
 | **Primer examen parcial**                      | --                                            | —                                                                        |
