@@ -84,7 +84,7 @@ El curso se organiza en las siguientes unidades temáticas:
 
 ---
 
-## ## 💻 Software utilizado
+## 💻 Software utilizado
 
 El curso tiene un componente práctico en el que los conceptos y métodos de muestreo se complementan mediante ejercicios y aplicaciones computacionales utilizando **R** y diferentes paquetes especializados para el análisis estadístico.
 
