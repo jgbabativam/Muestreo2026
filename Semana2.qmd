@@ -1,0 +1,580 @@
+---
+title: "Muestreo Estadístico"
+subtitle: "Semana 2 — Probabilidades de inclusión y el π-estimador"
+author:
+  - name: Giovany Babativa-Márquez, PhD
+    email: jgbabativam@unal.edu.co
+format:
+  gbabativa-revealjs:
+    logo: "images/UNAL.png"
+    footer: "Muestreo Estadístico — Universidad Nacional de Colombia"
+incremental: false
+embed-resources: true
+highlight-style: dracula
+execute:
+  echo: false
+  eval: true
+---
+
+# Semana 2 {background-color="#0077b6"}
+
+## Contenido de la sesión
+
+- Probabilidades de inclusión de primer y segundo orden
+- La indicadora de pertenencia a la muestra $I_k$ y la estadística $n_s$
+- Estadística, estimador y sus propiedades básicas
+- El $\pi$-estimador de Horvitz-Thompson: definición y propiedades
+- Muestreo con reemplazamiento: el estimador *pwr* de Hansen-Hurwitz
+- El efecto de diseño (*design effect*)
+- Intervalos de confianza
+- El efecto del sesgo sobre los enunciados de confianza (§5.2)
+
+*Texto guía: Särndal, Swensson & Wretman (1992), Capítulo 2 (2.4 a 2.11) y
+sección 5.2.*
+
+---
+
+## Recordemos
+
+::: {.clave}
+Un diseño muestral es una función $p(\cdot)$ que asigna a cada muestra
+posible $s_i \subseteq U$ una probabilidad $p(s_i)$ de ser seleccionada.
+Toda la teoría de esta sesión se construye **sobre** $p(\cdot)$, sin
+importar aún de qué diseño particular se trate (eso vendrá en el Capítulo
+3).
+:::
+
+## Probabilidades de inclusión de primer orden
+
+::: {.definicion}
+Se define la probabilidad de inclusión de primer orden del elemento $k$
+como
+$$\pi_k=\sum_{k \in s_i}p(s_i)$$
+:::
+
+[ejemplo MAS]{.rojo}
+
+Sea la indicadora de pertenencia a la muestra
+$$I_k=\begin{cases}1 & \text{si } k \in s \\ 0 & \text{en otro caso}\end{cases}$$
+
+Entonces $\pi_k=P(I_k=1)$.
+
+## Probabilidades de inclusión de segundo orden
+
+::: {.definicion}
+Se define la probabilidad de inclusión de segundo orden de los elementos
+$k$ y $l$ como
+$$\pi_{kl}=\sum_{k,l \in s_i}p(s_i)$$
+:::
+
+Entonces $\pi_{kl}=P(I_k I_l=1)$.
+
+## Supuestos básicos
+
+::: {.resultado}
+1. $\pi_{kk}=\pi_k$.
+2. Por definición de muestra probabilística, $\pi_k>0$ para todo $k$.
+3. En muestreo de elementos, $\pi_k$ para todo $k=1,\ldots,N$ son
+   conocidos de antemano.
+:::
+
+[ejemplo MAS]{.rojo}
+
+## Estadística y estimador
+
+::: {.definicion}
+Cuando una estadística se usa para estimar un parámetro se denomina
+**estimador**, y sus realizaciones en una muestra aleatoria se denominan
+**estimaciones**. Bajo el diseño muestral $p(\cdot)$ se define, para un
+estimador $\widehat\theta$:
+
+1. Valor esperado: $E_P(\widehat{\theta})=\sum_S p(s_i)\widehat{\theta}$
+2. Sesgo: $B(\widehat{\theta})=E_P(\widehat{\theta})-\theta$
+3. Varianza: $V_P(\widehat{\theta})=\sum_S p(s_i)\left[\widehat{\theta}-E(\widehat{\theta})\right]^2$
+4. Error cuadrático medio: $ECM(\widehat{\theta})=V(\widehat{\theta})+B^2(\widehat{\theta})$
+5. Error estándar: $\sqrt{V_P(\widehat{\theta})}$
+6. Coeficiente de variación (error relativo): $\dfrac{\sqrt{V_P(\widehat{\theta})}}{E_P(\widehat{\theta})}$
+7. Coeficiente de variación estimado: $cve(\%)=100\times\dfrac{\sqrt{\widehat{V}_P(\widehat{\theta})}}{\widehat{\theta}}$
+:::
+
+## La estadística $I_k$: valor esperado
+
+::: {.resultado}
+$$
+E(I_k)=\sum_S p(s_i)I_k(s_i)=\sum_{k \in s_i}p(s_i)=\pi_k
+$$
+:::
+
+[ejemplo MAS]{.rojo}
+[ejemplo BER]{.rojo}
+
+## La estadística $I_k$: varianza
+
+::: {.resultado}
+$$
+\begin{aligned}
+V(I_k)&=\sum_S p(s_i)\left[I_k(s_i)-E(I_k(s_i))\right]^2 \\
+&=\sum_S p(s_i)I^2_k(s_i)-2\sum_S p(s_i)I_k(s_i)\pi_k+\sum_S p(s_i)\pi^2_k \\
+&=\pi_k-2\pi_k^2+\pi_k^2 \\
+&=\pi_k(1-\pi_k)
+\end{aligned}
+$$
+:::
+
+[ejemplo MAS]{.rojo}
+[ejemplo BER]{.rojo}
+
+## La covarianza $\mathrm{Cov}(I_k, I_l)$
+
+::: {.resultado}
+$$
+\begin{aligned}
+Cov(I_k, I_l)&=\sum_S p(s_i)\left(I_k(s_i)-\pi_k\right)\left(I_l(s_i)-\pi_l\right) \\
+&=\sum_{k,l \in s_i}p(s_i)-\pi_l\sum_{k \in s_i}p(s_i) - \pi_k\sum_{l \in s_i}p(s_i)+\pi_k\pi_l\\
+&=\pi_{kl}-\pi_k\pi_l-\pi_k\pi_l+\pi_k\pi_l \\
+&=\pi_{kl}-\pi_k\pi_l \; \equiv \; \Delta_{kl}
+\end{aligned}
+$$
+:::
+
+[ejemplo MAS]{.rojo}, [ejemplo BER]{.rojo}
+
+## La estadística $n_s$
+
+::: {.resultado}
+$$
+\begin{aligned}
+E(n_s)&=\sum_S p(s_i)\,n_s = \sum_S p(s_i)\sum_U I_k
+=\sum_U\sum_S p(s_i)I_k \\
+&=\sum_U\sum_{k \in s_i}p(s_i)=\sum_U\pi_k
+\end{aligned}
+$$
+:::
+
+[ejemplo MAS]{.rojo}
+[ejemplo BER]{.rojo}
+
+---
+
+## El $\pi$-estimador de Horvitz-Thompson (1952)
+
+Para un universo $U$ se desea estimar el total de una característica de
+interés $y$, denotado $t_y$.
+
+::: {.definicion}
+Para $\theta=t_y=\sum_U y_k$, se define
+$$\widehat{\theta}=\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}$$
+$1/\pi_k$ se denomina **factor de expansión**: cada elemento se representa
+a sí mismo y a una fracción de la población.
+:::
+
+## El $\pi$-estimador: propiedades generales
+
+::: {.resultado}
+$$E(\widehat{t}_{y,\pi})=t_y$$ [demost.]{.rojo}
+$$V(\widehat{t}_{y,\pi})=\sum\sum_U\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}$$
+$$\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}$$
+:::
+
+donde $\Delta_{kl}=\pi_{kl}-\pi_k\pi_l$. Además,
+$E\!\left(\widehat{V}(\widehat{t}_{y,\pi})\right)=V(\widehat{t}_{y,\pi})$
+(el estimador de varianza de Horvitz-Thompson es insesgado).
+
+## El $\pi$-estimador: expresión alternativa (Yates-Grundy)
+
+Si $p(s)$ es un diseño de **tamaño fijo**, la varianza admite la forma
+alternativa
+
+::: {.resultado}
+$$V(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_U\Delta_{kl}(\breve y_k-\breve y_l)^2$$
+$$\widehat{V}(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_{s}\breve\Delta_{kl}(\breve y_k-\breve y_l)^2$$
+:::
+
+donde $\breve y_k = y_k/\pi_k$ y $\breve\Delta_{kl}=\Delta_{kl}/\pi_{kl}$.
+Este es el estimador de **Sen (1953) y Yates-Grundy (1953)**: es siempre
+no negativo si $\Delta_{kl}\le 0$ para todo $k\neq l$, lo cual se cumple en
+los diseños de tamaño fijo usuales.
+
+## Observación: cuidado con varianzas negativas
+
+::: {.observacion}
+Särndal et al. (1992, pág. 47) señalan que la expresión
+$$
+\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}
+$$
+puede producir estimaciones **negativas** de la varianza para algunas
+configuraciones de muestra. Para evitarlo se debe garantizar que
+$\Delta_{kl}=\pi_{kl}-\pi_k\pi_l<0$ para $k\neq l$, condición que se
+cumple para los diseños de muestra de tamaño fijo.
+:::
+
+## Ejemplo: diseño NO convencional aplicando el $\pi$-estimador
+
+::: {.ejemplo}
+Considere una población de tamaño $N=3$, $U=\{1,2,3\}$. Sea
+$s_1=\{1,2\}$, $s_2=\{1,3\}$, $s_3=\{2,3\}$, $s_4=\{1,2,3\}$, con
+$P(s_1)=0.4$, $P(s_2)=0.3$, $P(s_3)=0.2$ y $P(s_4)=0.1$.
+
+a. Calcule todos los $\pi_k$ y $\pi_{kl}$.
+b. Encuentre $E(n_s)$ de dos formas: cálculo directo por definición, y
+   mediante la fórmula que expresa $E(n_s)$ en función de $\pi_k$.
+c. Usando la definición, calcule el valor esperado y la varianza del
+   $\pi$-estimador.
+d. Calcule $\widehat{V}(\widehat t_{y\pi})$ para cada una de las cuatro
+   muestras posibles. ¿Es insesgado este estimador de la varianza real?
+:::
+
+---
+
+## Muestreo con reemplazamiento
+
+En un esquema de $m$ extracciones independientes, cada elemento se
+selecciona con probabilidad $p_k$ (constante entre extracciones), se mide,
+se **repone** en el universo, y se repite hasta completar $m$ extracciones.
+La muestra ordenada resultante es
+$$os=(k_1,k_2,\ldots,k_m)$$
+
+::: {.definicion}
+[Caso equiprobable ($p_k=1/N$).]{.callout-label} Sea $Z$ el número de veces
+que el elemento $k$ aparece en la muestra. Entonces $Z\sim Bin(m,1/N)$ y
+$$
+\pi_k = P(Z\geq 1)=1-P(Z=0)=1-\left(1-\frac{1}{N}\right)^m
+$$
+:::
+
+## Muestreo con reemplazamiento: caso general
+
+::: {.definicion}
+Sean $p_1,\ldots,p_N$ probabilidades fijas con $\sum_U p_k=1$. En $m$
+extracciones independientes con reposición según $p_1,\ldots,p_N$, la
+probabilidad de inclusión del elemento $k$ es
+$$\pi_k=1-(1-p_k)^m$$
+:::
+
+::: {.clave}
+Este diseño requiere información auxiliar disponible para todos los
+elementos de $U$ (los valores $p_k$). Sus principales beneficios son que
+reduce costos y que su implementación es relativamente simple.
+:::
+
+## El estimador *pwr* de Hansen y Hurwitz (1943)
+
+::: {.definicion}
+$$\widehat{t}_{y,MCR}=\frac{1}{m}\sum_{i=1}^m\frac{y_{k_i}}{p_{k_i}}$$
+donde $p_{k_i}$ es la probabilidad de selección del elemento extraído en el
+draw $i$. Cada elemento se representa a sí mismo y al resto del universo
+$\rightarrow$ funciona como un promedio.
+:::
+
+::: {layout-ncol=2}
+![Morris Hansen](images/Hansen.jpg){fig-align="center" width="55%"}
+
+Hansen y Hurwitz propusieron este estimador en 1943 para muestreo con
+reemplazo y probabilidades desiguales; es la base del muestreo PPT/*pps*
+que veremos en la Semana 3 (Särndal, Cap. 3.6).
+:::
+
+## Estimador de Hansen-Hurwitz: insesgamiento
+
+::: {.resultado}
+$$
+\begin{aligned}
+E\left(\widehat{t}_{y,MCR}\right)&=E\left(\frac{1}{m}\sum_{i=1}^m\frac{y_{k_i}}{p_{k_i}}\right) \\
+& = \frac{1}{m}E\left(\sum_U\frac{y_{k}}{p_{k}}Z_k\right)
+ = \frac{1}{m}\sum_U\frac{y_{k}}{p_{k}}E\left(Z_k\right) \\
+& = \frac{1}{m}\sum_U\frac{y_{k}}{p_{k}}\,m\,p_k
+ = \sum_U y_k = t_y
+\end{aligned}
+$$
+:::
+
+## Estimador de Hansen-Hurwitz: varianza
+
+::: {.resultado}
+$$V\left(\widehat{t}_{y,MCR}\right)=\frac{1}{m}\sum_U p_k\left(\frac{y_k}{p_k}-t_y\right)^2$$
+$$\widehat{V}\left(\widehat{t}_{y,MCR}\right)=\frac{1}{m(m-1)}\sum_{i=1}^m\left(\frac{y_{k_i}}{p_{k_i}}-\widehat{t}_{y,MCR}\right)^2$$
+$$E\left(\widehat{V}\left(\widehat{t}_{y,MCR}\right)\right)=V\left(\widehat{t}_{y,MCR}\right)$$
+:::
+
+## El $\pi$-estimador bajo muestreo con reemplazo
+
+Bajo este esquema también puede usarse el $\pi$-estimador ordinario,
+
+::: {.resultado}
+$$\widehat{t}_{\pi}=\sum_{s}\breve y_k, \qquad \breve y_k=y_k/\pi_k,
+\qquad \pi_k=1-(1-p_k)^m$$
+:::
+
+sobre el conjunto $s$ de elementos **distintos** de la muestra ordenada. No
+hay una respuesta única sobre cuál estimador ($\pi$ o *pwr*) es preferible:
+depende de la configuración de los valores $y_1,\ldots,y_N$ (Särndal,
+Sección 3.8).
+
+## Motivación del diseño Proporcional al Tamaño (PPT)
+
+::: {.observacion}
+Si existe una variable auxiliar $x_k$ altamente correlacionada con $y_k$,
+de forma que $y_k/x_k \doteq c$, entonces se puede fijar
+$$p_k=\frac{x_k}{\sum_U x_k}=\frac{x_k}{t_x}, \qquad k=1,\ldots,N$$
+[Entre más esté correlacionado $x_k$ con $y_k$ entonces $V\!\left(\widehat{t}_{y,MCR}\right)\to 0$]{.rojo}.
+En la práctica no es posible escoger $y_k$ exactamente proporcional a
+$p_k$: [en la práctica eso es imposible!!! ... primero es la probabilidad
+y luego la medición]{.rojo}.
+:::
+
+::: {.clave}
+Si los $p_k$ casi no varían, se prefiere MAS; si varían mucho, conviene
+PPT.
+:::
+
+## Ejemplo: muestreo $PPT(p_k, m)$ — algoritmo del acumulado total
+
+::: {.ejemplo}
+Un estudio de mercados desea seleccionar 4 tiendas de un universo de
+$N=9$, dando más peso a las de mayor rotación. La información auxiliar
+(ventas en unidades) es:
+
+| Tienda | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|---|---|---|---|
+| Ventas | 32 | 96 | 65 | 140 | 22 | 78 | 65 | 47 | 106 |
+:::
+
+## Ejemplo $PPT(p_k,m)$: estimación
+
+La muestra ordenada tiene tamaño $m$; la muestra sin repetición (el
+conjunto $s$) tiene tamaño $n\le m$.
+
+::: {.resultado}
+$$\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}=\sum_{s}\frac{y_k}{1-(1-p_k)^m}$$
+:::
+
+El estimador tiene $n$ sumandos: los elementos repetidos cuentan una sola
+vez.
+
+::: {.ejemplo}
+Suponga $s_o=\{4;7;7;9\}$, $p_k=\{0.215;0.1;0.1;0.163\}$, y que las
+ventas semanales observadas fueron $y_k=\{12;\color{red}{7};\color{red}{7};11\}$.
+
+1. Con el $\pi$-estimador, estime el total de ventas semanales de las
+   nueve tiendas.
+2. Con el estimador $MCR$, estime el mismo total y calcule el $cve$.
+:::
+
+## Notas sobre el diseño PPT
+
+::: {.observacion}
+- $V\!\left(\widehat{t}_{y,MCR}\right)=0$ solo si $y_k=cp_k$ para alguna
+  constante $c$ — imposible en la práctica, pues primero se fija la
+  probabilidad y luego se mide.
+- Si $x_k$ está muy correlacionada con $y_k$, tomar
+  $p_k=x_k/t_x$ reduce fuertemente la varianza.
+- Regla práctica: poca variación en $p_k$ $\Rightarrow$ MAS; mucha
+  variación $\Rightarrow$ PPT.
+:::
+
+::: {.tarea}
+Sea $U=\{1,2,3,4,5\}$ con valores conocidos
+
+| $y$ | 79 | 76 | 54 | 39 | 12 |
+|---|---|---|---|---|---|
+| $p_k$ | 0.10 | 0.15 | 0.20 | 0.25 | 0.30 |
+
+Para un muestreo con reemplazamiento con $m=3$, determine si es mejor la
+estrategia con el $\pi$-estimador o con el estimador $MCR$.
+:::
+
+---
+
+## El efecto de diseño (*design effect*)
+
+Bajo el diseño $SI$ (MAS sin reemplazo), con $n$ elementos extraídos de
+$N$, el $\pi$-estimador del total es la media expandida
+$\widehat t_\pi = N\bar y_s$. Esta estrategia se toma como **referencia**
+para comparar cualquier otro diseño con el mismo tamaño esperado de
+muestra.
+
+::: {.definicion}
+$$
+deff(p,\widehat t_\pi)=\frac{V_p(\widehat t_\pi)}{V_{SI}(N\bar y_s)}
+=\frac{\sum\sum_U \Delta_{kl}\,\breve y_k\breve y_l}{N^2\left(\dfrac1n-\dfrac1N\right)S^2_{yU}}
+$$
+:::
+
+Si $deff>1$ se **pierde** precisión frente a $SI$; si $deff<1$ se
+**gana** precisión.
+
+## Efecto de diseño: ejemplo con muestreo Bernoulli
+
+::: {.resultado}
+Fijando el tamaño esperado de muestra en $N\pi=n$ (para comparar con $SI$
+en igualdad de condiciones),
+$$
+deff(BE,\widehat t_\pi)=1-\frac1N+\frac{1}{(cv_{yU})^2} \; \doteq \; 1+\frac{1}{(cv_{yU})^2}
+$$
+:::
+
+::: {.observacion}
+Para muchas variables, $0.5\le cv_{yU}\le 1.0$. Con $cv_{yU}=1.0$,
+$deff(BE)=2.0$; con $cv_{yU}=0.5$, $deff(BE)=5.0$. Esto ilustra que el
+muestreo Bernoulli suele ser considerablemente menos preciso que $SI$
+cuando se usa el $\pi$-estimador — la pérdida de precisión se explica por
+la variabilidad del **tamaño** de la muestra Bernoulli.
+:::
+
+---
+
+## Intervalos de confianza
+
+::: {.definicion}
+Un intervalo de confianza es un intervalo aleatorio $CI(s)=[t_L(s),t_U(s)]$
+tal que $t_L(s)\le t_U(s)$ para toda $s$. La probabilidad de que el total
+desconocido $t$ esté contenido en el intervalo,
+$Pr[CI(s)\ni t]$, se llama **nivel de confianza** o **probabilidad de
+cobertura**.
+:::
+
+## Intervalos de confianza: fórmula práctica
+
+::: {.resultado}
+$$\widehat t \pm z_{1-\alpha/2}\left[\widehat V(\widehat t)\right]^{1/2}$$
+:::
+
+::: {.observacion}
+Esta fórmula es válida (a un nivel aproximado $1-\alpha$) si se cumplen dos
+condiciones:
+
+1. La distribución muestral de $\widehat t$ es aproximadamente normal, con
+   media $t$ y varianza $V(\widehat t)$ (Teorema Central del Límite).
+2. Existe un estimador **consistente** $\widehat V(\widehat t)$ de
+   $V(\widehat t)$.
+:::
+
+---
+
+## §5.2 El efecto del sesgo sobre los intervalos de confianza
+
+El insesgamiento exacto es una propiedad deseable, pero no debe
+sobrevalorarse. Hay dos razones para no exigir siempre un estimador
+exactamente insesgado:
+
+::: {.observacion}
+1. Muchos parámetros tienen una estructura que dificulta encontrar un
+   estimador insesgado.
+2. Un estimador con algo de sesgo puede tener menor varianza y menor
+   error cuadrático medio (ECM) que uno insesgado.
+:::
+
+## Razón de sesgo y error cuadrático medio
+
+::: {.definicion}
+Sea $\widehat\theta$ un estimador de $\theta$, con varianza $V(\widehat\theta)$
+y sesgo $B(\widehat\theta)=E(\widehat\theta)-\theta$. El **error cuadrático
+medio** es
+$$MSE(\widehat\theta)=E[(\widehat\theta-\theta)^2]=V(\widehat\theta)+[B(\widehat\theta)]^2$$
+y la **razón de sesgo** es
+$$BR(\widehat\theta)=\frac{B(\widehat\theta)}{[V(\widehat\theta)]^{1/2}}$$
+:::
+
+## Probabilidad de cobertura como función de $BR$
+
+Bajo la aproximación $Z=\dfrac{\widehat\theta-E(\widehat\theta)}{[V(\widehat\theta)]^{1/2}}\sim N(0,1)$,
+la probabilidad de cobertura real es
+$$P_0=Pr\{-z_{1-\alpha/2}-BR(\widehat\theta) < Z < z_{1-\alpha/2}-BR(\widehat\theta)\}$$
+
+| $|BR(\widehat\theta)|$ | $P_0$ (nominal 95 %) |
+|---|---|
+| 0.00 | 0.9500 |
+| 0.05 | 0.9497 |
+| 0.10 | 0.9489 |
+| 0.30 | 0.9396 |
+| 0.50 | 0.9210 |
+| 1.00 | 0.8300 |
+
+## Mensaje clave de la sección 5.2
+
+::: {.clave}
+- El efecto de la razón de sesgo sobre la probabilidad de cobertura puede
+  **ignorarse** cuando $|BR(\widehat\theta)|\le 0.1$: la cobertura real
+  queda entre 0.9489 y 0.95.
+- Lo importante no es solo un ECM pequeño: se requiere además que el
+  sesgo sea pequeño **en relación con** el error estándar.
+- Cuando el tamaño de muestra (o el tamaño esperado, en diseños de tamaño
+  aleatorio) aumenta, $V(\widehat\theta)\to$ valores pequeños y
+  $B(\widehat\theta)\to 0$, de forma que $BR(\widehat\theta)\to 0$.
+:::
+
+## Confiabilidad: la visión aplicada
+
+::: {.definicion}
+Sea $S$ el conjunto de todas las muestras posibles $s_1,\ldots,s_Q$, con
+diseño $P(s_1),\ldots,P(s_Q)$, el parámetro $\theta:U\to\mathbb R$ y el
+estimador $\widehat\theta(s_i)$. Para cada muestra se construye el
+intervalo $(LI(s_i),LS(s_i))$ — la longitud puede variar según la
+muestra. Se define **confiabilidad** como la suma de las probabilidades
+de las muestras cuyo intervalo cubre al parámetro:
+$$\sum_{\theta\in(LI(s_i),LS(s_i))}P(s_i)$$
+:::
+
+Cuando se habla de confiabilidad, se habla de la confiabilidad del
+**intervalo**, NO de la muestra.
+
+## Confiabilidad: dos propuestas de intervalo
+
+::: {.observacion}
+[Con la varianza real:]{.callout-label}
+$\widehat\theta\pm z_{1-\alpha/2}\sqrt{V(\widehat\theta)}$. Por TCL,
+$P\left(\theta\in\widehat\theta\pm z_{1-\alpha/2}\sqrt{V(\widehat\theta)}\right)=1-\alpha$
+si $E(\widehat\theta)=\theta$. Dos inconvenientes: requiere insesgamiento
+exacto, y requiere $V(\widehat\theta)$, que en la práctica **no se
+conoce** (solo se conocería si se hiciera censo, caso en el que ya no
+interesa estimar nada).
+
+[Con la varianza estimada:]{.callout-label}
+$\widehat\theta\pm z_{1-\alpha/2}\sqrt{\widehat V(\widehat\theta)}$. Este
+intervalo sí puede calcularse en la práctica. Si los estimadores de
+$\theta$ y de su varianza son insesgados, se espera que con
+$z_{1-\alpha/2}=1.96$, el 95% de las muestras contengan al parámetro —
+pero eso **no garantiza** que el parámetro esté en el intervalo de la
+muestra particular que se seleccionó.
+:::
+
+[Ejercicio confiabilidad para los dos tipos de intervalo.]{.rojo}
+
+## Confiabilidad y sesgo relativo
+
+La confiabilidad se ve afectada directamente por el **sesgo**, no por el
+margen de error: si $E(\widehat\theta)\neq\theta$, la cobertura decrece,
+y por más que se use $z_{1-\alpha/2}=1.96$, la cobertura real puede ser
+muy baja (compárese con la razón de sesgo $BR(\widehat\theta)$ y la
+Tabla 5.1 vistas arriba — es exactamente la misma idea, en la notación
+usada en clase).
+
+::: {.definicion}
+$$B_r(\widehat\theta)=\frac{B(\widehat\theta)}{\sqrt{V(\widehat\theta)}}=\frac{E(\widehat\theta)-\theta}{\sqrt{V(\widehat\theta)}}$$
+:::
+
+::: {.ejemplo}
+Para el ejercicio de clase, imprima sesgos de
+$0;\,0.05;\,0.1;\,0.3;\,0.5;\,1;\,1.5;\,2$ y, usando un nivel de
+confianza del 95%, calcule y grafique la confiabilidad real. Use
+$$E(\widehat\theta)-\theta=B_r(\widehat\theta)\sqrt{V(\widehat\theta)}$$
+:::
+
+## Cierre de la sesión
+
+::: {.clave}
+- El $\pi$-estimador de Horvitz-Thompson es insesgado para $t_y$ **bajo
+  cualquier diseño de probabilidad**, siempre que $\pi_k>0$ para todo $k$.
+- El estimador *pwr* (Hansen-Hurwitz) cumple el mismo papel en muestreo
+  **con reemplazo**, y es la base del diseño PPT/*pps*.
+- El efecto de diseño compara la precisión de cualquier estrategia frente
+  a la referencia $SI$ + media expandida.
+- La insesgabilidad exacta no es indispensable: lo que importa es que la
+  razón de sesgo sea pequeña frente al error estándar.
+:::
+
+**Próxima sesión (Semana 3):** Capítulo 3 — diseños formales de muestreo de
+elementos: Bernoulli, Aleatorio Simple, Sistemático, Poisson y
+Proporcional al Tamaño (*pps*).
+
+{{< include _derechos.qmd >}}
