@@ -173,3 +173,5 @@ Material creado por **[Giovany Babativa-Márquez](https://github.com/jgbabativam
 Se distribuye bajo la licencia [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 Cualquier copia parcial o total debe citar al autor.
+
+Babativa-Márquez J.G (2026). "Materiales del curso de muestreo". Universidad Nacional de Colombia. https://jgbabativam.github.io/Muestreo2026/
