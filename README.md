@@ -84,17 +84,33 @@ El curso se organiza en las siguientes unidades temáticas:
 
 ---
 
-## 💻 Software utilizado
+## ## 💻 Software utilizado
 
-El curso tiene un componente práctico en el que los conceptos y métodos de muestreo se complementan mediante ejercicios y aplicaciones computacionales utilizando diferentes paquetes de **R**.
+El curso tiene un componente práctico en el que los conceptos y métodos de muestreo se complementan mediante ejercicios y aplicaciones computacionales utilizando **R** y diferentes paquetes especializados para el análisis estadístico.
 
-### Instalación
+### Instalación de R
 
 Para trabajar con los materiales del curso se recomienda tener instalado **R** y **RStudio**.
 
 Video guía de instalación:
 
 * [Instalación de R](https://youtu.be/TKplIIwwdEk)
+
+---
+
+## 👨‍💻 Bases de programación en R
+
+Antes de abordar los ejercicios computacionales de muestreo, se recomienda revisar los siguientes recursos para familiarizarse con las herramientas básicas de programación y análisis de datos en **R**.
+
+### Fundamentos
+
+* [Introducción a R](https://youtu.be/TlOKN0UzbB0)
+* [Importar datos](https://youtu.be/FkpIpLgI7es)
+* [Operador pipeline](https://youtu.be/8V1IzCRsSd8)
+* [Seleccionar filas o columnas](https://youtu.be/FduWB2BRcBo)
+* [Crear nuevas columnas](https://youtu.be/5hoBTWEpDbo)
+* [Estadísticos de resumen](https://youtu.be/NTrjYX0rf9Q)
+* [Documentos reproducibles](https://youtu.be/dI11RlFP99o)
 
 ---
 
