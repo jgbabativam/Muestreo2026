@@ -128,15 +128,15 @@ Antes de abordar los ejercicios computacionales de muestreo, se recomienda revis
 
 | Tema                                           |Material de apoyo                              | Material de clase                                                        |
 | :--------------------------------------------- | :---------------------------------------------| :----------------------------------------------------------------------- |
-| Conceptos básicos de probabilidad e inferencia | --                                            | [Introducción](https://jgbabativam.github.io/Muestreo/Semana1.html)      |
-| Muestreo MAS, BER y estimadores                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana2.html)  |
-| Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana3.html)  |
-| Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana4.html)  |
+| Conceptos básicos de probabilidad e inferencia | --                                            | [Introducción](https://jgbabativam.github.io/Muestreo2026/Semana1.html)      |
+| Muestreo MAS, BER y estimadores                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana2.html)  |
+| Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana3.html)  |
+| Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana4.html)  |
 | **Primer examen parcial**                      | --                                            | —                                                                        |
-| Muestreo estratificado                         | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana5.html)  |
-| Planes de muestreo de varias etapas            | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana6.html)  |
+| Muestreo estratificado                         | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana5.html)  |
+| Planes de muestreo de varias etapas            | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana6.html)  |
 | **Segundo examen parcial**                     | --                                            | —                                                                        |
-| Estimación de parámetros diferentes a totales  | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo/Semana7.html) |
+| Estimación de parámetros diferentes a totales  | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana7.html) |
 | **Examen Final**                               | --                                            | —                                                                        |
 
 > Los enlaces se actualizarán a medida que se publiquen las diapositivas correspondientes.
