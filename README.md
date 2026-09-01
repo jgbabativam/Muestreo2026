@@ -126,10 +126,10 @@ Antes de abordar los ejercicios computacionales de muestreo, se recomienda revis
 
 ## 📚 Material del curso
 
-| Tema                                           |Material de apoyo                              | Material de clase                                                        |
-| :--------------------------------------------- | :---------------------------------------------| :----------------------------------------------------------------------- |
-| Conceptos básicos de probabilidad e inferencia | --                                            | [Introducción](https://jgbabativam.github.io/Muestreo2026/Semana1.html)      |
-| Muestreo MAS, BER y estimadores                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana2.html)  |
+| Tema                                           |Material de apoyo                              | Material de clase                                                                |
+| :--------------------------------------------- | :---------------------------------------------| :------------------------------------------------------------------------------- |
+| Programa y aspectos históricos                 | --                                            | [Introducción](https://jgbabativam.github.io/Muestreo2026/1Bienvenida.html)      |
+| Conceptos básicos                              | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/2.Conceptos.html)  |
 | Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana3.html)  |
 | Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana4.html)  |
 | **Primer examen parcial**                      | --                                            | —                                                                        |

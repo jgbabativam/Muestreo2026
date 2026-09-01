@@ -416,10 +416,6 @@ $$
 $n$ corresponde al tamaño de la muestra, mientras que $N$ corresponde al
 tamaño del universo.
 
-::: {.tarea}
-Construir un espacio muestral basado en el gasto de 8 personas, con
-muestras de 3 elementos.
-:::
 
 ## Mecanismo de selección 
 
