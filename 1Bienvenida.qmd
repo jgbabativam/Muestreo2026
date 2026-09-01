@@ -1,0 +1,339 @@
+---
+title: "Muestreo Estadístico"
+subtitle: "Semana 1: Introducción, decisiones previas, definiciones y estrategia muestral"
+author:
+  - name: Giovany Babativa-Márquez, PhD
+    email: jgbabativam@unal.edu.co
+format:
+  gbabativa-revealjs:
+    logo: "images/UNAL.png"
+    footer: "Muestreo Estadístico — Universidad Nacional de Colombia"
+incremental: false
+embed-resources: true
+highlight-style: dracula
+execute:
+  echo: false
+  eval: true
+---
+
+## Sobre Mi
+
+<div style="text-align: justify;">
+
+PhD en Estadística, MSc en Big Data, MSc en Estadística y Estadístico.  Con 25 años de experiencia profesional y docente, director de analítica en varias empresas, miembro del comité de expertos en pobreza en el DANE y consultor de la División de Estadística de la CEPAL. Ex-decano de la Facultad de Estadística USTA, ex-director de operaciones en el ICFES,...
+
+> Puedes encontrarme en:
+
+- {{< ai google-scholar >}} [Google scholar](https://scholar.google.es/citations?user=2NJRNg8AAAAJ&hl=es)
+- {{< fa brands github >}} [GitHub. https://github.com/jgbabativam](https://github.com/jgbabativam)
+- {{< fa brands linkedin >}} [linkedin](https://www.linkedin.com/in/giovany-babativa-marquez/?originalSubdomain=co)
+- {{< fa solid envelope >}} jgbabativam@unal.edu.co
+
+</div>
+
+---
+
+## Presentación
+
+</br>
+
+- Nombres.
+- Materias que tiene inscritas.
+- Ya aprobó: 
+  - Programación
+  - Probabilidad
+  - Inferencia
+  
+## Reglas del juego
+
+::: columns
+::: {.column width="50%"}
+
+::: {.incremental}
+
+* Horario: Martes y Jueves de 4:00 p.m. a 5:45 p.m.
+
+* Mecanismo de evaluación: 
+  - 3 exámenes.
+  - 1 exposición pública.
+  - Tareas
+
+* Temas de exposición y grupos de trabajo.
+* Bibliografía
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+<br><br>
+
+![](images/Rules_img.jpg){fig-align="center" width="100%"}
+
+:::
+
+:::
+  
+
+## Proceso de analítica
+
+
+```{r, out.width= '100%'}
+knitr::include_graphics(here::here("images/Ciclo.png"))
+```
+[Wickham, H. y otros (2023)](https://r4ds.hadley.nz/)
+
+
+## Paquete R
+
+::: columns
+::: {.column width="50%"}
+
+::: {.incremental}
+
+* Paquete de uso libre
+
+* Tiene todos los métodos que necesitamos
+
+* Incluye paquetes específicos en muestreo como `TeachingSampling`, `samplesize4surveys`, `survey`, `srvyr`, `sampling`, etc
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+![](images/R_logo.png){fig-align="center" fig-alt="R logo" width="80%"}
+
+:::
+
+:::
+
+## Etapas del proceso
+
+![](images/Homerostats.jpeg){fig-align="center"}
+
+## El entorno `tidyverse`
+
+![](images/tidyverse.png){fig-align="center"}
+
+## Flujo de trabajo
+
+![](images/tidyverse2.png){fig-align="center"}
+
+# ANTECEDENTES Y JUSTIFICACIÓN {background-color="#0077b6"}
+
+## Sir Francis Galton (1822-1911)
+
+::: columns
+::: {.column width="70%"}
+
+::: {.incremental}
+
+<div style="text-align: justify;">
+
+* **Galton** hizo importantes contribuciones en muchos campos de la ciencia, incluyendo la meteorología (mapas meteorológicos), la estadística (regresión y correlación), la psicología (sinestesia), la biología (mecanismo de la herencia) y la criminología (huellas dactilares).
+
+* Fue el primero en introducir el uso de cuestionarios y encuestas para recopilar datos sobre comunidades humanas.
+
+</div>
+
+:::
+
+:::
+
+::: {.column width="30%"}
+
+<br>
+
+![](images/Galton.jpeg){fig-align="center" fig-alt="R logo" width="80%"}
+
+:::
+
+:::
+
+## 1897 — Kiær y el "método representativo" {style="font-size: 85%;"}
+
+::: {.columns}
+::: {.column width="35%"}
+![](images/3AndersNicolai.jpg){fig-align="center" width="90%"}
+
+::: {style="text-align:center; font-size:0.7em;"}
+Anders N. Kiær (1838–1919)
+:::
+:::
+::: {.column width="65%"}
+- Fundador y primer director del Instituto de Estadística de Noruega.
+- Primero en usar una encuesta por muestra en lugar de un censo completo.
+- En el ISI de Berna (1895) presentó el **método representativo**: una "investigación parcial" cuidadosamente elegida para reflejar a la población en miniatura.
+- Su noción de "representatividad" era subjetiva y sin base probabilística — la comunidad estadística de la época lo recibió con fuerte oposición.
+:::
+:::
+
+## 1906-1926 — Bowley: aleatorización y estratificación {style="font-size: 85%;"}
+
+::: {.columns}
+::: {.column width="35%"}
+![](images/4ArthurLyon.jpg){fig-align="center" width="90%"}
+
+::: {style="text-align:center; font-size:0.7em;"}
+Arthur L. Bowley (1869–1957)
+:::
+:::
+::: {.column width="65%"}
+- Lucien March (1903) sugiere la **aleatorización** como base objetiva; Bowley (1906) la justifica teóricamente y (1912) demuestra su viabilidad en la encuesta de Reading.
+- **ISI Roma (1925):** resolución que acepta el muestreo, dejando a discreción del investigador usar selección aleatoria o intencional.
+- Bowley (1926) introduce la noción de **estratos**: agrupar unidades similares con afijación proporcional.
+:::
+:::
+
+## Jerzy Neyman (1894-1981)
+
+::: columns
+::: {.column width="70%"}
+
+::: {.incremental}
+
+<div style="text-align: justify;">
+
+* Introdujo las reglas de probabilidad en la selección de muestras.
+
+* Neyman, J.(1934). On the two different aspects of the representative method: The method of stratified sampling and the method of purposive selection, Journal of the Royal Statistical Society: Series B, 97 (4), 557–625.
+
+</div>
+
+:::
+
+:::
+
+::: {.column width="30%"}
+
+<br>
+
+![](images/Neyman.jpeg){fig-align="center" fig-alt="R logo" width="80%"}
+
+:::
+
+:::
+
+## Jerzy Neyman (1894-1981)
+
+::: {.columns}
+::: {.column width="35%"}
+![](images/7Neyman.jpg){fig-align="center" width="70%"}
+
+::: {style="text-align:center; font-size:0.7em;"}
+Jerzy Neyman (1894–1981)
+:::
+:::
+::: {.column width="65%"}
+Introdujo el muestreo bajo las leyes de la **PROBABILIDAD** haciendo grandes contribuciones al muestreo
+
+::: {.incremental}
+1. Marco muestral.
+2. Tamaño de la muestra en muestreos estratificados.
+3. Muestreo de conglomerados.
+4. Estimación de la varianza.
+:::
+:::
+:::
+
+##
+
+## William Edwards Deming (1900 - 1993)
+
+</br>
+
+::: {.columns}
+::: {.column width="30%"}
+![](images/8Deming.jpg){fig-align="center" width="95%"}
+
+::: {style="text-align:center; font-size:0.65em;"}
+W. E. Deming (1900 - 1993)
+:::
+:::
+::: {.column width="70%"}
+- Deming escucha a Neyman en Londres (1936) y lo lleva a enseñar a los estadísticos del gobierno de EE. UU.
+- Censo de EE. UU. (1940): Deming y Hansen diseñan una submuestra del 5% con cuestionario largo.
+:::
+:::
+
+## Morris Hansen (1910-1990)
+
+::: columns
+::: {.column width="70%"}
+
+::: {.incremental}
+
+<div style="text-align: justify;">
+
+* Implementó los diseños de muestreo en la Oficina del Censo y la Oficina de Estadísticas Laborales de EEUU.  
+* Pionero en establecer el Muestreo de Encuestas como un estándar de excelencia para la recolección de datos en agencias gubernamentales.  
+
+* Olkin, I. (1987). Una conversación con Morris Hansen. *Statistical Science* 2, 162-179
+
+</div>
+
+:::
+
+:::
+
+::: {.column width="30%"}
+
+<br>
+
+![](images/Hansen.jpg){fig-align="center" fig-alt="R logo" width="100%"}
+
+:::
+
+:::
+
+## ¿Por qué hacer muestreo?
+
+* Reducción de costos (eficiencia).
+
+* Obtener información rápida (tiempo). 
+
+* En ocasiones es la única forma de obtener información (procesos de control de calidad).
+
+* ¿Cualquier muestra es buena?. ¿Es suficiente con que la muestra sea muy grande? 
+
+* Para usted, ¿cuál es un tamaño de muestra adecuado?, ¿cuáles cree que son los factores que afectan el tamaño de muestra? 
+
+
+```{r}
+library(countdown)
+countdown(minutes = 4, seconds = 30,  right = 0)
+```
+
+## Temas que se alcanzan en este curso
+
+* Conceptos básicos en el muestreo probabilístico
+* Muestreo Aleatorio Simple
+* Uso de información auxiliar: Muestreo Sistemático, PPT, $\pi$PT, estratificado.
+* Estimadores de Horvitz-Thompson y Hansen-Hurwitz
+* Estimación de la incertidumbre
+* Muestreo por conglomerados y de varias etapas
+
+```{r}
+library(countdown)
+countdown(minutes = 3, seconds = 00,  right = 0)
+```
+
+## Temas que NO se alcanzan a ver en este curso
+
+* Estrategias de estratificación
+* Métodos de calibración
+* Ajustes por la ausencia de respuesta
+* Estimación de la varianza usando métodos replicados
+* Diseños de muestreo en evaluaciones de impacto o de resultados
+* Modelos de estimación en áreas pequeñas (SAE)
+* Integración de datos usando MP y NP
+
+```{r}
+library(countdown)
+countdown(minutes = 3, seconds = 00,  right = 0)
+```
+
+{{< include _derechos.qmd >}}
