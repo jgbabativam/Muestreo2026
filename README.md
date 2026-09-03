@@ -129,7 +129,7 @@ Antes de abordar los ejercicios computacionales de muestreo, se recomienda revis
 | Tema                                           |Material de apoyo                              | Material de clase                                                                |
 | :--------------------------------------------- | :---------------------------------------------| :------------------------------------------------------------------------------- |
 | Programa y aspectos históricos                 | --                                            | [Introducción](https://jgbabativam.github.io/Muestreo2026/1Bienvenida.html)      |
-| Conceptos básicos                              | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/2.Conceptos.html)  |
+| Conceptos básicos                              | --                                            | [Conceptos básicos parte 1](https://jgbabativam.github.io/Muestreo2026/2.ConceptosParte1.html) </br> [Conceptos básicos parte 2](https://jgbabativam.github.io/Muestreo2026/2.ConceptosParte2.html)  |
 | Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana3.html)  |
 | Planes de muestreo de una etapa                | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana4.html)  |
 | **Primer examen parcial**                      | --                                            | —                                                                        |
