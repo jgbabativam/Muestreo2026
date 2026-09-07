@@ -1068,7 +1068,6 @@ Giovany Babativa-Márquez, PhD
 <li>Interprete.</li>
 </ol>
 </div>
-<p><strong>Plazo</strong>: antes de la siguiente clase, se carga en moodle.</p>
 </section>
 <section id="estimación-por-intervalo" class="slide level2">
 <h2>Estimación por intervalo</h2>
@@ -1094,67 +1093,6 @@ Giovany Babativa-Márquez, PhD
 <div class="tarea">
 <p>Simule 100 muestras de tamaño <span class="math inline">\(n\)</span> provenientes de una distribución uniforme en <span class="math inline">\((0,1)\)</span>. Calcule el estadístico <span class="math inline">\(\bar y_s\)</span> para cada una de las 100 muestras y realice los histogramas para <span class="math inline">\(n=5, 10, 15, 20, 25, 30, 40, 50, 60, 80, 100\)</span>. Concluya.</p>
 </div>
-</section>
-<section id="diseño-muestral" class="slide level2">
-<h2>Diseño muestral</h2>
-<p><br></p>
-<div class="definicion">
-<p>Sea <span class="math inline">\(s \subseteq U\)</span> una muestra probabilística, y sea <span class="math inline">\(S\)</span> el conjunto de todas las muestras posibles. La función de medida de probabilidad <span class="math display">\[
-\mathbf{P}: S \rightarrow (0,1), \qquad s_i \mapsto p(s_i)
-\]</span> Dado el conjunto <span class="math inline">\(S\)</span>, un <strong>diseño de muestreo</strong> es una función <span class="math inline">\(p(\cdot)\)</span> tal que <span class="math inline">\(p(s_i)\)</span> es la probabilidad de que la muestra <span class="math inline">\(i\)</span> sea seleccionada.</p>
-</div>
-</section>
-<section id="ejemplo-muestreo-aleatorio-simple.-masnn" class="slide level2">
-<h2>Ejemplo: Muestreo Aleatorio Simple. <span class="math inline">\(MAS(N,n)\)</span></h2>
-<p><span class="math display">\[
-p(s_i)=\begin{cases}
-\dfrac{1}{\binom{N}{n}} &amp; \text{para toda muestra de tamaño } n \text{ de } N \text{ sin reposición} \\[4pt]
-0 &amp; \text{en otro caso}
-\end{cases}
-\]</span></p>
-<p><span class="math inline">\(n\)</span> corresponde al tamaño de la muestra, mientras que <span class="math inline">\(N\)</span> corresponde al tamaño del universo.</p>
-</section>
-<section id="mecanismo-de-selección" class="slide level2">
-<h2>Mecanismo de selección</h2>
-<div class="definicion">
-<p><span class="callout-label">Algoritmo 1: coordinado negativo.</span></p>
-<ol type="1">
-<li>Generar <span class="math inline">\(N\)</span> realizaciones de una variable aleatoria <span class="math inline">\(\xi_k\)</span> (<span class="math inline">\(k\in U\)</span>) con distribución uniforme (0,1).</li>
-<li>Asignar <span class="math inline">\(\xi_k\)</span> al elemento <span class="math inline">\(k\)</span>-ésimo de la población.</li>
-<li>Ordenar la lista de elementos descendente (o ascendentemente) con respecto a este número aleatorio <span class="math inline">\(\xi_k\)</span>.</li>
-<li>A continuación, seleccionar los <span class="math inline">\(n\)</span> primeros (o los <span class="math inline">\(n\)</span> últimos) elementos. Esta selección corresponde a la muestra realizada.</li>
-</ol>
-</div>
-<div class="tarea">
-<p>Use la DIVIPOLA y seleccione 25 municipios usando un diseño MAS y el algoritmo coordinado negativo.</p>
-</div>
-</section>
-<section id="mecanismo-de-selección-1" class="slide level2" style="font-size: 80%;">
-<h2>Mecanismo de selección</h2>
-<div class="definicion">
-<p><span class="callout-label">Algoritmo 2: Fan, Muller &amp; Rezucha (1962).</span> Denominado método de selección-rechazo, consiste en ir descartando o seleccionando cada elemento de la muestra:</p>
-<ol type="1">
-<li>Realizar <span class="math inline">\(\xi_k\sim U(0,1)\)</span></li>
-<li>Calcular <span class="math display">\[\begin{equation*}
-c_k=\dfrac{n-n_k}{N-k+1}
-\end{equation*}\]</span> donde <span class="math inline">\(n_k\)</span> es la cantidad de objetos seleccionados en los <span class="math inline">\(k-1\)</span> ensayos anteriores.</li>
-<li>Si <span class="math inline">\(\xi_k&lt;c_k\)</span>, entonces el elemento <span class="math inline">\(k\)</span> pertenece a la muestra.</li>
-<li>Detener el proceso cuando <span class="math inline">\(n=n_k\)</span>.</li>
-</ol>
-</div>
-<p><span class="rojo">Ejemplo en Excel: Fan-Muller.</span></p>
-<p><span class="rojo">Ejercicio: Use la DIVIPOLA para seleccionar una muestra de 25 municipios, use sample(N, n, replace = FALSE) y S.SI(N, n)</span></p>
-</section>
-<section id="cierre" class="slide level2">
-<h2>Cierre</h2>
-<div class="clave">
-<ul>
-<li>Toda investigación por muestreo empieza por decisiones <strong>conceptuales</strong> (universo, marco, variables, objetivo) que anteceden cualquier fórmula.</li>
-<li>La estrategia muestral se divide en <strong>probabilística</strong> y <strong>no probabilística</strong>; solo la primera permite inferencia formal.</li>
-<li>Un diseño muestral es, formalmente, una función de probabilidad <span class="math inline">\(p(\cdot)\)</span> sobre el conjunto de todas las muestras posibles de <span class="math inline">\(U\)</span>.</li>
-</ul>
-</div>
-<p><strong>Próxima sesión:</strong> probabilidades de inclusión, la indicadora <span class="math inline">\(I_k\)</span>, el <span class="math inline">\(\pi\)</span>-estimador de Horvitz-Thompson y sus propiedades (Särndal, Cap. 2).</p>
 </section>
 <section id="section" class="slide level2" data-background-color="#0d1b2a">
 <h2></h2>
