@@ -1003,8 +1003,8 @@ Giovany Babativa-Márquez, PhD
 
 </section>
 <section>
-<section id="semana-2" class="title-slide slide level1 center" data-background-color="#0077b6">
-<h1>Semana 2</h1>
+<section id="probabilidades-de-inclusión" class="title-slide slide level1 center" data-background-color="#0077b6">
+<h1>Probabilidades de inclusión</h1>
 
 </section>
 <section id="contenido-de-la-sesión" class="slide level2">
@@ -1023,18 +1023,23 @@ Giovany Babativa-Márquez, PhD
 </section>
 <section id="recordemos" class="slide level2">
 <h2>Recordemos</h2>
+<p><br><br></p>
 <div class="clave">
 <p>Un diseño muestral es una función <span class="math inline">\(p(\cdot)\)</span> que asigna a cada muestra posible <span class="math inline">\(s_i \subseteq U\)</span> una probabilidad <span class="math inline">\(p(s_i)\)</span> de ser seleccionada. Toda la teoría de esta sesión se construye <strong>sobre</strong> <span class="math inline">\(p(\cdot)\)</span>, sin importar aún de qué diseño particular se trate (eso vendrá en el Capítulo 3).</p>
 </div>
 </section>
-<section id="probabilidades-de-inclusión-de-primer-orden" class="slide level2">
+<section id="probabilidades-de-inclusión-de-primer-orden" class="slide level2" style="font-size: 80%;">
 <h2>Probabilidades de inclusión de primer orden</h2>
 <div class="definicion">
 <p>Se define la probabilidad de inclusión de primer orden del elemento <span class="math inline">\(k\)</span> como <span class="math display">\[\pi_k=\sum_{k \in s_i}p(s_i)\]</span></p>
 </div>
-<p><span class="rojo">ejemplo MAS</span></p>
 <p>Sea la indicadora de pertenencia a la muestra <span class="math display">\[I_k=\begin{cases}1 &amp; \text{si } k \in s \\ 0 &amp; \text{en otro caso}\end{cases}\]</span></p>
 <p>Entonces <span class="math inline">\(\pi_k=P(I_k=1)\)</span>.</p>
+<ul>
+<li><span class="rojo">ejemplo MAS</span>: Calcule <span class="math inline">\(\pi_k\)</span> teórico.</li>
+<li><span class="rojo">ejercicio MAS</span>: Verifique <span class="math inline">\(\pi_k\)</span> en el ejemplo del gasto.</li>
+<li><span class="rojo">ejercicio BER</span>: Verifique <span class="math inline">\(\pi_1\)</span> y <span class="math inline">\(\pi_2\)</span>.</li>
+</ul>
 </section>
 <section id="probabilidades-de-inclusión-de-segundo-orden" class="slide level2">
 <h2>Probabilidades de inclusión de segundo orden</h2>
@@ -1042,9 +1047,14 @@ Giovany Babativa-Márquez, PhD
 <p>Se define la probabilidad de inclusión de segundo orden de los elementos <span class="math inline">\(k\)</span> y <span class="math inline">\(l\)</span> como <span class="math display">\[\pi_{kl}=\sum_{k,l \in s_i}p(s_i)\]</span></p>
 </div>
 <p>Entonces <span class="math inline">\(\pi_{kl}=P(I_k I_l=1)\)</span>.</p>
+<ul>
+<li><span class="rojo">ejercicio MAS</span>: Calcule <span class="math inline">\(\pi_{kl}\)</span> en el ejemplo del gasto.</li>
+<li><span class="rojo">ejercicio BER</span>: Calcule <span class="math inline">\(\pi_{12}\)</span>.</li>
+</ul>
 </section>
 <section id="supuestos-básicos" class="slide level2">
 <h2>Supuestos básicos</h2>
+<p><br><br></p>
 <div class="resultado">
 <ol type="1">
 <li><span class="math inline">\(\pi_{kk}=\pi_k\)</span>.</li>
@@ -1052,9 +1062,8 @@ Giovany Babativa-Márquez, PhD
 <li>En muestreo de elementos, <span class="math inline">\(\pi_k\)</span> para todo <span class="math inline">\(k=1,\ldots,N\)</span> son conocidos de antemano.</li>
 </ol>
 </div>
-<p><span class="rojo">ejemplo MAS</span></p>
 </section>
-<section id="estadística-y-estimador" class="slide level2">
+<section id="estadística-y-estimador" class="slide level2" style="font-size: 80%;">
 <h2>Estadística y estimador</h2>
 <div class="definicion">
 <p>Cuando una estadística se usa para estimar un parámetro se denomina <strong>estimador</strong>, y sus realizaciones en una muestra aleatoria se denominan <strong>estimaciones</strong>. Bajo el diseño muestral <span class="math inline">\(p(\cdot)\)</span> se define, para un estimador <span class="math inline">\(\widehat\theta\)</span>:</p>
@@ -1076,7 +1085,10 @@ Giovany Babativa-Márquez, PhD
 E(I_k)=\sum_S p(s_i)I_k(s_i)=\sum_{k \in s_i}p(s_i)=\pi_k
 \]</span></p>
 </div>
-<p><span class="rojo">ejemplo MAS</span> <span class="rojo">ejemplo BER</span></p>
+<ul>
+<li><span class="rojo">ejemplo MAS</span></li>
+<li><span class="rojo">ejercicio BER</span></li>
+</ul>
 </section>
 <section id="la-estadística-i_k-varianza" class="slide level2">
 <h2>La estadística <span class="math inline">\(I_k\)</span>: varianza</h2>
@@ -1090,7 +1102,10 @@ V(I_k)&amp;=\sum_S p(s_i)\left[I_k(s_i)-E(I_k(s_i))\right]^2 \\
 \end{aligned}
 \]</span></p>
 </div>
-<p><span class="rojo">ejemplo MAS</span> <span class="rojo">ejemplo BER</span></p>
+<ul>
+<li><span class="rojo">ejemplo MAS</span></li>
+<li><span class="rojo">ejercicio BER</span></li>
+</ul>
 </section>
 <section id="la-covarianza-mathrmcovi_k-i_l" class="slide level2">
 <h2>La covarianza <span class="math inline">\(\mathrm{Cov}(I_k, I_l)\)</span></h2>
@@ -1104,7 +1119,7 @@ Cov(I_k, I_l)&amp;=\sum_S p(s_i)\left(I_k(s_i)-\pi_k\right)\left(I_l(s_i)-\pi_l\
 \end{aligned}
 \]</span></p>
 </div>
-<p><span class="rojo">ejemplo MAS</span>, <span class="rojo">ejemplo BER</span></p>
+<p><span class="rojo">ejemplo MAS</span>, <span class="rojo">ejercicio BER</span></p>
 </section>
 <section id="la-estadística-n_s" class="slide level2">
 <h2>La estadística <span class="math inline">\(n_s\)</span></h2>
@@ -1117,7 +1132,15 @@ E(n_s)&amp;=\sum_S p(s_i)\,n_s = \sum_S p(s_i)\sum_U I_k
 \end{aligned}
 \]</span></p>
 </div>
-<p><span class="rojo">ejemplo MAS</span> <span class="rojo">ejemplo BER</span></p>
+<ul>
+<li><span class="rojo">ejemplo MAS</span></li>
+<li><span class="rojo">ejercicio BER</span></li>
+</ul>
+</section></section>
+<section>
+<section id="estimador-de-horvitz-thompson" class="title-slide slide level1 center" data-background-color="#0077b6">
+<h1>Estimador de Horvitz-Thompson</h1>
+
 </section>
 <section id="el-pi-estimador-de-horvitz-thompson-1952" class="slide level2">
 <h2>El <span class="math inline">\(\pi\)</span>-estimador de Horvitz-Thompson (1952)</h2>
@@ -1126,346 +1149,91 @@ E(n_s)&amp;=\sum_S p(s_i)\,n_s = \sum_S p(s_i)\sum_U I_k
 <p>Para <span class="math inline">\(\theta=t_y=\sum_U y_k\)</span>, se define <span class="math display">\[\widehat{\theta}=\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}\]</span> <span class="math inline">\(1/\pi_k\)</span> se denomina <strong>factor de expansión</strong>: cada elemento se representa a sí mismo y a una fracción de la población.</p>
 </div>
 </section>
-<section id="el-pi-estimador-propiedades-generales" class="slide level2">
+<section id="el-pi-estimador-propiedades-generales" class="slide level2" style="font-size: 90%;">
 <h2>El <span class="math inline">\(\pi\)</span>-estimador: propiedades generales</h2>
 <div class="resultado">
 <p><span class="math display">\[E(\widehat{t}_{y,\pi})=t_y\]</span> <span class="rojo">demost.</span> <span class="math display">\[V(\widehat{t}_{y,\pi})=\sum\sum_U\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\]</span> <span class="math display">\[\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\]</span></p>
 </div>
 <p>donde <span class="math inline">\(\Delta_{kl}=\pi_{kl}-\pi_k\pi_l\)</span>. Además, <span class="math inline">\(E\!\left(\widehat{V}(\widehat{t}_{y,\pi})\right)=V(\widehat{t}_{y,\pi})\)</span> (el estimador de varianza de Horvitz-Thompson es insesgado).</p>
+<p><span class="rojo">ejercicio gasto MAS</span>, <span class="rojo">ejercicio BER</span></p>
 </section>
-<section id="el-pi-estimador-expresión-alternativa-yates-grundy" class="slide level2">
+<section id="el-pi-estimador-expresión-alternativa-yates-grundy" class="slide level2" style="font-size: 90%;">
 <h2>El <span class="math inline">\(\pi\)</span>-estimador: expresión alternativa (Yates-Grundy)</h2>
 <p>Si <span class="math inline">\(p(s)\)</span> es un diseño de <strong>tamaño fijo</strong>, la varianza admite la forma alternativa</p>
 <div class="resultado">
 <p><span class="math display">\[V(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_U\Delta_{kl}(\breve y_k-\breve y_l)^2\]</span> <span class="math display">\[\widehat{V}(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_{s}\breve\Delta_{kl}(\breve y_k-\breve y_l)^2\]</span></p>
 </div>
 <p>donde <span class="math inline">\(\breve y_k = y_k/\pi_k\)</span> y <span class="math inline">\(\breve\Delta_{kl}=\Delta_{kl}/\pi_{kl}\)</span>. Este es el estimador de <strong>Sen (1953) y Yates-Grundy (1953)</strong>: es siempre no negativo si <span class="math inline">\(\Delta_{kl}\le 0\)</span> para todo <span class="math inline">\(k\neq l\)</span>, lo cual se cumple en los diseños de tamaño fijo usuales.</p>
+<p><span class="rojo">Tarea</span> pruebe la igualdad.</p>
 </section>
-<section id="observación-cuidado-con-varianzas-negativas" class="slide level2">
-<h2>Observación: cuidado con varianzas negativas</h2>
+<section id="observación" class="slide level2">
+<h2>Observación</h2>
 <div class="observacion">
 <p>Särndal et al. (1992, pág. 47) señalan que la expresión <span class="math display">\[
 \widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}
 \]</span> puede producir estimaciones <strong>negativas</strong> de la varianza para algunas configuraciones de muestra. Para evitarlo se debe garantizar que <span class="math inline">\(\Delta_{kl}=\pi_{kl}-\pi_k\pi_l&lt;0\)</span> para <span class="math inline">\(k\neq l\)</span>, condición que se cumple para los diseños de muestra de tamaño fijo.</p>
 </div>
 </section>
-<section id="ejemplo-diseño-no-convencional-aplicando-el-pi-estimador" class="slide level2">
-<h2>Ejemplo: diseño NO convencional aplicando el <span class="math inline">\(\pi\)</span>-estimador</h2>
-<div class="ejemplo">
-<p>Considere una población de tamaño <span class="math inline">\(N=3\)</span>, <span class="math inline">\(U=\{1,2,3\}\)</span>. Sea <span class="math inline">\(s_1=\{1,2\}\)</span>, <span class="math inline">\(s_2=\{1,3\}\)</span>, <span class="math inline">\(s_3=\{2,3\}\)</span>, <span class="math inline">\(s_4=\{1,2,3\}\)</span>, con <span class="math inline">\(P(s_1)=0.4\)</span>, <span class="math inline">\(P(s_2)=0.3\)</span>, <span class="math inline">\(P(s_3)=0.2\)</span> y <span class="math inline">\(P(s_4)=0.1\)</span>.</p>
-<ol type="a">
-<li>Calcule todos los <span class="math inline">\(\pi_k\)</span> y <span class="math inline">\(\pi_{kl}\)</span>.</li>
-<li>Encuentre <span class="math inline">\(E(n_s)\)</span> de dos formas: cálculo directo por definición, y mediante la fórmula que expresa <span class="math inline">\(E(n_s)\)</span> en función de <span class="math inline">\(\pi_k\)</span>.</li>
-<li>Usando la definición, calcule el valor esperado y la varianza del <span class="math inline">\(\pi\)</span>-estimador.</li>
-<li>Calcule <span class="math inline">\(\widehat{V}(\widehat t_{y\pi})\)</span> para cada una de las cuatro muestras posibles. ¿Es insesgado este estimador de la varianza real?</li>
-</ol>
-</div>
-</section>
-<section id="muestreo-con-reemplazamiento" class="slide level2">
-<h2>Muestreo con reemplazamiento</h2>
-<p>En un esquema de <span class="math inline">\(m\)</span> extracciones independientes, cada elemento se selecciona con probabilidad <span class="math inline">\(p_k\)</span> (constante entre extracciones), se mide, se <strong>repone</strong> en el universo, y se repite hasta completar <span class="math inline">\(m\)</span> extracciones. La muestra ordenada resultante es <span class="math display">\[os=(k_1,k_2,\ldots,k_m)\]</span></p>
-<div class="definicion">
-<p><span class="callout-label">Caso equiprobable (<span class="math inline">\(p_k=1/N\)</span>).</span> Sea <span class="math inline">\(Z\)</span> el número de veces que el elemento <span class="math inline">\(k\)</span> aparece en la muestra. Entonces <span class="math inline">\(Z\sim Bin(m,1/N)\)</span> y <span class="math display">\[
-\pi_k = P(Z\geq 1)=1-P(Z=0)=1-\left(1-\frac{1}{N}\right)^m
-\]</span></p>
-</div>
-</section>
-<section id="muestreo-con-reemplazamiento-caso-general" class="slide level2">
-<h2>Muestreo con reemplazamiento: caso general</h2>
-<div class="definicion">
-<p>Sean <span class="math inline">\(p_1,\ldots,p_N\)</span> probabilidades fijas con <span class="math inline">\(\sum_U p_k=1\)</span>. En <span class="math inline">\(m\)</span> extracciones independientes con reposición según <span class="math inline">\(p_1,\ldots,p_N\)</span>, la probabilidad de inclusión del elemento <span class="math inline">\(k\)</span> es <span class="math display">\[\pi_k=1-(1-p_k)^m\]</span></p>
-</div>
-<div class="clave">
-<p>Este diseño requiere información auxiliar disponible para todos los elementos de <span class="math inline">\(U\)</span> (los valores <span class="math inline">\(p_k\)</span>). Sus principales beneficios son que reduce costos y que su implementación es relativamente simple.</p>
-</div>
-</section>
-<section id="el-estimador-pwr-de-hansen-y-hurwitz-1943" class="slide level2">
-<h2>El estimador <em>pwr</em> de Hansen y Hurwitz (1943)</h2>
-<div class="definicion">
-<p><span class="math display">\[\widehat{t}_{y,MCR}=\frac{1}{m}\sum_{i=1}^m\frac{y_{k_i}}{p_{k_i}}\]</span> donde <span class="math inline">\(p_{k_i}\)</span> es la probabilidad de selección del elemento extraído en el draw <span class="math inline">\(i\)</span>. Cada elemento se representa a sí mismo y al resto del universo <span class="math inline">\(\rightarrow\)</span> funciona como un promedio.</p>
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img role="img" data-src="data:image/jpeg;base64,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" style="width:55.0%"></p>
-<figcaption>Morris Hansen</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>Hansen y Hurwitz propusieron este estimador en 1943 para muestreo con reemplazo y probabilidades desiguales; es la base del muestreo PPT/<em>pps</em> que veremos en la Semana 3 (Särndal, Cap. 3.6).</p>
-</div>
-</div>
-</div>
-</section>
-<section id="estimador-de-hansen-hurwitz-insesgamiento" class="slide level2">
-<h2>Estimador de Hansen-Hurwitz: insesgamiento</h2>
+<section id="ejemplo-mas" class="slide level2" style="font-size: 65%;">
+<h2>Ejemplo MAS</h2>
 <div class="resultado">
-<p><span class="math display">\[
-\begin{aligned}
-E\left(\widehat{t}_{y,MCR}\right)&amp;=E\left(\frac{1}{m}\sum_{i=1}^m\frac{y_{k_i}}{p_{k_i}}\right) \\
-&amp; = \frac{1}{m}E\left(\sum_U\frac{y_{k}}{p_{k}}Z_k\right)
-= \frac{1}{m}\sum_U\frac{y_{k}}{p_{k}}E\left(Z_k\right) \\
-&amp; = \frac{1}{m}\sum_U\frac{y_{k}}{p_{k}}\,m\,p_k
-= \sum_U y_k = t_y
-\end{aligned}
-\]</span></p>
+<p>Para un diseño de muestreo aleatorio simple, el estimador de Horvitz-Thompson del total poblacional <span class="math inline">\(t_y\)</span>, su varianza y su varianza estimada están dados por: <span class="math display">\[\begin{equation}
+\hat{t}_{y,\pi}=\frac{N}{n}\sum_{s_i}y_k
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+V_{MAS}(\hat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{yU}
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+\widehat{V}_{MAS}(\hat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{ys}
+\end{equation}\]</span> respectivamente, con <span class="math display">\[\begin{equation}
+S^2_{yU}=\frac{1}{N-1}\sum_{k\in U}(y_k-\bar{y}_U)^2,
+\end{equation}\]</span> la <strong>varianza poblacional</strong> de la característica de interés en el universo <span class="math inline">\(U\)</span> y con <span class="math display">\[\begin{equation}
+S^2_{ys}=\frac{1}{n-1}\sum_{k\in {s_i}}(y_k-\bar{y}_s)^2
+\end{equation}\]</span> la <strong>varianza muestral</strong> de los valores de la característica de interés en la muestra aleatoria <span class="math inline">\(S\)</span>.</p>
 </div>
 </section>
-<section id="estimador-de-hansen-hurwitz-varianza" class="slide level2">
-<h2>Estimador de Hansen-Hurwitz: varianza</h2>
-<div class="resultado">
-<p><span class="math display">\[V\left(\widehat{t}_{y,MCR}\right)=\frac{1}{m}\sum_U p_k\left(\frac{y_k}{p_k}-t_y\right)^2\]</span> <span class="math display">\[\widehat{V}\left(\widehat{t}_{y,MCR}\right)=\frac{1}{m(m-1)}\sum_{i=1}^m\left(\frac{y_{k_i}}{p_{k_i}}-\widehat{t}_{y,MCR}\right)^2\]</span> <span class="math display">\[E\left(\widehat{V}\left(\widehat{t}_{y,MCR}\right)\right)=V\left(\widehat{t}_{y,MCR}\right)\]</span></p>
-</div>
-</section>
-<section id="el-pi-estimador-bajo-muestreo-con-reemplazo" class="slide level2">
-<h2>El <span class="math inline">\(\pi\)</span>-estimador bajo muestreo con reemplazo</h2>
-<p>Bajo este esquema también puede usarse el <span class="math inline">\(\pi\)</span>-estimador ordinario,</p>
-<div class="resultado">
-<p><span class="math display">\[\widehat{t}_{\pi}=\sum_{s}\breve y_k, \qquad \breve y_k=y_k/\pi_k,
-\qquad \pi_k=1-(1-p_k)^m\]</span></p>
-</div>
-<p>sobre el conjunto <span class="math inline">\(s\)</span> de elementos <strong>distintos</strong> de la muestra ordenada. No hay una respuesta única sobre cuál estimador (<span class="math inline">\(\pi\)</span> o <em>pwr</em>) es preferible: depende de la configuración de los valores <span class="math inline">\(y_1,\ldots,y_N\)</span> (Särndal, Sección 3.8).</p>
-</section>
-<section id="motivación-del-diseño-proporcional-al-tamaño-ppt" class="slide level2">
-<h2>Motivación del diseño Proporcional al Tamaño (PPT)</h2>
+<section id="demostración-mas" class="slide level2" style="font-size: 49%;">
+<h2>Demostración MAS</h2>
 <div class="observacion">
-<p>Si existe una variable auxiliar <span class="math inline">\(x_k\)</span> altamente correlacionada con <span class="math inline">\(y_k\)</span>, de forma que <span class="math inline">\(y_k/x_k \doteq c\)</span>, entonces se puede fijar <span class="math display">\[p_k=\frac{x_k}{\sum_U x_k}=\frac{x_k}{t_x}, \qquad k=1,\ldots,N\]</span> <span class="rojo">Entre más esté correlacionado <span class="math inline">\(x_k\)</span> con <span class="math inline">\(y_k\)</span> entonces <span class="math inline">\(V\!\left(\widehat{t}_{y,MCR}\right)\to 0\)</span></span>. En la práctica no es posible escoger <span class="math inline">\(y_k\)</span> exactamente proporcional a <span class="math inline">\(p_k\)</span>: <span class="rojo">en la práctica eso es imposible!!! … primero es la probabilidad y luego la medición</span>.</p>
-</div>
-<div class="clave">
-<p>Si los <span class="math inline">\(p_k\)</span> casi no varían, se prefiere MAS; si varían mucho, conviene PPT.</p>
-</div>
-</section>
-<section id="ejemplo-muestreo-pptp_k-m-algoritmo-del-acumulado-total" class="slide level2">
-<h2>Ejemplo: muestreo <span class="math inline">\(PPT(p_k, m)\)</span> — algoritmo del acumulado total</h2>
-<div class="ejemplo">
-<p>Un estudio de mercados desea seleccionar 4 tiendas de un universo de <span class="math inline">\(N=9\)</span>, dando más peso a las de mayor rotación. La información auxiliar (ventas en unidades) es:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Tienda</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Ventas</td>
-<td>32</td>
-<td>96</td>
-<td>65</td>
-<td>140</td>
-<td>22</td>
-<td>78</td>
-<td>65</td>
-<td>47</td>
-<td>106</td>
-</tr>
-</tbody>
-</table>
+<p><span class="math display">\[\begin{equation}
+\hat{t}_{y,\pi}=\sum_s\frac{y_k}{\pi_k}=\frac{N}{n}\sum_sy_k.
+\end{equation}\]</span></p>
+<p>La demostración de las varianzas es inmediata al reemplazar las cantidades apropiadas</p>
+<p><span class="math display">\[\begin{align*}
+\sum\sum_{k\neq l}y_ky_l&amp;=\sum_k\sum_ly_ky_l-\sum\sum_{k=l}y_ky_l=\left(\sum_Uy_k\right)^2-\sum_Uy_k^2
+\end{align*}\]</span></p>
+<p>De tal forma que, <span class="math display">\[\begin{align*}
+V(\hat{t}_{y,\pi})&amp;=\frac{N^2}{n^2}V\left(\sum_UI_k(s)y_k\right)\\
+&amp;=\frac{N^2}{n^2}\left(\sum_UV(I_k(s))y_k^2+\sum\sum_{k\neq l}Cov\left(I_k(S),I_l(s)\right)y_ky_l\right)\\
+&amp;=\frac{N^2}{n^2}\left(\frac{n(N-n)}{N^2}\sum_Uy_k^2-\frac{n}{N^2}\frac{(N-n)}{(N-1)}\sum\sum_{k\neq l}y_ky_l\right)\\
+&amp;=\frac{(N-n)}{n}\left(\sum_Uy_k^2-\frac{1}{N-1}\sum\sum_{k\neq l}y_ky_l\right)\\
+&amp;=\frac{(N-n)}{n}\frac{1}{N-1}\left((N-1)\sum_Uy_k^2-\left[\left(\sum_Uy_k\right)^2-\sum_Uy_k^2\right]\right)\\
+&amp;=\frac{N(N-n)}{n}\frac{1}{N-1}\left(\sum_Uy_k^2-\dfrac{\left(\sum_Uy_k\right)^2}{N}\right)\\
+&amp;=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{yU}
+\end{align*}\]</span></p>
 </div>
 </section>
-<section id="ejemplo-pptp_km-estimación" class="slide level2">
-<h2>Ejemplo <span class="math inline">\(PPT(p_k,m)\)</span>: estimación</h2>
-<p>La muestra ordenada tiene tamaño <span class="math inline">\(m\)</span>; la muestra sin repetición (el conjunto <span class="math inline">\(s\)</span>) tiene tamaño <span class="math inline">\(n\le m\)</span>.</p>
+<section id="ejemplo-bernoulli" class="slide level2" style="font-size: 95%;">
+<h2>Ejemplo Bernoulli</h2>
+<p><br></p>
 <div class="resultado">
-<p><span class="math display">\[\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}=\sum_{s}\frac{y_k}{1-(1-p_k)^m}\]</span></p>
-</div>
-<p>El estimador tiene <span class="math inline">\(n\)</span> sumandos: los elementos repetidos cuentan una sola vez.</p>
-<div class="ejemplo">
-<p>Suponga <span class="math inline">\(s_o=\{4;7;7;9\}\)</span>, <span class="math inline">\(p_k=\{0.215;0.1;0.1;0.163\}\)</span>, y que las ventas semanales observadas fueron <span class="math inline">\(y_k=\{12;\color{red}{7};\color{red}{7};11\}\)</span>.</p>
-<ol type="1">
-<li>Con el <span class="math inline">\(\pi\)</span>-estimador, estime el total de ventas semanales de las nueve tiendas.</li>
-<li>Con el estimador <span class="math inline">\(MCR\)</span>, estime el mismo total y calcule el <span class="math inline">\(cve\)</span>.</li>
-</ol>
-</div>
-</section>
-<section id="notas-sobre-el-diseño-ppt" class="slide level2">
-<h2>Notas sobre el diseño PPT</h2>
-<div class="observacion">
 <ul>
-<li><span class="math inline">\(V\!\left(\widehat{t}_{y,MCR}\right)=0\)</span> solo si <span class="math inline">\(y_k=cp_k\)</span> para alguna constante <span class="math inline">\(c\)</span> — imposible en la práctica, pues primero se fija la probabilidad y luego se mide.</li>
-<li>Si <span class="math inline">\(x_k\)</span> está muy correlacionada con <span class="math inline">\(y_k\)</span>, tomar <span class="math inline">\(p_k=x_k/t_x\)</span> reduce fuertemente la varianza.</li>
-<li>Regla práctica: poca variación en <span class="math inline">\(p_k\)</span> <span class="math inline">\(\Rightarrow\)</span> MAS; mucha variación <span class="math inline">\(\Rightarrow\)</span> PPT.</li>
+<li><span class="math inline">\(\widehat{t}_{y,\pi}=\sum_{s_i}\frac{y_k}{\pi_k}=\sum_{s_i}\frac{y_k}{\pi}\)</span></li>
+<li><span class="math inline">\(V_{Ber}(\widehat{t}_{y,\pi})=\left(\frac{1}{\pi}-1\right)\sum_Uy^2_k\)</span></li>
+<li><span class="math inline">\(\widehat{V}_{Ber}(\widehat{t}_{y,\pi})=\frac{1}{\pi}\left(\frac{1}{\pi}-1\right)\sum_{s_i}y^2_k\)</span></li>
 </ul>
 </div>
-<div class="tarea">
-<p>Sea <span class="math inline">\(U=\{1,2,3,4,5\}\)</span> con valores conocidos</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><span class="math inline">\(y\)</span></th>
-<th>79</th>
-<th>76</th>
-<th>54</th>
-<th>39</th>
-<th>12</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(p_k\)</span></td>
-<td>0.10</td>
-<td>0.15</td>
-<td>0.20</td>
-<td>0.25</td>
-<td>0.30</td>
-</tr>
-</tbody>
-</table>
-<p>Para un muestreo con reemplazamiento con <span class="math inline">\(m=3\)</span>, determine si es mejor la estrategia con el <span class="math inline">\(\pi\)</span>-estimador o con el estimador <span class="math inline">\(MCR\)</span>.</p>
-</div>
+<p><br></p>
+<p><span class="rojo">Ejercicio</span>: Para los ejercicios hechos en clase de MAS y Bernoulli calcule <span class="math inline">\(\widehat{t}_{y,\pi}\)</span> y <span class="math inline">\(V_{Ber}(\widehat{t}_{y,\pi})\)</span>, este último vía definición y por el estimador dado por la expresión. Para ambas expresiones compruebe el insesgamiento del estimador.</p>
 </section>
-<section id="el-efecto-de-diseño-design-effect" class="slide level2">
-<h2>El efecto de diseño (<em>design effect</em>)</h2>
-<p>Bajo el diseño <span class="math inline">\(SI\)</span> (MAS sin reemplazo), con <span class="math inline">\(n\)</span> elementos extraídos de <span class="math inline">\(N\)</span>, el <span class="math inline">\(\pi\)</span>-estimador del total es la media expandida <span class="math inline">\(\widehat t_\pi = N\bar y_s\)</span>. Esta estrategia se toma como <strong>referencia</strong> para comparar cualquier otro diseño con el mismo tamaño esperado de muestra.</p>
-<div class="definicion">
-<p><span class="math display">\[
-deff(p,\widehat t_\pi)=\frac{V_p(\widehat t_\pi)}{V_{SI}(N\bar y_s)}
-=\frac{\sum\sum_U \Delta_{kl}\,\breve y_k\breve y_l}{N^2\left(\dfrac1n-\dfrac1N\right)S^2_{yU}}
-\]</span></p>
-</div>
-<p>Si <span class="math inline">\(deff&gt;1\)</span> se <strong>pierde</strong> precisión frente a <span class="math inline">\(SI\)</span>; si <span class="math inline">\(deff&lt;1\)</span> se <strong>gana</strong> precisión.</p>
-</section>
-<section id="efecto-de-diseño-ejemplo-con-muestreo-bernoulli" class="slide level2">
-<h2>Efecto de diseño: ejemplo con muestreo Bernoulli</h2>
+<section id="estimación-de-la-media-poblacional-bajo-mas" class="slide level2">
+<h2>Estimación de la media poblacional bajo MAS</h2>
 <div class="resultado">
-<p>Fijando el tamaño esperado de muestra en <span class="math inline">\(N\pi=n\)</span> (para comparar con <span class="math inline">\(SI\)</span> en igualdad de condiciones), <span class="math display">\[
-deff(BE,\widehat t_\pi)=1-\frac1N+\frac{1}{(cv_{yU})^2} \; \doteq \; 1+\frac{1}{(cv_{yU})^2}
-\]</span></p>
-</div>
-<div class="observacion">
-<p>Para muchas variables, <span class="math inline">\(0.5\le cv_{yU}\le 1.0\)</span>. Con <span class="math inline">\(cv_{yU}=1.0\)</span>, <span class="math inline">\(deff(BE)=2.0\)</span>; con <span class="math inline">\(cv_{yU}=0.5\)</span>, <span class="math inline">\(deff(BE)=5.0\)</span>. Esto ilustra que el muestreo Bernoulli suele ser considerablemente menos preciso que <span class="math inline">\(SI\)</span> cuando se usa el <span class="math inline">\(\pi\)</span>-estimador — la pérdida de precisión se explica por la variabilidad del <strong>tamaño</strong> de la muestra Bernoulli.</p>
-</div>
-</section>
-<section id="intervalos-de-confianza" class="slide level2">
-<h2>Intervalos de confianza</h2>
-<div class="definicion">
-<p>Un intervalo de confianza es un intervalo aleatorio <span class="math inline">\(CI(s)=[t_L(s),t_U(s)]\)</span> tal que <span class="math inline">\(t_L(s)\le t_U(s)\)</span> para toda <span class="math inline">\(s\)</span>. La probabilidad de que el total desconocido <span class="math inline">\(t\)</span> esté contenido en el intervalo, <span class="math inline">\(Pr[CI(s)\ni t]\)</span>, se llama <strong>nivel de confianza</strong> o <strong>probabilidad de cobertura</strong>.</p>
-</div>
-</section>
-<section id="intervalos-de-confianza-fórmula-práctica" class="slide level2">
-<h2>Intervalos de confianza: fórmula práctica</h2>
-<div class="resultado">
-<p><span class="math display">\[\widehat t \pm z_{1-\alpha/2}\left[\widehat V(\widehat t)\right]^{1/2}\]</span></p>
-</div>
-<div class="observacion">
-<p>Esta fórmula es válida (a un nivel aproximado <span class="math inline">\(1-\alpha\)</span>) si se cumplen dos condiciones:</p>
-<ol type="1">
-<li>La distribución muestral de <span class="math inline">\(\widehat t\)</span> es aproximadamente normal, con media <span class="math inline">\(t\)</span> y varianza <span class="math inline">\(V(\widehat t)\)</span> (Teorema Central del Límite).</li>
-<li>Existe un estimador <strong>consistente</strong> <span class="math inline">\(\widehat V(\widehat t)\)</span> de <span class="math inline">\(V(\widehat t)\)</span>.</li>
-</ol>
-</div>
-</section>
-<section id="el-efecto-del-sesgo-sobre-los-intervalos-de-confianza" class="slide level2">
-<h2>§5.2 El efecto del sesgo sobre los intervalos de confianza</h2>
-<p>El insesgamiento exacto es una propiedad deseable, pero no debe sobrevalorarse. Hay dos razones para no exigir siempre un estimador exactamente insesgado:</p>
-<div class="observacion">
-<ol type="1">
-<li>Muchos parámetros tienen una estructura que dificulta encontrar un estimador insesgado.</li>
-<li>Un estimador con algo de sesgo puede tener menor varianza y menor error cuadrático medio (ECM) que uno insesgado.</li>
-</ol>
-</div>
-</section>
-<section id="razón-de-sesgo-y-error-cuadrático-medio" class="slide level2">
-<h2>Razón de sesgo y error cuadrático medio</h2>
-<div class="definicion">
-<p>Sea <span class="math inline">\(\widehat\theta\)</span> un estimador de <span class="math inline">\(\theta\)</span>, con varianza <span class="math inline">\(V(\widehat\theta)\)</span> y sesgo <span class="math inline">\(B(\widehat\theta)=E(\widehat\theta)-\theta\)</span>. El <strong>error cuadrático medio</strong> es <span class="math display">\[MSE(\widehat\theta)=E[(\widehat\theta-\theta)^2]=V(\widehat\theta)+[B(\widehat\theta)]^2\]</span> y la <strong>razón de sesgo</strong> es <span class="math display">\[BR(\widehat\theta)=\frac{B(\widehat\theta)}{[V(\widehat\theta)]^{1/2}}\]</span></p>
-</div>
-</section>
-<section id="probabilidad-de-cobertura-como-función-de-br" class="slide level2">
-<h2>Probabilidad de cobertura como función de <span class="math inline">\(BR\)</span></h2>
-<p>Bajo la aproximación <span class="math inline">\(Z=\dfrac{\widehat\theta-E(\widehat\theta)}{[V(\widehat\theta)]^{1/2}}\sim N(0,1)\)</span>, la probabilidad de cobertura real es <span class="math display">\[P_0=Pr\{-z_{1-\alpha/2}-BR(\widehat\theta) &lt; Z &lt; z_{1-\alpha/2}-BR(\widehat\theta)\}\]</span></p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><span class="math inline">\(|BR(\widehat\theta)|\)</span></th>
-<th><span class="math inline">\(P_0\)</span> (nominal 95 %)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0.00</td>
-<td>0.9500</td>
-</tr>
-<tr class="even">
-<td>0.05</td>
-<td>0.9497</td>
-</tr>
-<tr class="odd">
-<td>0.10</td>
-<td>0.9489</td>
-</tr>
-<tr class="even">
-<td>0.30</td>
-<td>0.9396</td>
-</tr>
-<tr class="odd">
-<td>0.50</td>
-<td>0.9210</td>
-</tr>
-<tr class="even">
-<td>1.00</td>
-<td>0.8300</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="mensaje-clave-de-la-sección-5.2" class="slide level2">
-<h2>Mensaje clave de la sección 5.2</h2>
-<div class="clave">
 <ul>
-<li>El efecto de la razón de sesgo sobre la probabilidad de cobertura puede <strong>ignorarse</strong> cuando <span class="math inline">\(|BR(\widehat\theta)|\le 0.1\)</span>: la cobertura real queda entre 0.9489 y 0.95.</li>
-<li>Lo importante no es solo un ECM pequeño: se requiere además que el sesgo sea pequeño <strong>en relación con</strong> el error estándar.</li>
-<li>Cuando el tamaño de muestra (o el tamaño esperado, en diseños de tamaño aleatorio) aumenta, <span class="math inline">\(V(\widehat\theta)\to\)</span> valores pequeños y <span class="math inline">\(B(\widehat\theta)\to 0\)</span>, de forma que <span class="math inline">\(BR(\widehat\theta)\to 0\)</span>.</li>
+<li><span class="math inline">\(\widehat{\overline{y}}_U=\frac{\widehat{t}_{y,\pi}}{N}\)</span></li>
+<li><span class="math inline">\(V_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{yU}\)</span></li>
+<li><span class="math inline">\(\widehat{V}_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{ys_i}\)</span></li>
 </ul>
 </div>
-</section>
-<section id="confiabilidad-la-visión-aplicada" class="slide level2">
-<h2>Confiabilidad: la visión aplicada</h2>
-<div class="definicion">
-<p>Sea <span class="math inline">\(S\)</span> el conjunto de todas las muestras posibles <span class="math inline">\(s_1,\ldots,s_Q\)</span>, con diseño <span class="math inline">\(P(s_1),\ldots,P(s_Q)\)</span>, el parámetro <span class="math inline">\(\theta:U\to\mathbb R\)</span> y el estimador <span class="math inline">\(\widehat\theta(s_i)\)</span>. Para cada muestra se construye el intervalo <span class="math inline">\((LI(s_i),LS(s_i))\)</span> — la longitud puede variar según la muestra. Se define <strong>confiabilidad</strong> como la suma de las probabilidades de las muestras cuyo intervalo cubre al parámetro: <span class="math display">\[\sum_{\theta\in(LI(s_i),LS(s_i))}P(s_i)\]</span></p>
-</div>
-<p>Cuando se habla de confiabilidad, se habla de la confiabilidad del <strong>intervalo</strong>, NO de la muestra.</p>
-</section>
-<section id="confiabilidad-dos-propuestas-de-intervalo" class="slide level2">
-<h2>Confiabilidad: dos propuestas de intervalo</h2>
-<div class="observacion">
-<p><span class="callout-label">Con la varianza real:</span> <span class="math inline">\(\widehat\theta\pm z_{1-\alpha/2}\sqrt{V(\widehat\theta)}\)</span>. Por TCL, <span class="math inline">\(P\left(\theta\in\widehat\theta\pm z_{1-\alpha/2}\sqrt{V(\widehat\theta)}\right)=1-\alpha\)</span> si <span class="math inline">\(E(\widehat\theta)=\theta\)</span>. Dos inconvenientes: requiere insesgamiento exacto, y requiere <span class="math inline">\(V(\widehat\theta)\)</span>, que en la práctica <strong>no se conoce</strong> (solo se conocería si se hiciera censo, caso en el que ya no interesa estimar nada).</p>
-<p><span class="callout-label">Con la varianza estimada:</span> <span class="math inline">\(\widehat\theta\pm z_{1-\alpha/2}\sqrt{\widehat V(\widehat\theta)}\)</span>. Este intervalo sí puede calcularse en la práctica. Si los estimadores de <span class="math inline">\(\theta\)</span> y de su varianza son insesgados, se espera que con <span class="math inline">\(z_{1-\alpha/2}=1.96\)</span>, el 95% de las muestras contengan al parámetro — pero eso <strong>no garantiza</strong> que el parámetro esté en el intervalo de la muestra particular que se seleccionó.</p>
-</div>
-<p><span class="rojo">Ejercicio confiabilidad para los dos tipos de intervalo.</span></p>
-</section>
-<section id="confiabilidad-y-sesgo-relativo" class="slide level2">
-<h2>Confiabilidad y sesgo relativo</h2>
-<p>La confiabilidad se ve afectada directamente por el <strong>sesgo</strong>, no por el margen de error: si <span class="math inline">\(E(\widehat\theta)\neq\theta\)</span>, la cobertura decrece, y por más que se use <span class="math inline">\(z_{1-\alpha/2}=1.96\)</span>, la cobertura real puede ser muy baja (compárese con la razón de sesgo <span class="math inline">\(BR(\widehat\theta)\)</span> y la Tabla 5.1 vistas arriba — es exactamente la misma idea, en la notación usada en clase).</p>
-<div class="definicion">
-<p><span class="math display">\[B_r(\widehat\theta)=\frac{B(\widehat\theta)}{\sqrt{V(\widehat\theta)}}=\frac{E(\widehat\theta)-\theta}{\sqrt{V(\widehat\theta)}}\]</span></p>
-</div>
-<div class="ejemplo">
-<p>Para el ejercicio de clase, imprima sesgos de <span class="math inline">\(0;\,0.05;\,0.1;\,0.3;\,0.5;\,1;\,1.5;\,2\)</span> y, usando un nivel de confianza del 95%, calcule y grafique la confiabilidad real. Use <span class="math display">\[E(\widehat\theta)-\theta=B_r(\widehat\theta)\sqrt{V(\widehat\theta)}\]</span></p>
-</div>
-</section>
-<section id="cierre-de-la-sesión" class="slide level2">
-<h2>Cierre de la sesión</h2>
-<div class="clave">
-<ul>
-<li>El <span class="math inline">\(\pi\)</span>-estimador de Horvitz-Thompson es insesgado para <span class="math inline">\(t_y\)</span> <strong>bajo cualquier diseño de probabilidad</strong>, siempre que <span class="math inline">\(\pi_k&gt;0\)</span> para todo <span class="math inline">\(k\)</span>.</li>
-<li>El estimador <em>pwr</em> (Hansen-Hurwitz) cumple el mismo papel en muestreo <strong>con reemplazo</strong>, y es la base del diseño PPT/<em>pps</em>.</li>
-<li>El efecto de diseño compara la precisión de cualquier estrategia frente a la referencia <span class="math inline">\(SI\)</span> + media expandida.</li>
-<li>La insesgabilidad exacta no es indispensable: lo que importa es que la razón de sesgo sea pequeña frente al error estándar.</li>
-</ul>
-</div>
-<p><strong>Próxima sesión (Semana 3):</strong> Capítulo 3 — diseños formales de muestreo de elementos: Bernoulli, Aleatorio Simple, Sistemático, Poisson y Proporcional al Tamaño (<em>pps</em>).</p>
+<p>Al factor <span class="math inline">\(\left(1-\frac{n}{N}\right)\)</span> se le conoce como factor de corrección para poblaciones finitas.</p>
 </section>
 <section id="section" class="slide level2" data-background-color="#0d1b2a">
 <h2></h2>

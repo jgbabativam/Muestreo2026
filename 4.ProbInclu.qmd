@@ -1,0 +1,302 @@
+---
+title: "Muestreo Estadístico"
+subtitle: "Semana 2 — Probabilidades de inclusión y el π-estimador"
+author:
+  - name: Giovany Babativa-Márquez, PhD
+    email: jgbabativam@unal.edu.co
+format:
+  gbabativa-revealjs:
+    logo: "images/UNAL.png"
+    footer: "Muestreo Estadístico — Universidad Nacional de Colombia"
+incremental: false
+embed-resources: true
+highlight-style: dracula
+execute:
+  echo: false
+  eval: true
+---
+
+# Probabilidades de inclusión {background-color="#0077b6"}
+
+## Contenido de la sesión
+
+- Probabilidades de inclusión de primer y segundo orden
+- La indicadora de pertenencia a la muestra $I_k$ y la estadística $n_s$
+- Estadística, estimador y sus propiedades básicas
+- El $\pi$-estimador de Horvitz-Thompson: definición y propiedades
+- Muestreo con reemplazamiento: el estimador *pwr* de Hansen-Hurwitz
+- El efecto de diseño (*design effect*)
+- Intervalos de confianza
+- El efecto del sesgo sobre los enunciados de confianza (§5.2)
+
+*Texto guía: Särndal, Swensson & Wretman (1992), Capítulo 2 (2.4 a 2.11) y
+sección 5.2.*
+
+---
+
+## Recordemos
+
+<br><br>
+
+::: {.clave}
+Un diseño muestral es una función $p(\cdot)$ que asigna a cada muestra
+posible $s_i \subseteq U$ una probabilidad $p(s_i)$ de ser seleccionada.
+Toda la teoría de esta sesión se construye **sobre** $p(\cdot)$, sin
+importar aún de qué diseño particular se trate (eso vendrá en el Capítulo
+3).
+:::
+
+## Probabilidades de inclusión de primer orden {style="font-size: 80%;"}
+
+::: {.definicion}
+Se define la probabilidad de inclusión de primer orden del elemento $k$
+como
+$$\pi_k=\sum_{k \in s_i}p(s_i)$$
+:::
+
+Sea la indicadora de pertenencia a la muestra
+$$I_k=\begin{cases}1 & \text{si } k \in s \\ 0 & \text{en otro caso}\end{cases}$$
+
+Entonces $\pi_k=P(I_k=1)$.
+
+- [ejemplo MAS]{.rojo}: Calcule $\pi_k$ teórico.
+- [ejercicio MAS]{.rojo}: Verifique $\pi_k$ en el ejemplo del gasto.
+- [ejercicio BER]{.rojo}: Verifique $\pi_1$ y $\pi_2$.
+
+## Probabilidades de inclusión de segundo orden
+
+::: {.definicion}
+Se define la probabilidad de inclusión de segundo orden de los elementos
+$k$ y $l$ como
+$$\pi_{kl}=\sum_{k,l \in s_i}p(s_i)$$
+:::
+
+Entonces $\pi_{kl}=P(I_k I_l=1)$.
+
+- [ejercicio MAS]{.rojo}: Calcule $\pi_{kl}$ en el ejemplo del gasto. 
+- [ejercicio BER]{.rojo}: Calcule $\pi_{12}$.
+
+## Supuestos básicos
+
+<br><br>
+
+::: {.resultado}
+1. $\pi_{kk}=\pi_k$.
+2. Por definición de muestra probabilística, $\pi_k>0$ para todo $k$.
+3. En muestreo de elementos, $\pi_k$ para todo $k=1,\ldots,N$ son
+   conocidos de antemano.
+:::
+
+
+## Estadística y estimador {style="font-size: 80%;"}
+
+::: {.definicion}
+Cuando una estadística se usa para estimar un parámetro se denomina
+**estimador**, y sus realizaciones en una muestra aleatoria se denominan
+**estimaciones**. Bajo el diseño muestral $p(\cdot)$ se define, para un
+estimador $\widehat\theta$:
+
+1. Valor esperado: $E_P(\widehat{\theta})=\sum_S p(s_i)\widehat{\theta}$
+2. Sesgo: $B(\widehat{\theta})=E_P(\widehat{\theta})-\theta$
+3. Varianza: $V_P(\widehat{\theta})=\sum_S p(s_i)\left[\widehat{\theta}-E(\widehat{\theta})\right]^2$
+4. Error cuadrático medio: $ECM(\widehat{\theta})=V(\widehat{\theta})+B^2(\widehat{\theta})$
+5. Error estándar: $\sqrt{V_P(\widehat{\theta})}$
+6. Coeficiente de variación (error relativo): $\dfrac{\sqrt{V_P(\widehat{\theta})}}{E_P(\widehat{\theta})}$
+7. Coeficiente de variación estimado: $cve(\%)=100\times\dfrac{\sqrt{\widehat{V}_P(\widehat{\theta})}}{\widehat{\theta}}$
+:::
+
+## La estadística $I_k$: valor esperado
+
+::: {.resultado}
+$$
+E(I_k)=\sum_S p(s_i)I_k(s_i)=\sum_{k \in s_i}p(s_i)=\pi_k
+$$
+:::
+
+- [ejemplo MAS]{.rojo}
+- [ejercicio BER]{.rojo}
+
+## La estadística $I_k$: varianza
+
+::: {.resultado}
+$$
+\begin{aligned}
+V(I_k)&=\sum_S p(s_i)\left[I_k(s_i)-E(I_k(s_i))\right]^2 \\
+&=\sum_S p(s_i)I^2_k(s_i)-2\sum_S p(s_i)I_k(s_i)\pi_k+\sum_S p(s_i)\pi^2_k \\
+&=\pi_k-2\pi_k^2+\pi_k^2 \\
+&=\pi_k(1-\pi_k)
+\end{aligned}
+$$
+:::
+
+- [ejemplo MAS]{.rojo}
+- [ejercicio BER]{.rojo}
+
+## La covarianza $\mathrm{Cov}(I_k, I_l)$
+
+::: {.resultado}
+$$
+\begin{aligned}
+Cov(I_k, I_l)&=\sum_S p(s_i)\left(I_k(s_i)-\pi_k\right)\left(I_l(s_i)-\pi_l\right) \\
+&=\sum_{k,l \in s_i}p(s_i)-\pi_l\sum_{k \in s_i}p(s_i) - \pi_k\sum_{l \in s_i}p(s_i)+\pi_k\pi_l\\
+&=\pi_{kl}-\pi_k\pi_l-\pi_k\pi_l+\pi_k\pi_l \\
+&=\pi_{kl}-\pi_k\pi_l \; \equiv \; \Delta_{kl}
+\end{aligned}
+$$
+:::
+
+[ejemplo MAS]{.rojo}, [ejercicio BER]{.rojo}
+
+## La estadística $n_s$
+
+::: {.resultado}
+$$
+\begin{aligned}
+E(n_s)&=\sum_S p(s_i)\,n_s = \sum_S p(s_i)\sum_U I_k
+=\sum_U\sum_S p(s_i)I_k \\
+&=\sum_U\sum_{k \in s_i}p(s_i)=\sum_U\pi_k
+\end{aligned}
+$$
+:::
+
+- [ejemplo MAS]{.rojo}
+- [ejercicio BER]{.rojo}
+
+
+# Estimador de Horvitz-Thompson {background-color="#0077b6"}
+
+## El $\pi$-estimador de Horvitz-Thompson (1952)
+
+Para un universo $U$ se desea estimar el total de una característica de
+interés $y$, denotado $t_y$.
+
+::: {.definicion}
+Para $\theta=t_y=\sum_U y_k$, se define
+$$\widehat{\theta}=\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}$$
+$1/\pi_k$ se denomina **factor de expansión**: cada elemento se representa
+a sí mismo y a una fracción de la población.
+:::
+
+## El $\pi$-estimador: propiedades generales {style="font-size: 90%;"}
+
+::: {.resultado}
+$$E(\widehat{t}_{y,\pi})=t_y$$ [demost.]{.rojo}
+$$V(\widehat{t}_{y,\pi})=\sum\sum_U\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}$$
+$$\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}$$
+:::
+
+donde $\Delta_{kl}=\pi_{kl}-\pi_k\pi_l$. Además,
+$E\!\left(\widehat{V}(\widehat{t}_{y,\pi})\right)=V(\widehat{t}_{y,\pi})$
+(el estimador de varianza de Horvitz-Thompson es insesgado).
+
+[ejercicio gasto MAS]{.rojo}, [ejercicio BER]{.rojo}
+
+## El $\pi$-estimador: expresión alternativa (Yates-Grundy) {style="font-size: 90%;"}
+
+Si $p(s)$ es un diseño de **tamaño fijo**, la varianza admite la forma
+alternativa
+
+::: {.resultado}
+$$V(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_U\Delta_{kl}(\breve y_k-\breve y_l)^2$$
+$$\widehat{V}(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_{s}\breve\Delta_{kl}(\breve y_k-\breve y_l)^2$$
+:::
+
+donde $\breve y_k = y_k/\pi_k$ y $\breve\Delta_{kl}=\Delta_{kl}/\pi_{kl}$.
+Este es el estimador de **Sen (1953) y Yates-Grundy (1953)**: es siempre
+no negativo si $\Delta_{kl}\le 0$ para todo $k\neq l$, lo cual se cumple en
+los diseños de tamaño fijo usuales.
+
+[Tarea]{.rojo} pruebe la igualdad.
+
+## Observación
+
+::: {.observacion}
+Särndal et al. (1992, pág. 47) señalan que la expresión
+$$
+\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}
+$$
+puede producir estimaciones **negativas** de la varianza para algunas
+configuraciones de muestra. Para evitarlo se debe garantizar que
+$\Delta_{kl}=\pi_{kl}-\pi_k\pi_l<0$ para $k\neq l$, condición que se
+cumple para los diseños de muestra de tamaño fijo.
+:::
+
+## Ejemplo MAS {style="font-size: 65%;"}
+
+::: {.resultado} 
+ Para un diseño de muestreo aleatorio simple, el estimador de Horvitz-Thompson del total poblacional $t_y$, su varianza y su varianza estimada están dados por:
+\begin{equation}
+\hat{t}_{y,\pi}=\frac{N}{n}\sum_{s_i}y_k
+\end{equation}
+\begin{equation}
+V_{MAS}(\hat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{yU}
+\end{equation}
+\begin{equation}
+\widehat{V}_{MAS}(\hat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{ys}
+\end{equation}
+respectivamente, con
+\begin{equation}
+S^2_{yU}=\frac{1}{N-1}\sum_{k\in U}(y_k-\bar{y}_U)^2,
+\end{equation}
+la **varianza poblacional** de la característica de interés en el universo $U$ y con
+\begin{equation}
+S^2_{ys}=\frac{1}{n-1}\sum_{k\in {s_i}}(y_k-\bar{y}_s)^2
+\end{equation}
+la **varianza muestral** de los valores de la característica de interés en la muestra aleatoria $S$.
+
+:::
+
+
+## Demostración MAS {style="font-size: 49%;"}
+
+::: {.observacion} 
+\begin{equation}
+\hat{t}_{y,\pi}=\sum_s\frac{y_k}{\pi_k}=\frac{N}{n}\sum_sy_k.
+\end{equation}
+
+La demostración de las varianzas es inmediata al reemplazar las cantidades apropiadas
+
+\begin{align*}
+\sum\sum_{k\neq l}y_ky_l&=\sum_k\sum_ly_ky_l-\sum\sum_{k=l}y_ky_l=\left(\sum_Uy_k\right)^2-\sum_Uy_k^2
+\end{align*}
+
+De tal forma que,
+\begin{align*}
+V(\hat{t}_{y,\pi})&=\frac{N^2}{n^2}V\left(\sum_UI_k(s)y_k\right)\\
+&=\frac{N^2}{n^2}\left(\sum_UV(I_k(s))y_k^2+\sum\sum_{k\neq l}Cov\left(I_k(S),I_l(s)\right)y_ky_l\right)\\
+&=\frac{N^2}{n^2}\left(\frac{n(N-n)}{N^2}\sum_Uy_k^2-\frac{n}{N^2}\frac{(N-n)}{(N-1)}\sum\sum_{k\neq l}y_ky_l\right)\\
+&=\frac{(N-n)}{n}\left(\sum_Uy_k^2-\frac{1}{N-1}\sum\sum_{k\neq l}y_ky_l\right)\\
+&=\frac{(N-n)}{n}\frac{1}{N-1}\left((N-1)\sum_Uy_k^2-\left[\left(\sum_Uy_k\right)^2-\sum_Uy_k^2\right]\right)\\
+&=\frac{N(N-n)}{n}\frac{1}{N-1}\left(\sum_Uy_k^2-\dfrac{\left(\sum_Uy_k\right)^2}{N}\right)\\
+&=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{yU}
+\end{align*}
+
+:::
+
+## Ejemplo Bernoulli {style="font-size: 95%;"}
+
+<br>
+
+::: {.resultado} 
+- $\widehat{t}_{y,\pi}=\sum_{s_i}\frac{y_k}{\pi_k}=\sum_{s_i}\frac{y_k}{\pi}$
+- $V_{Ber}(\widehat{t}_{y,\pi})=\left(\frac{1}{\pi}-1\right)\sum_Uy^2_k$
+- $\widehat{V}_{Ber}(\widehat{t}_{y,\pi})=\frac{1}{\pi}\left(\frac{1}{\pi}-1\right)\sum_{s_i}y^2_k$
+
+:::
+
+<br>
+
+[Ejercicio]{.rojo}: Para los ejercicios hechos en clase de MAS y Bernoulli calcule $\widehat{t}_{y,\pi}$ y $V_{Ber}(\widehat{t}_{y,\pi})$, este último vía definición y por el estimador dado por la expresión. Para ambas expresiones compruebe el insesgamiento del estimador.
+
+## Estimación de la media poblacional bajo MAS
+
+::: {.resultado} 
+- $\widehat{\overline{y}}_U=\frac{\widehat{t}_{y,\pi}}{N}$
+- $V_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{yU}$
+- $\widehat{V}_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{ys_i}$
+:::
+
+Al factor $\left(1-\frac{n}{N}\right)$ se le conoce como factor de corrección para poblaciones finitas.
+
+
+{{< include _derechos.qmd >}}
