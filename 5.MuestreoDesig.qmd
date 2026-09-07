@@ -16,230 +16,27 @@ execute:
   eval: true
 ---
 
-# Semana 2 {background-color="#0077b6"}
+# Muestreo con reemplazamiento {background-color="#0077b6"}
 
-## Contenido de la sesión
-
-- Probabilidades de inclusión de primer y segundo orden
-- La indicadora de pertenencia a la muestra $I_k$ y la estadística $n_s$
-- Estadística, estimador y sus propiedades básicas
-- El $\pi$-estimador de Horvitz-Thompson: definición y propiedades
-- Muestreo con reemplazamiento: el estimador *pwr* de Hansen-Hurwitz
-- El efecto de diseño (*design effect*)
-- Intervalos de confianza
-- El efecto del sesgo sobre los enunciados de confianza (§5.2)
-
-*Texto guía: Särndal, Swensson & Wretman (1992), Capítulo 2 (2.4 a 2.11) y
-sección 5.2.*
-
----
-
-## Recordemos
-
-::: {.clave}
-Un diseño muestral es una función $p(\cdot)$ que asigna a cada muestra
-posible $s_i \subseteq U$ una probabilidad $p(s_i)$ de ser seleccionada.
-Toda la teoría de esta sesión se construye **sobre** $p(\cdot)$, sin
-importar aún de qué diseño particular se trate (eso vendrá en el Capítulo
-3).
-:::
-
-## Probabilidades de inclusión de primer orden
+## Muestreo aleatorio simple con reemplazo
 
 ::: {.definicion}
-Se define la probabilidad de inclusión de primer orden del elemento $k$
-como
-$$\pi_k=\sum_{k \in s_i}p(s_i)$$
+Se realizan $m$ eventos aleatorios con probabilidad contante $1/N$, es decir se selecciona uno de los $N$ elementos, se realiza su medición $y_{k_1}$, se repone en el universo y se selecciona de nuevo uno de los $N$ elementos con medición $y_{k_2}$ y así sucesivamente hasta completar $m$ elementos. Sea:
+
+- $Z:$ # de veces que el elemento $k$ aparece en la muestra
+- $Z=0,1, \ldots, m$
+- $Z\sim Bin(m, 1/N)$
+- $P(Z=r)=\binom{m}{r}(1/N)^r(1-1/N)^{m-r}$
+- $P(Z=0)=(1-1/N)^m$
+- $\pi_k=P(Z\geq 1)=1-P(Z=0)=1-(1-\frac{1}{N})^m$
 :::
 
-[ejemplo MAS]{.rojo}
+##  Muestreo Proporcional al Tamaño $PPT(p_k,m)$
 
-Sea la indicadora de pertenencia a la muestra
-$$I_k=\begin{cases}1 & \text{si } k \in s \\ 0 & \text{en otro caso}\end{cases}$$
-
-Entonces $\pi_k=P(I_k=1)$.
-
-## Probabilidades de inclusión de segundo orden
+<br>
 
 ::: {.definicion}
-Se define la probabilidad de inclusión de segundo orden de los elementos
-$k$ y $l$ como
-$$\pi_{kl}=\sum_{k,l \in s_i}p(s_i)$$
-:::
-
-Entonces $\pi_{kl}=P(I_k I_l=1)$.
-
-## Supuestos básicos
-
-::: {.resultado}
-1. $\pi_{kk}=\pi_k$.
-2. Por definición de muestra probabilística, $\pi_k>0$ para todo $k$.
-3. En muestreo de elementos, $\pi_k$ para todo $k=1,\ldots,N$ son
-   conocidos de antemano.
-:::
-
-[ejemplo MAS]{.rojo}
-
-## Estadística y estimador
-
-::: {.definicion}
-Cuando una estadística se usa para estimar un parámetro se denomina
-**estimador**, y sus realizaciones en una muestra aleatoria se denominan
-**estimaciones**. Bajo el diseño muestral $p(\cdot)$ se define, para un
-estimador $\widehat\theta$:
-
-1. Valor esperado: $E_P(\widehat{\theta})=\sum_S p(s_i)\widehat{\theta}$
-2. Sesgo: $B(\widehat{\theta})=E_P(\widehat{\theta})-\theta$
-3. Varianza: $V_P(\widehat{\theta})=\sum_S p(s_i)\left[\widehat{\theta}-E(\widehat{\theta})\right]^2$
-4. Error cuadrático medio: $ECM(\widehat{\theta})=V(\widehat{\theta})+B^2(\widehat{\theta})$
-5. Error estándar: $\sqrt{V_P(\widehat{\theta})}$
-6. Coeficiente de variación (error relativo): $\dfrac{\sqrt{V_P(\widehat{\theta})}}{E_P(\widehat{\theta})}$
-7. Coeficiente de variación estimado: $cve(\%)=100\times\dfrac{\sqrt{\widehat{V}_P(\widehat{\theta})}}{\widehat{\theta}}$
-:::
-
-## La estadística $I_k$: valor esperado
-
-::: {.resultado}
-$$
-E(I_k)=\sum_S p(s_i)I_k(s_i)=\sum_{k \in s_i}p(s_i)=\pi_k
-$$
-:::
-
-[ejemplo MAS]{.rojo}
-[ejemplo BER]{.rojo}
-
-## La estadística $I_k$: varianza
-
-::: {.resultado}
-$$
-\begin{aligned}
-V(I_k)&=\sum_S p(s_i)\left[I_k(s_i)-E(I_k(s_i))\right]^2 \\
-&=\sum_S p(s_i)I^2_k(s_i)-2\sum_S p(s_i)I_k(s_i)\pi_k+\sum_S p(s_i)\pi^2_k \\
-&=\pi_k-2\pi_k^2+\pi_k^2 \\
-&=\pi_k(1-\pi_k)
-\end{aligned}
-$$
-:::
-
-[ejemplo MAS]{.rojo}
-[ejemplo BER]{.rojo}
-
-## La covarianza $\mathrm{Cov}(I_k, I_l)$
-
-::: {.resultado}
-$$
-\begin{aligned}
-Cov(I_k, I_l)&=\sum_S p(s_i)\left(I_k(s_i)-\pi_k\right)\left(I_l(s_i)-\pi_l\right) \\
-&=\sum_{k,l \in s_i}p(s_i)-\pi_l\sum_{k \in s_i}p(s_i) - \pi_k\sum_{l \in s_i}p(s_i)+\pi_k\pi_l\\
-&=\pi_{kl}-\pi_k\pi_l-\pi_k\pi_l+\pi_k\pi_l \\
-&=\pi_{kl}-\pi_k\pi_l \; \equiv \; \Delta_{kl}
-\end{aligned}
-$$
-:::
-
-[ejemplo MAS]{.rojo}, [ejemplo BER]{.rojo}
-
-## La estadística $n_s$
-
-::: {.resultado}
-$$
-\begin{aligned}
-E(n_s)&=\sum_S p(s_i)\,n_s = \sum_S p(s_i)\sum_U I_k
-=\sum_U\sum_S p(s_i)I_k \\
-&=\sum_U\sum_{k \in s_i}p(s_i)=\sum_U\pi_k
-\end{aligned}
-$$
-:::
-
-[ejemplo MAS]{.rojo}
-[ejemplo BER]{.rojo}
-
----
-
-## El $\pi$-estimador de Horvitz-Thompson (1952)
-
-Para un universo $U$ se desea estimar el total de una característica de
-interés $y$, denotado $t_y$.
-
-::: {.definicion}
-Para $\theta=t_y=\sum_U y_k$, se define
-$$\widehat{\theta}=\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}$$
-$1/\pi_k$ se denomina **factor de expansión**: cada elemento se representa
-a sí mismo y a una fracción de la población.
-:::
-
-## El $\pi$-estimador: propiedades generales
-
-::: {.resultado}
-$$E(\widehat{t}_{y,\pi})=t_y$$ [demost.]{.rojo}
-$$V(\widehat{t}_{y,\pi})=\sum\sum_U\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}$$
-$$\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}$$
-:::
-
-donde $\Delta_{kl}=\pi_{kl}-\pi_k\pi_l$. Además,
-$E\!\left(\widehat{V}(\widehat{t}_{y,\pi})\right)=V(\widehat{t}_{y,\pi})$
-(el estimador de varianza de Horvitz-Thompson es insesgado).
-
-## El $\pi$-estimador: expresión alternativa (Yates-Grundy)
-
-Si $p(s)$ es un diseño de **tamaño fijo**, la varianza admite la forma
-alternativa
-
-::: {.resultado}
-$$V(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_U\Delta_{kl}(\breve y_k-\breve y_l)^2$$
-$$\widehat{V}(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_{s}\breve\Delta_{kl}(\breve y_k-\breve y_l)^2$$
-:::
-
-donde $\breve y_k = y_k/\pi_k$ y $\breve\Delta_{kl}=\Delta_{kl}/\pi_{kl}$.
-Este es el estimador de **Sen (1953) y Yates-Grundy (1953)**: es siempre
-no negativo si $\Delta_{kl}\le 0$ para todo $k\neq l$, lo cual se cumple en
-los diseños de tamaño fijo usuales.
-
-## Observación: cuidado con varianzas negativas
-
-::: {.observacion}
-Särndal et al. (1992, pág. 47) señalan que la expresión
-$$
-\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}
-$$
-puede producir estimaciones **negativas** de la varianza para algunas
-configuraciones de muestra. Para evitarlo se debe garantizar que
-$\Delta_{kl}=\pi_{kl}-\pi_k\pi_l<0$ para $k\neq l$, condición que se
-cumple para los diseños de muestra de tamaño fijo.
-:::
-
-## Ejemplo: diseño NO convencional aplicando el $\pi$-estimador
-
-::: {.ejemplo}
-Considere una población de tamaño $N=3$, $U=\{1,2,3\}$. Sea
-$s_1=\{1,2\}$, $s_2=\{1,3\}$, $s_3=\{2,3\}$, $s_4=\{1,2,3\}$, con
-$P(s_1)=0.4$, $P(s_2)=0.3$, $P(s_3)=0.2$ y $P(s_4)=0.1$.
-
-a. Calcule todos los $\pi_k$ y $\pi_{kl}$.
-b. Encuentre $E(n_s)$ de dos formas: cálculo directo por definición, y
-   mediante la fórmula que expresa $E(n_s)$ en función de $\pi_k$.
-c. Usando la definición, calcule el valor esperado y la varianza del
-   $\pi$-estimador.
-d. Calcule $\widehat{V}(\widehat t_{y\pi})$ para cada una de las cuatro
-   muestras posibles. ¿Es insesgado este estimador de la varianza real?
-:::
-
----
-
-## Muestreo con reemplazamiento
-
-En un esquema de $m$ extracciones independientes, cada elemento se
-selecciona con probabilidad $p_k$ (constante entre extracciones), se mide,
-se **repone** en el universo, y se repite hasta completar $m$ extracciones.
-La muestra ordenada resultante es
-$$os=(k_1,k_2,\ldots,k_m)$$
-
-::: {.definicion}
-[Caso equiprobable ($p_k=1/N$).]{.callout-label} Sea $Z$ el número de veces
-que el elemento $k$ aparece en la muestra. Entonces $Z\sim Bin(m,1/N)$ y
-$$
-\pi_k = P(Z\geq 1)=1-P(Z=0)=1-\left(1-\frac{1}{N}\right)^m
-$$
+Una generalización conduce al diseño de Probabilidad Proporcional al Tamaño (PPT) cuando cada elemeto se selecciona con probabilidad $p_k$, tal que $\sum_Up_k=1$. Para este diseño se debe contar con información auxiliar disponible para todos los elementos de $U$, este diseño tienes varios beneficios entre los que se encuentra que reduce costos y que su uso es relativamente simple.
 :::
 
 ## Muestreo con reemplazamiento: caso general
