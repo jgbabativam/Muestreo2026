@@ -1003,139 +1003,241 @@ Giovany Babativa-Márquez, PhD
 
 </section>
 <section>
-<section id="probabilidades-de-inclusión" class="title-slide slide level1 center" data-background-color="#0077b6">
-<h1>Probabilidades de inclusión</h1>
+<section id="estimador-de-horvitz-thompson" class="title-slide slide level1 center" data-background-color="#0077b6">
+<h1>Estimador de Horvitz-Thompson</h1>
 
 </section>
-<section id="contenido-de-la-sesión" class="slide level2">
-<h2>Contenido de la sesión</h2>
-<ul>
-<li>Probabilidades de inclusión de primer y segundo orden</li>
-<li>La indicadora de pertenencia a la muestra <span class="math inline">\(I_k\)</span> y la estadística <span class="math inline">\(n_s\)</span></li>
-<li>Estadística, estimador y sus propiedades básicas</li>
-<li>El <span class="math inline">\(\pi\)</span>-estimador de Horvitz-Thompson: definición y propiedades</li>
-<li>Muestreo con reemplazamiento: el estimador <em>pwr</em> de Hansen-Hurwitz</li>
-<li>El efecto de diseño (<em>design effect</em>)</li>
-<li>Intervalos de confianza</li>
-<li>El efecto del sesgo sobre los enunciados de confianza (§5.2)</li>
-</ul>
-<p><em>Texto guía: Särndal, Swensson &amp; Wretman (1992), Capítulo 2 (2.4 a 2.11) y sección 5.2.</em></p>
-</section>
-<section id="recordemos" class="slide level2">
-<h2>Recordemos</h2>
-<p><br><br></p>
-<div class="clave">
-<p>Un diseño muestral es una función <span class="math inline">\(p(\cdot)\)</span> que asigna a cada muestra posible <span class="math inline">\(s_i \subseteq U\)</span> una probabilidad <span class="math inline">\(p(s_i)\)</span> de ser seleccionada. Toda la teoría de esta sesión se construye <strong>sobre</strong> <span class="math inline">\(p(\cdot)\)</span>, sin importar aún de qué diseño particular se trate (eso vendrá en el Capítulo 3).</p>
-</div>
-</section>
-<section id="probabilidades-de-inclusión-de-primer-orden" class="slide level2" style="font-size: 80%;">
-<h2>Probabilidades de inclusión de primer orden</h2>
+<section id="el-pi-estimador-de-horvitz-thompson-1952" class="slide level2">
+<h2>El <span class="math inline">\(\pi\)</span>-estimador de Horvitz-Thompson (1952)</h2>
+<p>Para un universo <span class="math inline">\(U\)</span> se desea estimar el total de una característica de interés <span class="math inline">\(y\)</span>, denotado <span class="math inline">\(t_y\)</span>.</p>
 <div class="definicion">
-<p>Se define la probabilidad de inclusión de primer orden del elemento <span class="math inline">\(k\)</span> como <span class="math display">\[\pi_k=\sum_{k \in s_i}p(s_i)\]</span></p>
+<p>Para <span class="math inline">\(\theta=t_y=\sum_U y_k\)</span>, se define <span class="math display">\[\widehat{\theta}=\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}\]</span> <span class="math inline">\(1/\pi_k\)</span> se denomina <strong>factor de expansión</strong>: cada elemento se representa a sí mismo y a una fracción de la población.</p>
 </div>
-<p>Sea la indicadora de pertenencia a la muestra <span class="math display">\[I_k=\begin{cases}1 &amp; \text{si } k \in s \\ 0 &amp; \text{en otro caso}\end{cases}\]</span></p>
-<p>Entonces <span class="math inline">\(\pi_k=P(I_k=1)\)</span>.</p>
-<ul>
-<li><span class="rojo">ejemplo MAS</span>: Calcule <span class="math inline">\(\pi_k\)</span> teórico.</li>
-<li><span class="rojo">ejercicio MAS</span>: Verifique <span class="math inline">\(\pi_k\)</span> en el ejemplo del gasto.</li>
-<li><span class="rojo">ejercicio BER</span>: Verifique <span class="math inline">\(\pi_1\)</span> y <span class="math inline">\(\pi_2\)</span>.</li>
-</ul>
 </section>
-<section id="probabilidades-de-inclusión-de-segundo-orden" class="slide level2">
-<h2>Probabilidades de inclusión de segundo orden</h2>
-<div class="definicion">
-<p>Se define la probabilidad de inclusión de segundo orden de los elementos <span class="math inline">\(k\)</span> y <span class="math inline">\(l\)</span> como <span class="math display">\[\pi_{kl}=\sum_{k,l \in s_i}p(s_i)\]</span></p>
-</div>
-<p>Entonces <span class="math inline">\(\pi_{kl}=P(I_k I_l=1)\)</span>.</p>
-<ul>
-<li><span class="rojo">ejercicio MAS</span>: Calcule <span class="math inline">\(\pi_{kl}\)</span> en el ejemplo del gasto.</li>
-<li><span class="rojo">ejercicio BER</span>: Calcule <span class="math inline">\(\pi_{12}\)</span>.</li>
-</ul>
-</section>
-<section id="supuestos-básicos" class="slide level2">
-<h2>Supuestos básicos</h2>
-<p><br><br></p>
+<section id="el-pi-estimador-propiedades-generales" class="slide level2" style="font-size: 90%;">
+<h2>El <span class="math inline">\(\pi\)</span>-estimador: propiedades generales</h2>
 <div class="resultado">
+<p><span class="math display">\[E(\widehat{t}_{y,\pi})=t_y\]</span> <span class="rojo">demost.</span> <span class="math display">\[V(\widehat{t}_{y,\pi})=\sum\sum_U\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\]</span> <span class="math display">\[\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\]</span></p>
+</div>
+<p>donde <span class="math inline">\(\Delta_{kl}=\pi_{kl}-\pi_k\pi_l\)</span>. Además, <span class="math inline">\(E\!\left(\widehat{V}(\widehat{t}_{y,\pi})\right)=V(\widehat{t}_{y,\pi})\)</span> (el estimador de varianza de Horvitz-Thompson es insesgado).</p>
+<p><span class="rojo">ejercicio gasto MAS</span>, <span class="rojo">ejercicio BER</span> <code>combn(1:N, n) |&gt; t()</code></p>
+</section>
+<section id="el-pi-estimador-expresión-alternativa-yates-grundy" class="slide level2" style="font-size: 90%;">
+<h2>El <span class="math inline">\(\pi\)</span>-estimador: expresión alternativa (Yates-Grundy)</h2>
+<p>Si <span class="math inline">\(p(s)\)</span> es un diseño de <strong>tamaño fijo</strong>, la varianza admite la forma alternativa</p>
+<div class="resultado">
+<p><span class="math display">\[V(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_U\Delta_{kl}(\breve y_k-\breve y_l)^2\]</span> <span class="math display">\[\widehat{V}(\widehat{t}_{y,\pi})=-\frac{1}{2}\sum\sum_{s}\breve\Delta_{kl}(\breve y_k-\breve y_l)^2\]</span></p>
+</div>
+<p>donde <span class="math inline">\(\breve y_k = y_k/\pi_k\)</span> y <span class="math inline">\(\breve\Delta_{kl}=\Delta_{kl}/\pi_{kl}\)</span>. Este es el estimador de <strong>Sen (1953) y Yates-Grundy (1953)</strong>: es siempre no negativo si <span class="math inline">\(\Delta_{kl}\le 0\)</span> para todo <span class="math inline">\(k\neq l\)</span>, lo cual se cumple en los diseños de tamaño fijo usuales.</p>
+<p><span class="rojo">Tarea</span> pruebe la igualdad.</p>
+</section>
+<section id="observación" class="slide level2">
+<h2>Observación</h2>
+<div class="observacion">
+<p>Särndal et al. (1992, pág. 47) señalan que la expresión <span class="math display">\[
+\widehat{V}(\widehat{t}_{y,\pi})=\sum\sum_{s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}
+\]</span> puede producir estimaciones <strong>negativas</strong> de la varianza para algunas configuraciones de muestra. Para evitarlo se debe garantizar que <span class="math inline">\(\Delta_{kl}=\pi_{kl}-\pi_k\pi_l&lt;0\)</span> para <span class="math inline">\(k\neq l\)</span>, condición que se cumple para los diseños de muestra de tamaño fijo.</p>
+</div>
+</section>
+<section id="ejemplo-mas" class="slide level2" style="font-size: 65%;">
+<h2>Ejemplo MAS</h2>
+<div class="resultado">
+<p>Para un diseño de muestreo aleatorio simple, el estimador de Horvitz-Thompson del total poblacional <span class="math inline">\(t_y\)</span>, su varianza y su varianza estimada están dados por: <span class="math display">\[\begin{equation}
+\hat{t}_{y,\pi}=\frac{N}{n}\sum_{s_i}y_k
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+V_{MAS}(\hat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{yU}
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+\widehat{V}_{MAS}(\hat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{ys}
+\end{equation}\]</span> respectivamente, con <span class="math display">\[\begin{equation}
+S^2_{yU}=\frac{1}{N-1}\sum_{k\in U}(y_k-\bar{y}_U)^2,
+\end{equation}\]</span> la <strong>varianza poblacional</strong> de la característica de interés en el universo <span class="math inline">\(U\)</span> y con <span class="math display">\[\begin{equation}
+S^2_{ys}=\frac{1}{n-1}\sum_{k\in {s_i}}(y_k-\bar{y}_s)^2
+\end{equation}\]</span> la <strong>varianza muestral</strong> de los valores de la característica de interés en la muestra aleatoria <span class="math inline">\(S\)</span>.</p>
+</div>
+</section>
+<section id="demostración-mas" class="slide level2" style="font-size: 49%;">
+<h2>Demostración MAS</h2>
+<div class="observacion">
+<p><span class="math display">\[\begin{equation}
+\hat{t}_{y,\pi}=\sum_s\frac{y_k}{\pi_k}=\frac{N}{n}\sum_sy_k.
+\end{equation}\]</span></p>
+<p>La demostración de las varianzas es inmediata al reemplazar las cantidades apropiadas</p>
+<p><span class="math display">\[\begin{align*}
+\sum\sum_{k\neq l}y_ky_l&amp;=\sum_k\sum_ly_ky_l-\sum\sum_{k=l}y_ky_l=\left(\sum_Uy_k\right)^2-\sum_Uy_k^2
+\end{align*}\]</span></p>
+<p>De tal forma que, <span class="math display">\[\begin{align*}
+V(\hat{t}_{y,\pi})&amp;=\frac{N^2}{n^2}V\left(\sum_UI_k(s)y_k\right)\\
+&amp;=\frac{N^2}{n^2}\left(\sum_UV(I_k(s))y_k^2+\sum\sum_{k\neq l}Cov\left(I_k(S),I_l(s)\right)y_ky_l\right)\\
+&amp;=\frac{N^2}{n^2}\left(\frac{n(N-n)}{N^2}\sum_Uy_k^2-\frac{n}{N^2}\frac{(N-n)}{(N-1)}\sum\sum_{k\neq l}y_ky_l\right)\\
+&amp;=\frac{(N-n)}{n}\left(\sum_Uy_k^2-\frac{1}{N-1}\sum\sum_{k\neq l}y_ky_l\right)\\
+&amp;=\frac{(N-n)}{n}\frac{1}{N-1}\left((N-1)\sum_Uy_k^2-\left[\left(\sum_Uy_k\right)^2-\sum_Uy_k^2\right]\right)\\
+&amp;=\frac{N(N-n)}{n}\frac{1}{N-1}\left(\sum_Uy_k^2-\dfrac{\left(\sum_Uy_k\right)^2}{N}\right)\\
+&amp;=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{yU}
+\end{align*}\]</span></p>
+</div>
+</section>
+<section id="ejemplo-bernoulli" class="slide level2" style="font-size: 95%;">
+<h2>Ejemplo Bernoulli</h2>
+<p><br></p>
+<div class="resultado">
+<ul>
+<li><span class="math inline">\(\widehat{t}_{y,\pi}=\sum_{s_i}\frac{y_k}{\pi_k}=\sum_{s_i}\frac{y_k}{\pi}\)</span></li>
+<li><span class="math inline">\(V_{Ber}(\widehat{t}_{y,\pi})=\left(\frac{1}{\pi}-1\right)\sum_Uy^2_k\)</span></li>
+<li><span class="math inline">\(\widehat{V}_{Ber}(\widehat{t}_{y,\pi})=\frac{1}{\pi}\left(\frac{1}{\pi}-1\right)\sum_{s_i}y^2_k\)</span></li>
+</ul>
+</div>
+<p><br></p>
+<p><span class="rojo">Ejercicio</span>: Para los ejercicios hechos en clase de MAS y Bernoulli calcule <span class="math inline">\(\widehat{t}_{y,\pi}\)</span> y <span class="math inline">\(V_{Ber}(\widehat{t}_{y,\pi})\)</span>, este último vía definición y por el estimador dado por la expresión. Para ambas expresiones compruebe el insesgamiento del estimador.</p>
+</section>
+<section id="estimación-de-la-media-poblacional-bajo-mas" class="slide level2">
+<h2>Estimación de la media poblacional bajo MAS</h2>
+<div class="resultado">
+<ul>
+<li><span class="math inline">\(\widehat{\overline{y}}_U=\frac{\widehat{t}_{y,\pi}}{N}\)</span></li>
+<li><span class="math inline">\(V_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{yU}\)</span></li>
+<li><span class="math inline">\(\widehat{V}_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{ys_i}\)</span></li>
+</ul>
+</div>
+<p>Al factor <span class="math inline">\(\left(1-\frac{n}{N}\right)\)</span> se le conoce como factor de corrección para poblaciones finitas.</p>
+</section>
+<section id="ejemplo-mas-horas-laboradas" class="slide level2" style="font-size: 90%;">
+<h2>Ejemplo MAS: horas laboradas</h2>
+<p>En una empresa colombiana laboran <span class="math inline">\(N=3078\)</span> empleados. Como parte de un estudio sobre el <strong>bienestar laboral</strong>, se desea estimar el promedio de horas laboradas a la semana, <span class="math inline">\(\overline{y}_U\)</span>. Para ello se selecciona una muestra aleatoria simple sin reemplazamiento de tamaño <span class="math inline">\(n=300\)</span>, a partir de la cual se obtiene una media muestral <span class="math inline">\(\overline{y}_s=52.4\)</span> horas y una varianza muestral <span class="math inline">\(S^2_{ys}=37.8\)</span> (horas<span class="math inline">\(^2\)</span>).</p>
+<p><br></p>
+<p><span class="rojo">Ejercicio</span>: con la información anterior, calcule</p>
+<ul>
+<li>La estimación del promedio poblacional de horas laboradas, <span class="math inline">\(\widehat{\overline{y}}_U\)</span>.</li>
+<li>El error estándar de dicho estimador.</li>
+<li>El coeficiente de variación estimado, <span class="math inline">\(cve(\%)\)</span>.</li>
+</ul>
+</section>
+<section id="ejemplo-mas-intención-de-voto" class="slide level2" style="font-size: 90%;">
+<h2>Ejemplo MAS: intención de voto</h2>
+<p>En un municipio colombiano hay <span class="math inline">\(N=9725\)</span> personas inscritas para votar. Se selecciona una muestra aleatoria simple de tamaño <span class="math inline">\(n=382\)</span> personas, de las cuales <span class="math inline">\(163\)</span> manifestaron tener la intención de votar por el candidato <span class="math inline">\(A\)</span>.</p>
+<p><br></p>
+<p><span class="rojo">Ejercicio</span>: a partir de esta información, calcule</p>
+<ul>
+<li>La estimación de la proporción poblacional de intención de voto por el candidato <span class="math inline">\(A\)</span>.</li>
+<li>El error estándar de dicho estimador.</li>
+<li>El margen de error asociado a una confiabilidad del <span class="math inline">\(95\%\)</span>.</li>
+</ul>
+</section>
+<section id="ejemplo-bernoulli-control-antinarcóticos" class="slide level2" style="font-size: 85%;">
+<h2>Ejemplo Bernoulli: control antinarcóticos</h2>
+<p>En un aeropuerto llegaron <span class="math inline">\(N=14781\)</span> visitantes en un día específico. Como parte de un operativo de control, una máquina asignaba a cada visitante un número aleatorio con distribución uniforme en <span class="math inline">\((0,1)\)</span>: si el valor generado era inferior a <span class="math inline">\(0.1\)</span>, la persona era remitida a una revisión adicional (diseño <strong>Bernoulli</strong> con <span class="math inline">\(\pi=0.1\)</span>). En dicha revisión se encontraron <span class="math inline">\(37\)</span> personas que portaban algún tipo de sustancia no permitida.</p>
+<p><br></p>
+<p><span class="rojo">Ejercicio</span>: con base en el diseño Bernoulli, calcule</p>
+<ul>
+<li>La estimación del total de personas en esa condición, <span class="math inline">\(\widehat{t}_{y,\pi}\)</span>.</li>
+<li>La estimación de la proporción poblacional correspondiente.</li>
+<li>El error estándar y el coeficiente de variación estimado para cada uno de los estimadores anteriores.</li>
+</ul>
+</section>
+<section id="ejercicio-extra-cantidad-de-sustancia-decomisada" class="slide level2" style="font-size: 90%;">
+<h2>Ejercicio extra: cantidad de sustancia decomisada</h2>
+<p>Suponga, además, que a cada una de las <span class="math inline">\(37\)</span> personas intervenidas se les decomisó una cantidad <span class="math inline">\(y_k\)</span> (en gramos) de dicha sustancia, donde <span class="math display">\[\sum_{s}y_k=19.2\ \text{g}, \quad \sum_{s}y_k^2=512.6\ \text{g}^2,\]</span></p>
+<p><br></p>
+<p><span class="rojo">Ejercicio</span>: estime el total poblacional de gramos, <span class="math inline">\(\widehat{t}_{y\pi}\)</span>, junto con su error estándar y su coeficiente de variación estimado.</p>
+</section></section>
+<section>
+<section id="confiabilidad" class="title-slide slide level1 center" data-background-color="#0077b6">
+<h1>Confiabilidad</h1>
+
+</section>
+<section id="confiabilidad-1" class="slide level2" style="font-size: 82%;">
+<h2>Confiabilidad</h2>
+<div class="definicion">
+<p>Sea <span class="math inline">\(S\)</span> el conjunto de todas las muestras posibles <span class="math inline">\(s_1,\ldots,s_Q\)</span>, con diseño muestral <span class="math inline">\(p(s_1),\ldots,p(s_Q)\)</span> tal que <span class="math inline">\(\sum_{s_i\in S}p(s_i)=1\)</span>; sea <span class="math inline">\(\theta\)</span> el parámetro de interés y <span class="math inline">\(\widehat{\theta}(s_i)\)</span> el estimador evaluado en cada muestra.</p>
+<p>Para cada muestra se construye el intervalo <span class="math inline">\(\left(LI(s_i),LS(s_i)\right)\)</span>, de tal manera que cada muestra tiene su propio intervalo y la longitud del intervalo puede variar dependiendo de la muestra.</p>
+<p>Se define <strong>confiabilidad</strong> como la suma de las probabilidades de las muestras cuyo intervalo de confianza cubre al parámetro: <span class="math display">\[\sum_{\theta\,\in\,\left(LI(s_i),LS(s_i)\right)}p(s_i)\]</span></p>
+</div>
+<p>Cuando se habla de confiabilidad se habla de la confiabilidad del intervalo, NO de la muestra.</p>
+</section>
+<section id="confiabilidad-propuesta-de-intervalos-i" class="slide level2" style="font-size: 85%;">
+<h2>Confiabilidad: propuesta de intervalos (I)</h2>
+<ul>
+<li><span class="math inline">\(\widehat{\theta}\pm z_{1-\alpha/2}\sqrt{V(\widehat{\theta})}\)</span>, por el T.C.L. se tiene que: <span class="math display">\[P\left(\theta\in\widehat{\theta}\pm z_{1-\alpha/2}\sqrt{V(\widehat{\theta})}\right)=1-\alpha, \quad \text{si } E(\widehat{\theta})=\theta.\]</span></li>
+</ul>
+<p>Este intervalo presenta dos inconvenientes:</p>
 <ol type="1">
-<li><span class="math inline">\(\pi_{kk}=\pi_k\)</span>.</li>
-<li>Por definición de muestra probabilística, <span class="math inline">\(\pi_k&gt;0\)</span> para todo <span class="math inline">\(k\)</span>.</li>
-<li>En muestreo de elementos, <span class="math inline">\(\pi_k\)</span> para todo <span class="math inline">\(k=1,\ldots,N\)</span> son conocidos de antemano.</li>
+<li>Condición de estimador insesgado.</li>
+<li>Se necesita la varianza del estimador, y ésta sólo se conoce en la teoría, porque en la práctica sólo se conoce cuando se tiene un censo, caso en el cual no tiene mucho interés.</li>
 </ol>
-</div>
 </section>
-<section id="estadística-y-estimador" class="slide level2" style="font-size: 80%;">
-<h2>Estadística y estimador</h2>
-<div class="definicion">
-<p>Cuando una estadística se usa para estimar un parámetro se denomina <strong>estimador</strong>, y sus realizaciones en una muestra aleatoria se denominan <strong>estimaciones</strong>. Bajo el diseño muestral <span class="math inline">\(p(\cdot)\)</span> se define, para un estimador <span class="math inline">\(\widehat\theta\)</span>:</p>
-<ol type="1">
-<li>Valor esperado: <span class="math inline">\(E_P(\widehat{\theta})=\sum_S p(s_i)\widehat{\theta}\)</span></li>
-<li>Sesgo: <span class="math inline">\(B(\widehat{\theta})=E_P(\widehat{\theta})-\theta\)</span></li>
-<li>Varianza: <span class="math inline">\(V_P(\widehat{\theta})=\sum_S p(s_i)\left[\widehat{\theta}-E(\widehat{\theta})\right]^2\)</span></li>
-<li>Error cuadrático medio: <span class="math inline">\(ECM(\widehat{\theta})=V(\widehat{\theta})+B^2(\widehat{\theta})\)</span></li>
-<li>Error estándar: <span class="math inline">\(\sqrt{V_P(\widehat{\theta})}\)</span></li>
-<li>Coeficiente de variación (error relativo): <span class="math inline">\(\dfrac{\sqrt{V_P(\widehat{\theta})}}{E_P(\widehat{\theta})}\)</span></li>
-<li>Coeficiente de variación estimado: <span class="math inline">\(cve(\%)=100\times\dfrac{\sqrt{\widehat{V}_P(\widehat{\theta})}}{\widehat{\theta}}\)</span></li>
-</ol>
-</div>
-</section>
-<section id="la-estadística-i_k-valor-esperado" class="slide level2">
-<h2>La estadística <span class="math inline">\(I_k\)</span>: valor esperado</h2>
-<div class="resultado">
-<p><span class="math display">\[
-E(I_k)=\sum_S p(s_i)I_k(s_i)=\sum_{k \in s_i}p(s_i)=\pi_k
-\]</span></p>
-</div>
+<section id="confiabilidad-propuesta-de-intervalos-ii" class="slide level2" style="font-size: 85%;">
+<h2>Confiabilidad: propuesta de intervalos (II)</h2>
 <ul>
-<li><span class="rojo">ejemplo MAS</span></li>
-<li><span class="rojo">ejercicio BER</span></li>
+<li><span class="math inline">\(\widehat{\theta}\pm z_{1-\alpha/2}\sqrt{\widehat{V}(\widehat{\theta})}\)</span></li>
 </ul>
+<p>Este intervalo presenta la cualidad de que en la práctica puede calcularse; lo que interesa entonces es: ¿qué confiabilidad tiene?</p>
+<p>Puesto que los estimadores vistos son insesgados, tanto para el parámetro de interés como para la varianza, se espera que para <span class="math inline">\(z_{1-\alpha/2}=1.96\)</span>, en un <span class="math inline">\(95\%\)</span> de las muestras, el intervalo contenga al parámetro. Pero esto no garantiza que el parámetro esté en el intervalo de la muestra seleccionada.</p>
+<p><br></p>
+<p><span class="rojo">Ejercicio confiabilidad para los dos tipos de intervalo</span></p>
 </section>
-<section id="la-estadística-i_k-varianza" class="slide level2">
-<h2>La estadística <span class="math inline">\(I_k\)</span>: varianza</h2>
-<div class="resultado">
-<p><span class="math display">\[
-\begin{aligned}
-V(I_k)&amp;=\sum_S p(s_i)\left[I_k(s_i)-E(I_k(s_i))\right]^2 \\
-&amp;=\sum_S p(s_i)I^2_k(s_i)-2\sum_S p(s_i)I_k(s_i)\pi_k+\sum_S p(s_i)\pi^2_k \\
-&amp;=\pi_k-2\pi_k^2+\pi_k^2 \\
-&amp;=\pi_k(1-\pi_k)
-\end{aligned}
-\]</span></p>
+<section id="confiabilidad-sesgo-relativo" class="slide level2" style="font-size: 85%;">
+<h2>Confiabilidad: sesgo relativo</h2>
+<p>La confiabilidad es una medida que se ve directamente afectada por el sesgo (medible o no), NO por el margen de error. Es decir, si <span class="math inline">\(E(\widehat{\theta})\neq\theta\)</span> la cobertura del intervalo decrece, y por más que <span class="math inline">\(z_{1-\alpha/2}=1.96\)</span> la cobertura puede ser muy baja. <span class="math display">\[B_r(\widehat{\theta})=\frac{B(\widehat{\theta})}{\sqrt{V(\widehat{\theta})}}=\frac{E(\widehat{\theta})-\theta}{\sqrt{V(\widehat{\theta})}}\]</span></p>
+<div class="ejemplo">
+<p>Para el ejercicio de clase imprima sesgos de <span class="math inline">\(0;\,0.05;\,0.1;\,0.3;\,0.5;\,1;\,1.5;\,2\)</span> y, usando un nivel de confianza del <span class="math inline">\(95\%\)</span>, calcule y grafique la confiabilidad real. Use: <span class="math display">\[E(\widehat{\theta})-\theta=B_r(\widehat{\theta})\sqrt{V(\widehat{\theta})}\]</span></p>
 </div>
-<ul>
-<li><span class="rojo">ejemplo MAS</span></li>
-<li><span class="rojo">ejercicio BER</span></li>
-</ul>
+</section></section>
+<section>
+<section id="tamaño-de-la-muestra" class="title-slide slide level1 center" data-background-color="#0077b6">
+<h1>Tamaño de la muestra</h1>
+
 </section>
-<section id="la-covarianza-mathrmcovi_k-i_l" class="slide level2">
-<h2>La covarianza <span class="math inline">\(\mathrm{Cov}(I_k, I_l)\)</span></h2>
-<div class="resultado">
-<p><span class="math display">\[
-\begin{aligned}
-Cov(I_k, I_l)&amp;=\sum_S p(s_i)\left(I_k(s_i)-\pi_k\right)\left(I_l(s_i)-\pi_l\right) \\
-&amp;=\sum_{k,l \in s_i}p(s_i)-\pi_l\sum_{k \in s_i}p(s_i) - \pi_k\sum_{l \in s_i}p(s_i)+\pi_k\pi_l\\
-&amp;=\pi_{kl}-\pi_k\pi_l-\pi_k\pi_l+\pi_k\pi_l \\
-&amp;=\pi_{kl}-\pi_k\pi_l \; \equiv \; \Delta_{kl}
-\end{aligned}
-\]</span></p>
-</div>
-<p><span class="rojo">ejercicio MAS</span>, <span class="rojo">ejercicio BER</span></p>
+<section id="tamaño-de-muestra" class="slide level2">
+<h2>Tamaño de Muestra</h2>
+<p>En general no existe una fórmula mágica que indique el tamaño de muestra apropiado sino que éste debe ser establecido de acuerdo a la estrategia muestral seleccionada.</p>
+<p>Se debe controlar la <strong>precisión</strong> y la <strong>confiabilidad</strong>, tenga en cuenta que bajo un diseño muestral <span class="math inline">\(P(\cdot)\)</span> un intervalo de confianza de <span class="math inline">\(100(1-\alpha)\%\)</span> para la media poblacional está dado por: <span class="math display">\[\left(\overline{y}_s-\underbrace{z_{1-\alpha/2}\sqrt{V_P(\overline{y}_s)}}_\text{margen de error}, \overline{y}_s+\underbrace{z_{1-\alpha/2}\sqrt{V_P(\overline{y}_s)}}_\text{margen de error}\right)\]</span></p>
 </section>
-<section id="la-estadística-n_s" class="slide level2">
-<h2>La estadística <span class="math inline">\(n_s\)</span></h2>
-<div class="resultado">
-<p><span class="math display">\[
-\begin{aligned}
-E(n_s)&amp;=\sum_S p(s_i)\,n_s = \sum_S p(s_i)\sum_U I_k
-=\sum_U\sum_S p(s_i)I_k \\
-&amp;=\sum_U\sum_{k \in s_i}p(s_i)=\sum_U\pi_k
-\end{aligned}
-\]</span></p>
+<section id="tamaño-de-muestra-1" class="slide level2">
+<h2>Tamaño de Muestra</h2>
+<p>Recuerde que por T.C.L se tiene que <span class="math inline">\(\sum_iX_i\)</span> sigue una distribución normal y por tanto:</p>
+<p><span class="math display">\[\begin{align*}
+P\left(-z_{1-\alpha/2}&lt;\frac{\overline{y}_s-\overline{y}_U}{\sqrt{V_P(\overline{y}_s)}}&lt;z_{1-\alpha/2}\right)=1-\alpha \\
+P\left(\left|\overline{y}_s-\overline{y}_U\right|&lt;z_{1-\alpha/2}\sqrt{V_P(\overline{y}_s)}\right)=1-\alpha \\
+P\left(\left|\overline{y}_s-\overline{y}_U\right|&lt;e\right)=1-\alpha
+\end{align*}\]</span></p>
+<div class="fragment">
+<p>La cantidad a minimizar es <span class="math inline">\(e\)</span>. En encuestas donde el parámetro de interés es una proporción se sugiere <span class="math inline">\(e=0.03\)</span> y <span class="math inline">\(1-\alpha=0.95\)</span>.</p>
 </div>
-<ul>
-<li><span class="rojo">ejemplo MAS</span></li>
-<li><span class="rojo">ejercicio BER</span></li>
-</ul>
+</section>
+<section id="ejemplo-m.a.s." class="slide level2">
+<h2>Ejemplo: M.A.S.</h2>
+<p>En <span class="math inline">\(MAS\)</span>: <span class="math display">\[V_{MAS}(\overline{y}_s)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{y_U}\]</span></p>
+<div class="fragment">
+<p>Un intervalo de confianza del <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(\overline{y}_U\)</span> bajo diseño <span class="math inline">\(MAS\)</span> es:</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\overline{y}_s\pm \underbrace{z_{1-\alpha/2}\sqrt{\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{y_U}}}_e\]</span></p>
+</div>
+</section>
+<section id="ejemplo-m.a.s.-1" class="slide level2">
+<h2>Ejemplo: M.A.S.</h2>
+<p>Se desea: <span class="math display">\[z_{1-\alpha/2}\sqrt{\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{y_U}}&lt;e\]</span></p>
+<div class="fragment">
+<p>Al despejar <span class="math inline">\(n\)</span> se obtiene:</p>
+<p><span class="math display">\[\begin{align}\label{tamMue}
+n&amp;&gt;\frac{z_{1-\alpha/2}^2S^2_{y_s}}{e^2+\frac{z_{1-\alpha/2}^2S^2_{y_s}}{N}}\\
+&amp;=\frac{n_0}{1+\frac{n_0}{N}}
+\end{align}\]</span></p>
+<p>con <span class="math inline">\(n_0=\frac{z_{1-\alpha/2}^2S^2_{y_U}}{e^2}\)</span>.</p>
+</div>
+</section>
+<section id="ejemplo-m.a.s.-caso-proporción" class="slide level2">
+<h2>Ejemplo M.A.S. caso Proporción</h2>
+<p>Suponga que en un municipio de <span class="math inline">\(N=1251\)</span> habitantes se desea estimar la proporción de personas que piensan votar por un determinado candidato, para ello se aplicará un muestreo aleatorio simple y se desea obtener un margen de error máximo del <span class="math inline">\(3\%\)</span> con una confiabilidad de <span class="math inline">\(95\%\)</span>. Calcule el tamaño de muestra que debe utilizarse en el proyecto.</p>
+<div class="fragment">
+<div style="font-size: 0.6em;">
+<p><span class="math display">\[\begin{align*}
+S^2_{y}&amp;=\frac{1}{N-1}\sum_U\left(y_k-\overline{y}_U\right)^2 \\
+&amp;=\frac{1}{N-1}\left(\sum_Uy_k^2-N\overline{y}_U^2\right) \\
+&amp;=\frac{N}{N-1}P_d\left(1-P_d\right)\doteq P_d\left(1-P_d\right)
+\end{align*}\]</span></p>
+</div>
+<p><span class="rojo">Ejercicio</span>: Graficar la función para determinar valor adecuado de <span class="math inline">\(P_d\)</span>.</p>
+</div>
 </section>
 <section id="section" class="slide level2" data-background-color="#0d1b2a">
 <h2></h2>
