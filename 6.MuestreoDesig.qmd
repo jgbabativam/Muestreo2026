@@ -18,17 +18,35 @@ execute:
 
 # Muestreo con reemplazamiento {background-color="#0077b6"}
 
-## Muestreo aleatorio simple con reemplazo
+## Muestreo aleatorio simple con reemplazo {style="font-size: 85%;"}
 
 ::: {.definicion}
 Se realizan $m$ eventos aleatorios con probabilidad contante $1/N$, es decir se selecciona uno de los $N$ elementos, se realiza su medición $y_{k_1}$, se repone en el universo y se selecciona de nuevo uno de los $N$ elementos con medición $y_{k_2}$ y así sucesivamente hasta completar $m$ elementos. Sea:
 
+::: {.fragment}
 - $Z:$ # de veces que el elemento $k$ aparece en la muestra
+:::
+
+::: {.fragment}
 - $Z=0,1, \ldots, m$
+:::
+
+::: {.fragment}
 - $Z\sim Bin(m, 1/N)$
+:::
+
+::: {.fragment}
 - $P(Z=r)=\binom{m}{r}(1/N)^r(1-1/N)^{m-r}$
+:::
+
+::: {.fragment}
 - $P(Z=0)=(1-1/N)^m$
+:::
+
+::: {.fragment}
 - $\pi_k=P(Z\geq 1)=1-P(Z=0)=1-(1-\frac{1}{N})^m$
+:::
+
 :::
 
 ##  Muestreo Proporcional al Tamaño $PPT(p_k,m)$
@@ -54,7 +72,25 @@ elementos de $U$ (los valores $p_k$). Sus principales beneficios son que
 reduce costos y que su implementación es relativamente simple.
 :::
 
+## Algoritmo de seleccioón: acumulado total
+
+::: {.ejemplo}
+Un estudio de mercados desea seleccionar 4 tiendas de un universo de
+$N=9$, dando más peso a las de mayor rotación. La información auxiliar
+(ventas en unidades) es:
+
+| Tienda | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|---|---|---|---|
+| Ventas | 32 | 96 | 65 | 140 | 22 | 78 | 65 | 47 | 106 |
+:::
+
+[Selección]{.rojo}: Seleccione una muestra de tamaño $m=4$, para ello genere $\zeta_k \sim U(0,1)$ para $k=1,2,3,4$ y determine $s_o$ (muestra ordenada).
+
+La muestra $s_o$  tiene tamaño constante $m$ y la muestra $s$ tiene tamaño $n_s$ variable.
+
 ## El estimador *pwr* de Hansen y Hurwitz (1943)
+
+<br>
 
 ::: {.definicion}
 $$\widehat{t}_{y,MCR}=\frac{1}{m}\sum_{i=1}^m\frac{y_{k_i}}{p_{k_i}}$$
@@ -63,13 +99,6 @@ draw $i$. Cada elemento se representa a sí mismo y al resto del universo
 $\rightarrow$ funciona como un promedio.
 :::
 
-::: {layout-ncol=2}
-![Morris Hansen](images/Hansen.jpg){fig-align="center" width="55%"}
-
-Hansen y Hurwitz propusieron este estimador en 1943 para muestreo con
-reemplazo y probabilidades desiguales; es la base del muestreo PPT/*pps*
-que veremos en la Semana 3 (Särndal, Cap. 3.6).
-:::
 
 ## Estimador de Hansen-Hurwitz: insesgamiento
 
@@ -107,6 +136,21 @@ hay una respuesta única sobre cuál estimador ($\pi$ o *pwr*) es preferible:
 depende de la configuración de los valores $y_1,\ldots,y_N$ (Särndal,
 Sección 3.8).
 
+## Ejemplo
+
+<span style="color:#FF8D21"> Tu turno </span>
+
+Para el estudio de mercados suponga que $s_o=\{4; 7; 7; 9\}$; $p_k=\{0.215; 0.1; 0.1; 0.163\}$ y que los valores de las ventas semanales recolectados los establecimientos seleccionados fueron $y_k=\{12; 10; 10; 11\}$
+
+
+- Usando el $\pi-$estimador, estime el total de ventas semanales (demanda) del producto en las nueve tiendas.
+- Usando el $MCR-$estimador, estime el total de ventas semanales (demanda) del producto en las nueve tiendas y calcule el $cve$.
+
+```{r}
+library(countdown)
+countdown(minutes = 10, seconds = 00,  right = 0)
+```
+
 ## Motivación del diseño Proporcional al Tamaño (PPT)
 
 ::: {.observacion}
@@ -124,38 +168,6 @@ Si los $p_k$ casi no varían, se prefiere MAS; si varían mucho, conviene
 PPT.
 :::
 
-## Ejemplo: muestreo $PPT(p_k, m)$ — algoritmo del acumulado total
-
-::: {.ejemplo}
-Un estudio de mercados desea seleccionar 4 tiendas de un universo de
-$N=9$, dando más peso a las de mayor rotación. La información auxiliar
-(ventas en unidades) es:
-
-| Tienda | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-|---|---|---|---|---|---|---|---|---|---|
-| Ventas | 32 | 96 | 65 | 140 | 22 | 78 | 65 | 47 | 106 |
-:::
-
-## Ejemplo $PPT(p_k,m)$: estimación
-
-La muestra ordenada tiene tamaño $m$; la muestra sin repetición (el
-conjunto $s$) tiene tamaño $n\le m$.
-
-::: {.resultado}
-$$\widehat{t}_{y,\pi}=\sum_{s}\frac{y_k}{\pi_k}=\sum_{s}\frac{y_k}{1-(1-p_k)^m}$$
-:::
-
-El estimador tiene $n$ sumandos: los elementos repetidos cuentan una sola
-vez.
-
-::: {.ejemplo}
-Suponga $s_o=\{4;7;7;9\}$, $p_k=\{0.215;0.1;0.1;0.163\}$, y que las
-ventas semanales observadas fueron $y_k=\{12;\color{red}{7};\color{red}{7};11\}$.
-
-1. Con el $\pi$-estimador, estime el total de ventas semanales de las
-   nueve tiendas.
-2. Con el estimador $MCR$, estime el mismo total y calcule el $cve$.
-:::
 
 ## Notas sobre el diseño PPT
 
@@ -168,6 +180,8 @@ ventas semanales observadas fueron $y_k=\{12;\color{red}{7};\color{red}{7};11\}$
 - Regla práctica: poca variación en $p_k$ $\Rightarrow$ MAS; mucha
   variación $\Rightarrow$ PPT.
 :::
+
+## Tarea
 
 ::: {.tarea}
 Sea $U=\{1,2,3,4,5\}$ con valores conocidos
@@ -192,13 +206,15 @@ muestra.
 
 ::: {.definicion}
 $$
-deff(p,\widehat t_\pi)=\frac{V_p(\widehat t_\pi)}{V_{SI}(N\bar y_s)}
+deff(p,\widehat t_\pi)=\frac{V_p(\widehat t_\pi)}{V_{MAS}(\widehat t_\pi)}
 =\frac{\sum\sum_U \Delta_{kl}\,\breve y_k\breve y_l}{N^2\left(\dfrac1n-\dfrac1N\right)S^2_{yU}}
 $$
 :::
 
-Si $deff>1$ se **pierde** precisión frente a $SI$; si $deff<1$ se
+Si $deff>1$ se **pierde** precisión frente a $MAS$; si $deff<1$ se
 **gana** precisión.
+
+[Utilidad]{.rojo}:  $V_{MAS}(\widehat t_\pi) \cdot deff(p,\widehat t_\pi) = V_p(\widehat t_\pi)$
 
 ## Efecto de diseño: ejemplo con muestreo Bernoulli
 
@@ -218,160 +234,5 @@ cuando se usa el $\pi$-estimador — la pérdida de precisión se explica por
 la variabilidad del **tamaño** de la muestra Bernoulli.
 :::
 
----
-
-## Intervalos de confianza
-
-::: {.definicion}
-Un intervalo de confianza es un intervalo aleatorio $CI(s)=[t_L(s),t_U(s)]$
-tal que $t_L(s)\le t_U(s)$ para toda $s$. La probabilidad de que el total
-desconocido $t$ esté contenido en el intervalo,
-$Pr[CI(s)\ni t]$, se llama **nivel de confianza** o **probabilidad de
-cobertura**.
-:::
-
-## Intervalos de confianza: fórmula práctica
-
-::: {.resultado}
-$$\widehat t \pm z_{1-\alpha/2}\left[\widehat V(\widehat t)\right]^{1/2}$$
-:::
-
-::: {.observacion}
-Esta fórmula es válida (a un nivel aproximado $1-\alpha$) si se cumplen dos
-condiciones:
-
-1. La distribución muestral de $\widehat t$ es aproximadamente normal, con
-   media $t$ y varianza $V(\widehat t)$ (Teorema Central del Límite).
-2. Existe un estimador **consistente** $\widehat V(\widehat t)$ de
-   $V(\widehat t)$.
-:::
-
----
-
-## §5.2 El efecto del sesgo sobre los intervalos de confianza
-
-El insesgamiento exacto es una propiedad deseable, pero no debe
-sobrevalorarse. Hay dos razones para no exigir siempre un estimador
-exactamente insesgado:
-
-::: {.observacion}
-1. Muchos parámetros tienen una estructura que dificulta encontrar un
-   estimador insesgado.
-2. Un estimador con algo de sesgo puede tener menor varianza y menor
-   error cuadrático medio (ECM) que uno insesgado.
-:::
-
-## Razón de sesgo y error cuadrático medio
-
-::: {.definicion}
-Sea $\widehat\theta$ un estimador de $\theta$, con varianza $V(\widehat\theta)$
-y sesgo $B(\widehat\theta)=E(\widehat\theta)-\theta$. El **error cuadrático
-medio** es
-$$MSE(\widehat\theta)=E[(\widehat\theta-\theta)^2]=V(\widehat\theta)+[B(\widehat\theta)]^2$$
-y la **razón de sesgo** es
-$$BR(\widehat\theta)=\frac{B(\widehat\theta)}{[V(\widehat\theta)]^{1/2}}$$
-:::
-
-## Probabilidad de cobertura como función de $BR$
-
-Bajo la aproximación $Z=\dfrac{\widehat\theta-E(\widehat\theta)}{[V(\widehat\theta)]^{1/2}}\sim N(0,1)$,
-la probabilidad de cobertura real es
-$$P_0=Pr\{-z_{1-\alpha/2}-BR(\widehat\theta) < Z < z_{1-\alpha/2}-BR(\widehat\theta)\}$$
-
-| $|BR(\widehat\theta)|$ | $P_0$ (nominal 95 %) |
-|---|---|
-| 0.00 | 0.9500 |
-| 0.05 | 0.9497 |
-| 0.10 | 0.9489 |
-| 0.30 | 0.9396 |
-| 0.50 | 0.9210 |
-| 1.00 | 0.8300 |
-
-## Mensaje clave de la sección 5.2
-
-::: {.clave}
-- El efecto de la razón de sesgo sobre la probabilidad de cobertura puede
-  **ignorarse** cuando $|BR(\widehat\theta)|\le 0.1$: la cobertura real
-  queda entre 0.9489 y 0.95.
-- Lo importante no es solo un ECM pequeño: se requiere además que el
-  sesgo sea pequeño **en relación con** el error estándar.
-- Cuando el tamaño de muestra (o el tamaño esperado, en diseños de tamaño
-  aleatorio) aumenta, $V(\widehat\theta)\to$ valores pequeños y
-  $B(\widehat\theta)\to 0$, de forma que $BR(\widehat\theta)\to 0$.
-:::
-
-## Confiabilidad: la visión aplicada
-
-::: {.definicion}
-Sea $S$ el conjunto de todas las muestras posibles $s_1,\ldots,s_Q$, con
-diseño $P(s_1),\ldots,P(s_Q)$, el parámetro $\theta:U\to\mathbb R$ y el
-estimador $\widehat\theta(s_i)$. Para cada muestra se construye el
-intervalo $(LI(s_i),LS(s_i))$ — la longitud puede variar según la
-muestra. Se define **confiabilidad** como la suma de las probabilidades
-de las muestras cuyo intervalo cubre al parámetro:
-$$\sum_{\theta\in(LI(s_i),LS(s_i))}P(s_i)$$
-:::
-
-Cuando se habla de confiabilidad, se habla de la confiabilidad del
-**intervalo**, NO de la muestra.
-
-## Confiabilidad: dos propuestas de intervalo
-
-::: {.observacion}
-[Con la varianza real:]{.callout-label}
-$\widehat\theta\pm z_{1-\alpha/2}\sqrt{V(\widehat\theta)}$. Por TCL,
-$P\left(\theta\in\widehat\theta\pm z_{1-\alpha/2}\sqrt{V(\widehat\theta)}\right)=1-\alpha$
-si $E(\widehat\theta)=\theta$. Dos inconvenientes: requiere insesgamiento
-exacto, y requiere $V(\widehat\theta)$, que en la práctica **no se
-conoce** (solo se conocería si se hiciera censo, caso en el que ya no
-interesa estimar nada).
-
-[Con la varianza estimada:]{.callout-label}
-$\widehat\theta\pm z_{1-\alpha/2}\sqrt{\widehat V(\widehat\theta)}$. Este
-intervalo sí puede calcularse en la práctica. Si los estimadores de
-$\theta$ y de su varianza son insesgados, se espera que con
-$z_{1-\alpha/2}=1.96$, el 95% de las muestras contengan al parámetro —
-pero eso **no garantiza** que el parámetro esté en el intervalo de la
-muestra particular que se seleccionó.
-:::
-
-[Ejercicio confiabilidad para los dos tipos de intervalo.]{.rojo}
-
-## Confiabilidad y sesgo relativo
-
-La confiabilidad se ve afectada directamente por el **sesgo**, no por el
-margen de error: si $E(\widehat\theta)\neq\theta$, la cobertura decrece,
-y por más que se use $z_{1-\alpha/2}=1.96$, la cobertura real puede ser
-muy baja (compárese con la razón de sesgo $BR(\widehat\theta)$ y la
-Tabla 5.1 vistas arriba — es exactamente la misma idea, en la notación
-usada en clase).
-
-::: {.definicion}
-$$B_r(\widehat\theta)=\frac{B(\widehat\theta)}{\sqrt{V(\widehat\theta)}}=\frac{E(\widehat\theta)-\theta}{\sqrt{V(\widehat\theta)}}$$
-:::
-
-::: {.ejemplo}
-Para el ejercicio de clase, imprima sesgos de
-$0;\,0.05;\,0.1;\,0.3;\,0.5;\,1;\,1.5;\,2$ y, usando un nivel de
-confianza del 95%, calcule y grafique la confiabilidad real. Use
-$$E(\widehat\theta)-\theta=B_r(\widehat\theta)\sqrt{V(\widehat\theta)}$$
-:::
-
-## Cierre de la sesión
-
-::: {.clave}
-- El $\pi$-estimador de Horvitz-Thompson es insesgado para $t_y$ **bajo
-  cualquier diseño de probabilidad**, siempre que $\pi_k>0$ para todo $k$.
-- El estimador *pwr* (Hansen-Hurwitz) cumple el mismo papel en muestreo
-  **con reemplazo**, y es la base del diseño PPT/*pps*.
-- El efecto de diseño compara la precisión de cualquier estrategia frente
-  a la referencia $SI$ + media expandida.
-- La insesgabilidad exacta no es indispensable: lo que importa es que la
-  razón de sesgo sea pequeña frente al error estándar.
-:::
-
-**Próxima sesión (Semana 3):** Capítulo 3 — diseños formales de muestreo de
-elementos: Bernoulli, Aleatorio Simple, Sistemático, Poisson y
-Proporcional al Tamaño (*pps*).
 
 {{< include _derechos.qmd >}}
