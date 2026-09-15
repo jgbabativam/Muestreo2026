@@ -354,6 +354,93 @@ S^2_{y}&=\frac{1}{N-1}\sum_U\left(y_k-\overline{y}_U\right)^2 \\
 </div>
 
 [Ejercicio]{.rojo}: Graficar la función para determinar valor adecuado de $P_d$.
+[Ejercicio]{.rojo}: Simulación $N$, $n_0$ y $n$.
 
+## Tamaño de Muestra: precisión relativa {style="font-size: 90%;"}
+
+En el caso de estimación de la **media** o de **totales**, en lugar de un
+error absoluto suele ser más natural controlar un **error relativo**.
+Siguiendo los mismos pasos usados para obtener el tamaño de muestra bajo
+M.A.S., se llega a:
+
+$$P\left(\left|\frac{\overline{y}_s-\overline{y}_U}{\overline{y}_U}\right|<e\right)=1-\alpha$$
+
+. . .
+
+$$P\left(|\overline{y}_s-\overline{y}_U|<e\,|\overline{y}_U|\right)=1-\alpha$$
+
+. . .
+
+Así que en la fórmula de tamaño de muestra vista para M.A.S. basta con
+reemplazar $e$ por $(e\,\overline{y}_U)$.
+
+## Tamaño de Muestra: M.A.S. — Medias, Totales
+
+::: {.resultado}
+\begin{align}
+n&=\frac{z^2_{1-\alpha/2}S^2_{y}}{\left(e\overline{y}_U\right)^2+\frac{z^2_{1-\alpha/2}S^2_{y}}{N}} \\[0.4cm]
+ &=\frac{z^2_{1-\alpha/2}CV^2(y)}{e^2+\frac{z^2_{1-\alpha/2}CV^2(y)}{N}}
+\end{align}
+:::
+
+Note que, a diferencia del caso de proporciones, aquí la fórmula depende
+del **coeficiente de variación** $CV(y)$, y no de un valor acotado como
+$P_d(1-P_d)\le 0.25$.
+
+## Tamaño de Muestra: Observaciones {style="font-size: 75%;"}
+
+::: {.observacion}
+Para usar las fórmulas anteriores se necesita conocer, de antemano, una
+estimación de $S^2_{yU}$ (o de $CV(y)$), cantidad que en la práctica no se
+conoce. Lohr (2022) resume tres estrategias para obtenerla:
+
+1. **Prueba piloto**: usar las cantidades muestrales obtenidas al
+   pretestar la encuesta. Es probablemente el mejor método, ya que el
+   piloto debería parecerse a la encuesta definitiva.
+2. **Estudios previos o literatura**: rara vez se es el primero en
+   estudiar un tema; suele haber varianzas publicadas en estudios
+   relacionados, aunque no se tenga control sobre su calidad o diseño y
+   puedan no aplicar exactamente al estudio actual. Una alternativa es
+   usar el $CV$ obtenido de estudios anteriores, pues —a diferencia de la
+   varianza— tiende a ser más **estable** en el tiempo y en el espacio.
+3. **Suponer una distribución**: si se supone (o se conoce) un modelo
+   para los datos, por ejemplo normalidad, y se tiene una idea del rango
+   de los valores, se puede aproximar $S$ por $\text{rango}/4$ o
+   $\text{rango}/6$, ya que aproximadamente el $95\%$ ($99.7\%$) de los
+   valores de una normal están a $2$ ($3$) desviaciones estándar de la
+   media.
+:::
+
+::: {.aside}
+Lohr, S. (2022). *Sampling: Design and Analysis* (3rd ed.).
+:::
+
+
+## Tamaño de Muestra: Observaciones
+
+<br><br>
+
+::: {.observacion}
+- En la medida en que el diseño muestral se vuelve más complejo
+  (estratificado, multietápico, de conglomerados o de elementos en
+  algunas etapas) no es tan fácil llegar a fórmulas que proporcionen el
+  tamaño de muestra adecuado, así que es necesario recurrir a métodos de
+  Monte Carlo o estimación de efectos de diseño para hallar los tamaños de muestra basados en las fórmulas
+  de la varianza del diseño muestral.
+:::
+
+## Tamaño de Muestra: M.A.S. — Medias, Totales {style="font-size: 90%;"}
+
+<br>
+
+::: {.ejemplo}
+Use la base *agpop.sav* y extraiga una muestra aleatoria simple de
+tamaño $n=40$; asuma que esta fue una muestra piloto utilizada para
+validar las herramientas de medición, pero a partir de ella también
+puede estimar el comportamiento de las variables de interés para hallar
+$CV(y)$. Suponga que se desea un error relativo inferior al $10\%$ y
+determine el tamaño de la muestra que necesitaría para ejecutar el
+proyecto.
+:::
 
 {{< include _derechos.qmd >}}
