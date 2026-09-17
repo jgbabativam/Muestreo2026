@@ -216,11 +216,27 @@ Si $deff>1$ se **pierde** precisión frente a $MAS$; si $deff<1$ se
 
 [Utilidad]{.rojo}:  $V_{MAS}(\widehat t_\pi) \cdot deff(p,\widehat t_\pi) = V_p(\widehat t_\pi)$
 
+## Tamaño de muestra bajo cualquier diseño {style="font-size: 85%;"}
+
+Se busca $n$ tal que el margen de error no supere un valor prefijado $e$,
+usando como referencia el error estándar bajo $MAS$ inflado por el efecto de diseño:
+$$z_{1-\alpha/2}\sqrt{\frac1n\left(1-\frac{n}{N}\right)S^2_{y_s}\,deff}<e$$
+
+. . .
+
+Al despejar $n$ se obtiene:
+
+\begin{align}\label{tamMue2}
+n&>\frac{z_{1-\alpha/2}^2S^2_{y_U}\,deff}{e^2+\frac{z_{1-\alpha/2}^2S^2_{y_U}\,deff}{N}}\\
+&=\frac{n_0}{1+\frac{n_0}{N}}
+\end{align}
+
+con $n_0=\dfrac{z_{1-\alpha/2}^2S^2_{y_U}\,deff}{e^2}$.
+
 ## Efecto de diseño: ejemplo con muestreo Bernoulli
 
 ::: {.resultado}
-Fijando el tamaño esperado de muestra en $N\pi=n$ (para comparar con $SI$
-en igualdad de condiciones),
+Fijando el tamaño esperado de muestra en $N\pi=n$ (para comparar con $MAS$ en igualdad de condiciones),
 $$
 deff(BE,\widehat t_\pi)=1-\frac1N+\frac{1}{(cv_{yU})^2} \; \doteq \; 1+\frac{1}{(cv_{yU})^2}
 $$
@@ -229,10 +245,11 @@ $$
 ::: {.observacion}
 Para muchas variables, $0.5\le cv_{yU}\le 1.0$. Con $cv_{yU}=1.0$,
 $deff(BE)=2.0$; con $cv_{yU}=0.5$, $deff(BE)=5.0$. Esto ilustra que el
-muestreo Bernoulli suele ser considerablemente menos preciso que $SI$
+muestreo Bernoulli suele ser considerablemente menos preciso que $MAS$
 cuando se usa el $\pi$-estimador — la pérdida de precisión se explica por
 la variabilidad del **tamaño** de la muestra Bernoulli.
 :::
+
 
 
 {{< include _derechos.qmd >}}
