@@ -1,0 +1,263 @@
+---
+title: "Muestreo Estadístico"
+subtitle: "Semana 3 — Estimación de dominios"
+author:
+  - name: Giovany Babativa-Márquez, PhD
+    email: jgbabativam@unal.edu.co
+format:
+  gbabativa-revealjs:
+    logo: "images/UNAL.png"
+    footer: "Muestreo Estadístico — Universidad Nacional de Colombia"
+incremental: false
+embed-resources: true
+highlight-style: dracula
+execute:
+  echo: false
+  eval: true
+---
+
+# Resumen de lo visto hasta ahora {background-color="#0077b6" .center-x}
+
+## Estimación para dominios (subpoblaciones)
+
+::: {.definicion}
+Con frecuencia se desean estimaciones de subpoblaciones no consideradas
+dentro del diseño muestral; dicha subpoblación es un **dominio**. En
+general no sabemos cuántos elementos de la muestra pertenecen a un
+dominio hasta obtener los resultados. Por ejemplo: al diseñar una
+muestra para medir la intención de voto de los colombianos, el interés
+está en el total de personas que votarán por cada candidato, pero antes
+de la muestra no se sabe cuántas caerán en cada dominio.
+:::
+
+## Dominios: notación
+
+Sea $U_d\subset U$ el dominio de interés, con $N_d$ elementos (tamaño
+generalmente **desconocido**). Defina la variable indicadora de dominio
+$$y_{dk}=\begin{cases}y_k & \text{si } k\in U_d \\ 0 & \text{en otro caso}\end{cases}
+\qquad\qquad
+z_{dk}=\begin{cases}1 & \text{si } k\in U_d \\ 0 & \text{en otro caso}\end{cases}$$
+
+- Total del dominio: $t_{yd}=\sum_U y_{dk}=\sum_{U_d}y_k$
+- Tamaño del dominio: $N_d=\sum_U z_{dk}$
+- Media del dominio: $\bar y_{U_d}=t_{yd}/N_d$
+
+## Dominios: estimadores bajo M.A.S
+
+::: {.resultado}
+[Estimador de Horvitz-Thompson (caso general):]{.callout-label}
+$$\widehat{t}_{yd}=\sum_s \frac{y_{dk}}{\pi_k}$$
+
+[Particularizado a M.A.S (Särndal, Result 3.3.3):]{.callout-label}
+$$\widehat{t}_{yd}=\frac{N}{n}\sum_s y_{dk}, \qquad
+\widehat{V}(\widehat{t}_{yd})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{y_ds}$$
+:::
+
+donde $S^2_{y_ds}=\frac{1}{n-1}\sum_s\left(y_{dk}-\bar y_{ds}\right)^2$, con
+$\bar y_{ds}=\frac{1}{n}\sum_s y_{dk}$, se calcula sobre **toda** la muestra
+$s$, incluyendo los elementos fuera del dominio ($y_{dk}=0$).
+
+## Dominios: estimación del promedio
+
+El parámetro es
+$$\bar y_{U_d}=\frac{t_{yd}}{N_d}=\frac{\sum_U y_{dk}}{\sum_U z_{dk}}$$
+Estimando por separado el numerador y el denominador con el
+$\pi$-estimador se obtiene el **estimador de Hájek** de la media del
+dominio:
+
+::: {.resultado}
+$$\widehat{\bar y}_{U_d}=\frac{\widehat t_{yd}}{\widehat N_d}=\frac{\sum_s y_{dk}/\pi_k}{\sum_s z_{dk}/\pi_k}$$
+:::
+
+## Dominios: promedio bajo M.A.S
+
+Bajo M.A.S, $\pi_k=n/N$ para todo $k$, y el estimador de Hájek se reduce a
+la media muestral de los elementos que caen en el dominio:
+
+::: {.resultado}
+$$\bar y_{sd}=\frac{\widehat{t}_{yd}}{\widehat{N}_d}=\frac{(N/n)\sum_s y_{dk}}{(N/n)\sum_s z_{dk}}=\frac{\sum_s y_{dk}}{n_d}$$
+con $n_d=\sum_s z_{dk}$ el número de elementos muestrales del dominio.
+:::
+
+::: {.observacion}
+Como el numerador y el denominador son ambos variables aleatorias ($n_d$
+es aleatorio), $\bar y_{sd}$ es un estimador de **razón**. Su varianza se
+obtiene por **linealización de Taylor** y la estudiaremos más adelante.
+:::
+
+## Estrato $\neq$ Dominio
+
+::: {.clave}
+[Estrato es diferente de dominio.]{.rojo} Los estratos se construyen a
+partir del **diseño** de la muestra (se conocen y controlan antes de
+seleccionarla); los dominios **no** — su tamaño muestral es aleatorio y
+solo se conoce después de observar la muestra. Por eso la forma de hacer
+inferencia es distinta en cada caso.
+:::
+
+::: {.observacion}
+En un dominio, las varianzas muestrales se calculan sobre los $n$
+elementos de la muestra, con $y_{dk}=0$ para los que no pertenecen al
+dominio. Calcularlas solo con los $n_d$ elementos del dominio equivale a
+tratarlo como un **estrato**, lo cual es un error: $n_d$ es aleatorio.
+:::
+
+## Dominios: estimación de una proporción
+
+La **proporción del dominio** es la fracción de elementos de la
+población que pertenecen a $U_d$:
+$$P_d=\frac{N_d}{N}=\frac{1}{N}\sum_U z_{dk}$$
+
+::: {.resultado}
+[Estimador de Horvitz-Thompson:]{.callout-label} como $N$ es conocido,
+$$\widehat{P}_d=\frac{\widehat N_d}{N}=\frac{1}{N}\sum_s \frac{z_{dk}}{\pi_k}
+\qquad\xrightarrow{\ \text{M.A.S}\ }\qquad
+\widehat{P}_d=\frac{1}{N}\,\frac{N}{n}\sum_s z_{dk}=\frac{n_d}{n}$$
+:::
+
+Es un $\pi$-estimador (una constante por $\widehat N_d$), por lo tanto
+**insesgado** y con varianza exacta.
+
+## Proporción del dominio: varianza y $cve$
+
+Como $\widehat P_d=\widehat N_d/N$, la constante $N$ sale al cuadrado:
+$$\widehat V(\widehat P_d)=\frac{1}{N^2}\,\widehat V(\widehat N_d)
+=\frac{1}{N^2}\,\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{z_ds}
+=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{z_ds}$$
+
+::: {.resultado}
+Con $z_{dk}\in\{0,1\}$, $S^2_{z_ds}=\frac{n}{n-1}\widehat P_d\left(1-\widehat P_d\right)$, de modo que
+$$\widehat V(\widehat P_d)=\left(1-\frac{n}{N}\right)\frac{\widehat P_d\left(1-\widehat P_d\right)}{n-1},
+\qquad
+cve(\widehat P_d)=\frac{\sqrt{\widehat V(\widehat P_d)}}{\widehat P_d}$$
+:::
+
+## Ejemplo: micronegocios
+
+::: {.ejemplo}
+[Micronegocios.]{.callout-label} En un municipio hay $N=200$
+micronegocios. Se selecciona una muestra M.A.S$(200, 10)$. El dominio de
+interés son los micronegocios del **sector comercio** ($z_{dk}=1$).
+Estime: (a) el total de ventas mensuales de los micronegocios del
+dominio y (b) la proporción $P_d$ de micronegocios del municipio que
+pertenecen al sector comercio, junto con sus $cve$.
+:::
+
+::: {style="font-size: 85%;"}
+
+| $k$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Comercio ($z_{dk}$) | 1 | 0 | 1 | 1 | 0 | 1 | 0 | 1 | 0 | 1 |
+| Ventas (millones COP) | 12 | 8 | 15 | 9 | 20 | 11 | 6 | 18 | 14 | 7 |
+
+:::
+
+## Micronegocios: total de ventas del dominio
+
+Variable $y_{dk}$ (ventas si $k$ es de comercio, 0 en otro caso), con
+$f=10/200=0.05$:
+
+::: {style="font-size: 85%;"}
+
+| $k$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| $y_{dk}$ | 12 | 0 | 15 | 9 | 0 | 11 | 0 | 18 | 0 | 7 |
+
+:::
+
+::: {.resultado}
+$$\widehat t_{yd}=\frac{200}{10}\sum_s y_{dk}=20\times 72=1440 \text{ millones}$$
+$$\bar y_{ds}=\frac{72}{10}=7.2,\qquad
+S^2_{y_ds}=\frac{\sum_s y_{dk}^2-10\,(7.2)^2}{10-1}=\frac{944-518.4}{9}=47.289$$
+:::
+
+## Micronegocios: varianza del total de ventas
+
+::: {.resultado}
+$$\widehat V(\widehat t_{yd})=\frac{200^2}{10}\,(1-0.05)\,47.289=179\,697.8$$
+$$cve(\widehat t_{yd})=\frac{\sqrt{179\,697.8}}{1440}=\frac{423.9}{1440}=29.4\%$$
+:::
+
+::: {.observacion}
+Los 4 micronegocios que no son de comercio entran en $S^2_{y_ds}$ con
+$y_{dk}=0$: la varianza se calcula sobre los $n=10$ elementos de la
+muestra, no solo sobre los $n_d=6$ del dominio.
+:::
+
+## Micronegocios: proporción del sector comercio
+
+En la muestra, 6 de los 10 micronegocios son del sector comercio.
+
+::: {.resultado}
+$$\widehat P_d=\frac{\widehat N_d}{N}=\frac{120}{200}=\frac{6}{10}=0.6$$
+$$\widehat V(\widehat P_d)=(1-0.05)\frac{0.6\,(1-0.6)}{10-1}=0.02533$$
+$$cve(\widehat P_d)=\frac{\sqrt{0.02533}}{0.6}=26.5\%$$
+:::
+
+## Micronegocios: ¿qué aprendemos?
+
+::: {.observacion}
+- Tanto $\widehat t_{yd}$ como $\widehat P_d=\widehat N_d/N$ son
+  $\pi$-estimadores: insesgados y con varianza exacta
+  ($cve\approx29.4\%$ y $cve\approx26.5\%$).
+- Con solo $n=10$ elementos, y apenas $n_d=6$ en el dominio, la
+  precisión es baja: los dominios requieren muestras más grandes.
+:::
+
+::: {.clave}
+Las varianzas se calcularon con los $n=10$ elementos de la muestra,
+usando $y_{dk}=0$ fuera del dominio. Calcularlas solo con los 6 del
+dominio sería tratarlo como un **estrato**: un error.
+:::
+
+## Ejercicio: gasto de los hogares
+
+::: {.ejemplo}
+[Ejercicio.]{.callout-label} Suponga que por medio de un muestreo a
+hogares se desea determinar la **estructura del gasto** según los
+ingresos familiares. El marco es una manzana con $N=30$ hogares y el
+archivo `data/EjemploDominios.xlsx` contiene una muestra M.A.S$(30, 10)$
+de hogares con las variables:
+
+- `P1`: ingresos del hogar (1. Menos de 2 SMMLV; 2. De 2 a 4 SMMLV;
+  3. Más de 4 SMMLV) — define los **dominios**.
+- `P2` a `P7`: gasto mensual en vivienda, alimentos, educación,
+  transporte, esparcimiento y otros.
+:::
+
+## Ejercicio: cuadro de salida
+
+El cliente desea estimar el siguiente cuadro de salida. **Resuélvalo en Excel.**
+
+<style>
+.cuadro-salida { font-size: 80%; margin: auto; border-collapse: collapse; }
+.cuadro-salida th, .cuadro-salida td { border: 1px solid #888 !important; padding: 2px 10px !important; text-align: center !important; line-height: 1.2; }
+.cuadro-salida td:first-child { text-align: left !important; }
+.cuadro-salida caption { caption-side: top; font-size: 90%; padding-bottom: 6px; }
+</style>
+
+<table class="cuadro-salida">
+<caption>Total de gasto de las familias en la población según ingresos familiares.</caption>
+<tr><th rowspan="3">Gasto</th><th colspan="6">Ingresos</th><th rowspan="2" colspan="2">Total</th></tr>
+<tr><th colspan="2">&lt; 2 SMMLV</th><th colspan="2">2 a 4 SMMLV</th><th colspan="2">&gt; 4 SMMLV</th></tr>
+<tr><th>total</th><th>cve(%)</th><th>total</th><th>cve(%)</th><th>total</th><th>cve(%)</th><th>total</th><th>cve(%)</th></tr>
+<tr><td>Vivienda</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Alimentación</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Educación</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Transporte</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Esparcimiento</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Otros</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td><b>Total</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+## Tarea
+
+::: {.tarea}
+Estime el mismo cuadro de salida suponiendo que la muestra de
+`data/EjemploDominios.xlsx` se obtuvo mediante un diseño **Bernoulli**
+con $\pi=1/3$ (de modo que $E(n_s)=30\times 1/3=10$). Compare los
+totales y los $cve$ con los obtenidos bajo M.A.S. ¿Qué diseño resulta
+más eficiente? ¿Por qué?
+:::
+
+{{< include _derechos.qmd >}}

@@ -220,7 +220,7 @@ Si $deff>1$ se **pierde** precisión frente a $MAS$; si $deff<1$ se
 
 Se busca $n$ tal que el margen de error no supere un valor prefijado $e$,
 usando como referencia el error estándar bajo $MAS$ inflado por el efecto de diseño:
-$$z_{1-\alpha/2}\sqrt{\frac1n\left(1-\frac{n}{N}\right)S^2_{y_s}\,deff}<e$$
+$$z_{1-\alpha/2}\sqrt{\frac1n\left(1-\frac{n}{N}\right)S^2_{y_U}\,deff}<e$$
 
 . . .
 
