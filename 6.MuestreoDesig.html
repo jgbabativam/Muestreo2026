@@ -2009,7 +2009,7 @@ E\left(\widehat{t}_{y,MCR}\right)&amp;=E\left(\frac{1}{m}\sum_{i=1}^m\frac{y_{k_
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_afb8257f" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_2e11c30e" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
 </div>
 </div>
 </section>
@@ -2075,7 +2075,7 @@ deff(p,\widehat t_\pi)=\frac{V_p(\widehat t_\pi)}{V_{MAS}(\widehat t_\pi)}
 </section>
 <section id="tamaño-de-muestra-bajo-cualquier-diseño" class="slide level2" style="font-size: 85%;">
 <h2>Tamaño de muestra bajo cualquier diseño</h2>
-<p>Se busca <span class="math inline">\(n\)</span> tal que el margen de error no supere un valor prefijado <span class="math inline">\(e\)</span>, usando como referencia el error estándar bajo <span class="math inline">\(MAS\)</span> inflado por el efecto de diseño: <span class="math display">\[z_{1-\alpha/2}\sqrt{\frac1n\left(1-\frac{n}{N}\right)S^2_{y_s}\,deff}&lt;e\]</span></p>
+<p>Se busca <span class="math inline">\(n\)</span> tal que el margen de error no supere un valor prefijado <span class="math inline">\(e\)</span>, usando como referencia el error estándar bajo <span class="math inline">\(MAS\)</span> inflado por el efecto de diseño: <span class="math display">\[z_{1-\alpha/2}\sqrt{\frac1n\left(1-\frac{n}{N}\right)S^2_{y_U}\,deff}&lt;e\]</span></p>
 <div class="fragment">
 <p>Al despejar <span class="math inline">\(n\)</span> se obtiene:</p>
 <p><span class="math display">\[\begin{align}\label{tamMue2}
@@ -2088,12 +2088,12 @@ n&amp;&gt;\frac{z_{1-\alpha/2}^2S^2_{y_U}\,deff}{e^2+\frac{z_{1-\alpha/2}^2S^2_{
 <section id="efecto-de-diseño-ejemplo-con-muestreo-bernoulli" class="slide level2">
 <h2>Efecto de diseño: ejemplo con muestreo Bernoulli</h2>
 <div class="resultado">
-<p>Fijando el tamaño esperado de muestra en <span class="math inline">\(N\pi=n\)</span> (para comparar con <span class="math inline">\(SI\)</span> en igualdad de condiciones), <span class="math display">\[
+<p>Fijando el tamaño esperado de muestra en <span class="math inline">\(N\pi=n\)</span> (para comparar con <span class="math inline">\(MAS\)</span> en igualdad de condiciones), <span class="math display">\[
 deff(BE,\widehat t_\pi)=1-\frac1N+\frac{1}{(cv_{yU})^2} \; \doteq \; 1+\frac{1}{(cv_{yU})^2}
 \]</span></p>
 </div>
 <div class="observacion">
-<p>Para muchas variables, <span class="math inline">\(0.5\le cv_{yU}\le 1.0\)</span>. Con <span class="math inline">\(cv_{yU}=1.0\)</span>, <span class="math inline">\(deff(BE)=2.0\)</span>; con <span class="math inline">\(cv_{yU}=0.5\)</span>, <span class="math inline">\(deff(BE)=5.0\)</span>. Esto ilustra que el muestreo Bernoulli suele ser considerablemente menos preciso que <span class="math inline">\(SI\)</span> cuando se usa el <span class="math inline">\(\pi\)</span>-estimador — la pérdida de precisión se explica por la variabilidad del <strong>tamaño</strong> de la muestra Bernoulli.</p>
+<p>Para muchas variables, <span class="math inline">\(0.5\le cv_{yU}\le 1.0\)</span>. Con <span class="math inline">\(cv_{yU}=1.0\)</span>, <span class="math inline">\(deff(BE)=2.0\)</span>; con <span class="math inline">\(cv_{yU}=0.5\)</span>, <span class="math inline">\(deff(BE)=5.0\)</span>. Esto ilustra que el muestreo Bernoulli suele ser considerablemente menos preciso que <span class="math inline">\(MAS\)</span> cuando se usa el <span class="math inline">\(\pi\)</span>-estimador — la pérdida de precisión se explica por la variabilidad del <strong>tamaño</strong> de la muestra Bernoulli.</p>
 </div>
 </section>
 <section id="section" class="slide level2" data-background-color="#0d1b2a">

@@ -1,0 +1,551 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{txfonts}
+%\usepackage{pxfonts}
+%\usepackage{yfonts}
+
+\newtheorem{proposicion}{Proposicion}[section]
+\newtheorem{teorema}[proposicion]{Teorema}
+\newtheorem{prueba}[proposicion]{Prueba}
+\newtheorem{demo}[proposicion]{Proof}
+\newtheorem{demo1}[proposicion]{\ }
+\newtheorem{hipotesis}[proposicion]{Hypothesis}
+\newtheorem{lema}[proposicion]{Lema}
+\newtheorem{corolario}[proposicion]{Corolario}
+\newtheorem{hecho}[proposicion]{Hecho}
+\newtheorem{conjetura}[proposicion]{Conjecture}
+\newtheorem{supuesto}[proposicion]{Assumption}
+\theoremstyle{definition}
+\newtheorem{definicion}[proposicion]{Definición}
+\newtheorem{ejemplo}[proposicion]{Ejemplo}
+\newtheorem{ejemplos}[proposicion]{Ejemplos}
+\newtheorem{ejercicio}[proposicion]{Ejercicio}
+\newtheorem{observacion}[proposicion]{Remark}
+\newtheorem{notacion}[proposicion]{Notation}
+\newtheorem{resultado}[proposicion]{Resultado}
+\newtheorem{tarea}[proposicion]{Tarea}
+
+\definecolor{blanco}{gray}{1}
+\usetheme{berlin}
+\usetheme{Warsaw}
+%\usepackage[english]{babel}
+%\usepackage[spanish]{babel}
+%\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amssymb,indentfirst,epsfig,multirow,amsthm,multicol}
+\setbeamercovered{transparent}
+
+\definecolor{dorado}{cmyk}{0,0.40,0.90,0}
+\definecolor{melon}{cmyk}{0,0.29,0.84,0}
+\definecolor{naranja}{cmyk}{0,0.42,1,0}
+\definecolor{durazno}{cmyk}{0,0.46,0.90,0.2}
+\definecolor{fresa}{cmyk}{0,1,0.50,0.2}
+\definecolor{ladrillo}{cmyk}{0,0.40,0.90,0}
+\definecolor{violeta}{cmyk}{0,0.77,0.87,0.2}
+\definecolor{purpura}{cmyk}{0.45,0.86,0,0.1}
+\definecolor{aguamarina}{cmyk}{0.85,0,0.33,0.6}
+\definecolor{esmeralda}{cmyk}{0.91,0,1,0.6}
+\definecolor{pino}{cmyk}{0.92,0,0.59,0.25}
+\definecolor{oliva}{cmyk}{0.64,0,0.95,0.60}
+\definecolor{canela}{cmyk}{0.14,0.52,0.56,0}
+\definecolor{cafe}{cmyk}{0,0.81,1,0.60}
+\definecolor{marron}{cmyk}{0,0.72,1,0.45}
+\definecolor{gris-claro}{cmyk}{0,0,0,0.30}
+\definecolor{gris-oscuro}{cmyk}{0,0,0,0.50}
+
+%
+% The following info should normally be given in you main file:
+%
+
+\title{Diseños de Muestreo Estadístico}
+\author{Giovany Babativa, MSc. }
+\institute{Especialización en Estadística\\
+Departamento de Ciencias Básicas \\ Fundación Universitaria Los Libertadores}
+
+
+\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\frame{
+ \frametitle{3. \LARGE Parámetros de interés}
+Para un universo $U$ de tamaño $N$, sea $y$ la característica de interés, entonces podríamos estar interesados en:
+\begin{enumerate}
+\item \textbf{Total}: $t_y=\sum_Uy_k$ (personas con cierta enfermedad)
+\item \textbf{Media}: $\overline{y}_U=\frac{\sum_Uy_k}{N}=\frac{t_y}{N}$ (dinero)
+\item \textbf{Proporción}: $p_U=\frac{\sum_Uy_k}{N}=\frac{t_y}{N}$ para $y_k=\{1,0\}$ (desplazados)
+\item \textbf{Razón}:$R=\frac{t_y}{t_z}$. Unidades del producto por establecimiento con la intención de venderlo.
+\end{enumerate}
+\pause
+Nótese que todos los parámetros pueden ser expresados como función de totales, por tanto hay un particular interés encontrar estimadores para este parámetro.
+}
+
+\frame{
+ \frametitle{3. \LARGE Estimador de Horvitz-Thompson (1952)}
+ Para un universo $U$ se desea estimar el total de una característica de interés $y$ denotado como $t_y$. Por ejemplo,
+\begin{definicion}
+Para $\theta=t_y=\sum_Uy_k$ se define: \\
+$$\widehat{\theta}=\widehat{t}_{y,\pi}=\sum_{s_i}\frac{y_k}{\pi_k}$$
+
+$\frac{1}{\pi_k}$ se denomina \textbf{\textit{Factor de expansión}}
+\end{definicion}
+\pause
+Cada elemento se representa a sí mismo y a una fracción de la población.
+}
+
+\frame{
+ \frametitle{3. \LARGE Estimador de Horvitz-Thompson (1952) \\ Propiedades}
+\begin{resultado}
+\begin{itemize}
+\item $E(\widehat{t}_{y,\pi})=t_y$  \\
+\item $V(\widehat{t}_{y,\pi})=\sum\sum_U\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}$ \\
+\item $\widehat{V}(\widehat{t}_{y,\pi})={\Large\sum\sum_{s_i}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}}$
+\end{itemize}
+\end{resultado}
+\pause
+$\Delta_{kl}=\pi_{kl}-\pi_k\pi_l$, además $E(\widehat{V}(\widehat{t}_{y,\pi}))=V(\widehat{t}_{y,\pi})$
+}
+
+
+\frame{
+ \frametitle{3. \LARGE Estimador de Horvitz-Thompson (1952) \\ Muestreo Aleatorio Simple}
+\begin{resultado}
+\begin{itemize}
+\item $\widehat{t}_{y,\pi}=\sum_{s_i}\frac{y_k}{\pi_k}=\frac{N}{n}\sum_{s_i}y_k$
+\item $V_{MAS}(\widehat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{yU}$
+\item $\widehat{V}_{MAS}(\widehat{t}_{y,\pi})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{ys_i}$
+\end{itemize}
+\end{resultado}
+}
+
+\frame{
+ \frametitle{3. \LARGE Estimador de Horvitz-Thompson (1952) \\ Muestreo Bernoulli}
+\begin{resultado}
+\begin{itemize}
+\item $\widehat{t}_{y,\pi}=\sum_{s_i}\frac{y_k}{\pi_k}=\sum_{s_i}\frac{y_k}{\pi}$
+\item $V_{Ber}(\widehat{t}_{y,\pi})=\left(\frac{1}{\pi}-1\right)\sum_Uy^2_k$
+\item $\widehat{V}_{Ber}(\widehat{t}_{y,\pi})=\frac{1}{\pi}\left(\frac{1}{\pi}-1\right)\sum_{s_i}y^2_k$
+\end{itemize}
+\end{resultado}
+\pause
+
+\textcolor{violeta}{\textbf{Ejercicio:} Para los ejercicios hechos en clase de MAS y Bernoulli calcule $\widehat{t}_{y,\pi}$ y $V_{Ber}(\widehat{t}_{y,\pi})$, este último vía definición y por el estimador dado por la expresión. Para ambas expresiones compruebe el insesgamiento del estimador.}
+}
+
+\frame{
+ \frametitle{3. \LARGE Estimación de la media poblacional \\ Muestreo Aleatorio Simple}
+\begin{resultado}
+\begin{itemize}
+\item $\widehat{\overline{y}}_U=\frac{\widehat{t}_{y,\pi}}{N}$
+\item $V_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{yU}$
+\item $\widehat{V}_{MAS}(\widehat{\overline{y}}_U)=\frac{1}{n}\left(1-\frac{n}{N}\right)S^2_{ys_i}$
+\end{itemize}
+\end{resultado}
+\pause
+Al factor $\left(1-\frac{n}{N}\right)$ se le conoce como factor de corrección para poblaciones finitas.
+}
+
+\frame{
+ \frametitle{\LARGE 4. Muestreo con reemplazo $PPT(p_k,m)$ \\ Estimador de Hansen-Hurwitz (1943)}
+ \begin{resultado}
+$$\widehat{t}_{y,MCR}=\frac{1}{m}\sum_{i=1}^m\frac{y_{k_i}}{p_{k_i}}$$
+donde $p_{k_i}$ es la probabilidad de selección del elemento $k$. Cada elemento se representa así mismo y al resto del universo $\rightarrow$ promedio.
+El mecanismo de selección es Acumulativo Total.
+\end{resultado}
+
+ }
+
+ \frame{
+ \frametitle{\LARGE 4. Muestreo $PPT(p_k,m)$ \\ Estimador de Hansen-Hurwitz (1943)}
+ \begin{resultado}
+\begin{align*}
+E\left(\widehat{t}_{y,MCR}\right)&=E\left(\frac{1}{m}\sum_{i=1}^m\frac{y_{k_i}}{p_{k_i}}\right) \pause \\
+& = \frac{1}{m}E\left(\sum_U\frac{y_{k}}{p_{k}}Z_k\right)  \\
+& = \frac{1}{m}\sum_U\frac{y_{k}}{p_{k}}E\left(Z_k\right)  \\
+& = \frac{1}{m}\sum_U\frac{y_{k}}{p_{k}}m{p_k}  \\
+& = \sum_U y_k = t_y
+\end{align*}
+
+\end{resultado}
+
+ }
+
+
+ \frame{
+ \frametitle{\LARGE 4. Muestreo $PPT(p_k,m)$ \\ Estimador de Hansen-Hurwitz (1943)}
+ \begin{resultado}
+
+$V\left(\widehat{t}_{y,MCR}\right)=\frac{1}{m}\sum_Up_k\left(\frac{y_k}{p_k}-t_y\right)^2$\\[0.5cm]
+
+$\widehat{V}\left(\widehat{t}_{y,MCR}\right)=\frac{1}{m(m-1)}\sum_{i=1}^m\left(\frac{y_{k_i}}{p_{k_i}}-\widehat{t}_{y,MCR}\right)^2$ \\ [0.5cm]
+
+$E\left(\widehat{V}\left(\widehat{t}_{y,MCR}\right)\right)=V\left(\widehat{t}_{y,MCR}\right)$
+
+\end{resultado}
+
+ }
+
+\frame{
+ \frametitle{\LARGE 5. Confiabilidad}
+\begin{definicion}
+Sea $S$ el conjunto de todas las muestras posibles $s_1,\ldots,s_Q$; para el diseño $P(s_1), \ldots, P(s_Q)$ $\left[\sum_{s_i \in S}p(s_i)=1\right]$; el parámetro $\theta$ $\left[\theta:U\rightarrow \mathbb{R}\right]$ y el estimador $\widehat{\theta}(s_i)$.\\[0.3cm]
+\pause
+Para cada muestra se construye el intervalo $\left(LI(s_i), LS(s_i)\right)$ de tal manera que cada muestra tiene su propio intervalo y la longitud del intervalo puede variar dependiendo de la muestra. \pause
+
+Se define \textbf{\textit{confiabilidad}} como la suma de las probabilidades de las muestras de las muestras cuyo intervalo de confianza cubre al parámetro:\\[-0.3cm] \pause
+$$\sum_{\theta \in \left(LI(s_i), LS(s_i)\right)}P(s_i)$$
+ \pause
+\end{definicion}
+Cuando se habla de confiabilidad se habla de la confiabilidad del intervalo NO de la muestra.
+ }
+
+
+ \frame{
+ \frametitle{\LARGE 5. Confiabilidad \\ Propuesta de Intervalos}
+
+\begin{itemize}
+\item $\widehat{\theta}\pm z_{1-\alpha/2}\sqrt{V(\widehat{\theta})}$, por TLC se tiene que:
+\begin{center}
+$P\left(\theta \in \widehat{\theta}\pm z_{1-\alpha/2}\sqrt{V(\widehat{\theta})}\right)=1-\alpha,$  si $E(\widehat{\theta})=\theta$.
+\end{center} \pause
+Este intervalo presenta dos inconvenientes:
+\begin{enumerate}
+\item Condición de estimador insesgado
+\item Se necesita la varianza del estimador y esa sólo se conoce en la teoría porque en la práctica solo se conoce cuando es censo y en ese caso no tiene mucho interés.
+\end{enumerate}
+\end{itemize}
+
+ }
+
+
+ \frame{
+ \frametitle{\LARGE 5. Confiabilidad \\ Propuesta de Intervalos}
+
+\begin{itemize}
+\item $\widehat{\theta}\pm z_{1-\alpha/2}\sqrt{\widehat{V}(\widehat{\theta})}$ \\ \pause
+Este intervalo presenta la cualidad de que en la práctica puede calcularse, lo que interesa es entonces es ¿Qué confiabilidad tiene?. \\ \pause
+
+Puesto que los estimadores vistos son insesgados tanto para el parámetro de interés como para la varianza se espera que para $z_{1-\alpha/2}=1.96$ en un $95\%$ de las muestras el intervalo contenga el parámetro. Pero lo anterior no me garantiza que el parámetro esté en el intervalo de la muestra seleccionada.
+\end{itemize}
+\textcolor{red}{Ejercicio confiabilidad para los dos tipos de intervalo}
+ }
+
+
+ \frame{
+ \frametitle{\LARGE 5. Confiabilidad \\ Sesgo Relativo}
+
+La confiabilidad es una medida que se ve directamente afectada por el sesgo\footnote{medibles y no medibles} NO por el margen de error. Es decir, si $E(\widehat{\theta})\neq \theta$ la cobertura del intervalo decrece y por más de que $z_{1-\alpha/2}=1.96$ la cobertura puede ser muy baja.
+
+$$B_r(\widehat{\theta})=\frac{B(\widehat{\theta})}{\sqrt{V(\widehat{\theta})}}=\frac{E(\widehat{\theta})-\theta}{\sqrt{V(\widehat{\theta})}}$$
+\pause
+\begin{ejemplo}
+Para el ejercicio de clase imprima sesgos de $0; 0.05; 0.1; 0.3; 0.5; 1; 1.5; 2$ y usando un nivel de confianza del $95\%$ calcule y grafique la confiabilidad real. Use: \\
+$$E(\widehat{\theta})-\theta=B_r(\widehat{\theta})\sqrt{V(\widehat{\theta})}$$
+\end{ejemplo}
+}
+
+
+ \frame{
+ \frametitle{\LARGE 6. Muestreo de Elementos \\ Estimación de un dominio}
+
+\begin{definicion}
+Con frecuencia se desean estimaciones de subpoblaciones no consideradas dentro del diseño muestral, dicha subpoblación es denominada un \textbf{dominio}, en general no sabemos cuántos elementos pertenecen a un dominio hasta obtener los resultados de la muestra. Por ejemplo, al diseñar una muestra para medir la intención de voto de los Colombianos el interés se centra en conocer el total de personas que votarán por los diferentes candidatos pero previo a los resultados no se conoce cuántos votarán por cada uno.
+\end{definicion}
+}
+
+
+ \frame{
+ \frametitle{Estimación de un dominio: Parámetros \\ Notación}
+
+\begin{enumerate}
+\item El total de un dominio es: $\sum_{Ud}y_k$, con $U_d$ la población que compone al dominio.
+\item Sea $$y_{dk}=\begin{cases}y_k \hspace{0.2cm}\text{si } k\in U_d \\ 0 \hspace{0.4cm} \text{en otro caso}\end{cases}$$
+\item Así $t_{yd}=\sum_{U}y_{dk}$ será el total de la variable de interés.
+\item Si $y_{dk}=1$ cuando $k \in U_d$ entonces $N_d=\sum_Uy_{k_d}$ es el tamaño poblacional del dominio.
+\item Luego la media del dominio es: $$\overline{y}_{Ud}=\frac{t_{yd}}{N_d}$$.
+\end{enumerate}
+
+}
+
+ \frame{
+ \frametitle{Estimación de un dominio: Estimadores \\ Notación}
+
+\begin{ejemplo}
+\begin{enumerate}
+\item A nivel general el estimador de Horvitz-Thompson es:
+$$\widehat{t}_{yd}=\sum_{s}\frac{y_{dk}}{\pi_k}$$
+\item Particularmente para MAS se tiene que:\\[0.5cm]
+$\widehat{t}_{yd}=\frac{N}{n}\sum_{s}y_{dk}$\\[0.5cm]
+$\widehat{V}(\widehat{t}_{yd})=\frac{N^2}{n}\left(1-\frac{n}{N}\right)S^2_{y_ds}$
+\end{enumerate}
+\end{ejemplo}
+
+}
+
+
+ \frame{
+ \frametitle{Estimación de un dominio \\ Aplicación}
+
+\begin{ejemplo}
+Suponga que por medio de un muestreo a hogares se desea determinar la estructura del gasto según los ingresos familiares. El cliente desea estimar un cuadro de salida así:
+\begin{table}
+{\tiny
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+\hline
+           &                                       \multicolumn{ 6}{|c|}{{\bf Ingresos}} &  \multicolumn{ 2}{|c|}{} \\
+\hline
+{\it {\bf Gasto}} & \multicolumn{ 2}{|c|}{$< 2 SMMLV$} & \multicolumn{ 2}{|c|}{2 a 4 SMMLV} & \multicolumn{ 2}{|c|}{$> 4 SMMLV$} & \multicolumn{2}{|c|}{{\bf Total}} \\ \hline
+   & {\bf total } & {\bf cve(\%)} & {\bf total } & {\bf cve(\%)} & {\bf total } & {\bf cve(\%)} & {\bf total } & {\bf cve(\%)} \\
+\hline
+  Vivienda &            &            &            &            &            &            &            &            \\
+\hline
+Alimentación &            &            &            &            &            &            &            &            \\
+\hline
+ Educación &            &            &            &            &            &            &            &            \\
+\hline
+Transporte &            &            &            &            &            &            &            &            \\
+\hline
+Esparcimiento &            &            &            &            &            &            &            &            \\
+\hline
+     Otros &            &            &            &            &            &            &            &            \\
+\hline
+     Total &            &            &            &            &            &            &            &            \\
+\hline
+\end{tabular}
+\caption{Total de gasto de las familias en la población según ingresos familiares.}}
+\end{table}
+\end{ejemplo}
+}
+
+ \frame{
+ \frametitle{Estimación de un dominio \\ Aplicación}
+
+\begin{ejemplo}
+Para el archivo:
+\begin{enumerate}
+\item \textit{Ejemplo Hogares - Marco Muestral.xls} seleccione una muestra por $MAS(N, 10)$.
+\item \textit{Dominio Hogares.xls} estime en Excel el cuadro de salida solicitado por el cliente.
+\item \textit{Dominio Hogares.xls} asigne arbitrariamente los códigos de hogares seleccionados en el literal 1 y documente la base.
+\item \textit{Dominio Hogares.xls} suba los datos a \textit{SPSS}.
+\item Haga un cruce de la data con la muestra y la base con la información levantada de tal forma que los pesos muestrales queden en el archivo \textit{Dominio Hogares.xls}.
+\item Estime en \textit{SPSS} mediante el módulo de muestras complejas el cuadro de salida solicitado por el cliente.
+
+\end{enumerate}
+\end{ejemplo}
+}
+
+ \frame{
+ \frametitle{Estimación de un dominio \\ Aplicación}
+
+\begin{ejemplo}
+Lohr (1999) En el censo de Agricultura de Estados Unidos que se realiza cada 5 años, se reúnen datos de todas las fincas-granjas donde se producen y venden más de \$100.000 pesos en productos agrícolas al mes. Dentro de las variables que se miden está el número de granjas y los acres\footnote{Un acre es una medida de superficie usada en agricultura equivalente a 43560 $pies^2$} dedicados a las granjas. El archivo \textit{agpop.sav} contiene los datos de la población medida en el censo de $N=3078$. El archivo \textit{Agrsrs.sav} contiene los datos de una muestra obtenida mediante el diseño $MAS(3078, 300)$. Estime el promedio y la cantidad de acres dedicados a la agricultura en el año 1992 en los Estados Unidos.
+\end{ejemplo}
+
+}
+
+ \frame{
+ \frametitle{Estimación de un dominio \\ Promedio}
+bajo MAS
+\begin{itemize}
+\item $\overline{y}_{Ud}=\frac{t_{yd}}{N_d}=\frac{N/n\sum_{U}y_{dk}}{N_d}$
+\item $\overline{y}_{sd}=\frac{\widehat{t}_{yd}}{\widehat{N}_d}=\frac{N/n\sum_{s}y_{dk}}{N/n\sum_{s}z_{dk}}=\frac{\sum_{s}y_{dk}}{n_d}$, con $z_{dk}=1$ si $k \in U_d$
+\end{itemize}
+\pause
+Puesto que la cantidad del numerador y del denominador son variables aleatorias el estimador se denomina de razón y la estimación de la varianza se obtiene por aproximación mediante el método de linealización de Taylor.\\[0.5cm]
+
+$\widehat{V}(\overline{y}_{sd})=\frac{1}{n_d}\left(1-\frac{n}{N}\right)S^2_{y_{sd}}$
+}
+
+ \frame{
+ \frametitle{Muestreo Estratificado \\ Definiciones}
+ \begin{definicion}
+ \begin{enumerate}
+\item Para $U=\{1,2,\ldots,N\}$ sea $\{U_1, U_2, \ldots, U_H\}$ una partición de $U$.
+\item Para $U_h, h=1,\ldots,H$ se aplica de forma \textit{\textbf{INDEPENDIENTE}} el diseño muestral $P_h(\cdot)$.
+\item Entonces $t_y=\sum_Uy_k=\sum_{h=1}^Ht_{yh}$ de tal manera que el estimador insesgado de $t_y$ es:
+\begin{align*}
+\widehat{t}_y=\sum_{h=1}^H\widehat{t}_{yh}
+\end{align*}
+\begin{align*}
+\widehat{V}\left(\widehat{t}_y\right)=\widehat{V}\left(\sum_{h=1}^H\widehat{t}_{yh}\right)=\sum_{h=1}^H\widehat{V}\left(\widehat{t}_{yh}\right)
+\end{align*}
+ \end{enumerate}
+ \end{definicion}
+ }
+
+ \frame{
+ \frametitle{Muestreo Estratificado \\ Observaciones}
+ \begin{observacion}
+ \begin{enumerate}
+\item Cada estrato $U_h$ es de tamaño $N_h$, así $\sum_{h=1}^HN_h=N$.
+\item Una partición de $U$ es:
+ \begin{itemize}
+ \item $N_h\neq0, h=1,\ldots,H.$
+ \item $U_i \bigcap U_j=\emptyset, i\neq j; i,j=1,\ldots,H$
+ \item $\bigcup_{h=1}^HU_h=U$
+ \end{itemize}
+\item \textcolor{red}{Estrato es diferente de dominio}, los estratos se construyen a partir del diseño de la muestra, los dominios no. Por tanto la manera de hacer estimación es diferente.
+ \end{enumerate}
+ \end{observacion}
+ }
+
+ \frame{
+ \frametitle{Muestreo Estratificado \\ Razones para estratificar}
+ \begin{observacion}
+ \begin{enumerate}
+\item Minimizar varianza. Por ejemplo, para estimar personal ocupado el DANE en las encuestas económicas  estratifica por empresas grandes, medianas y pequeñas.
+\item Necesidad de contar con información con alta precisión para algunos niveles de desagregación. Por ejemplo, en un estudio en Bogotá se desean estimaciones por localidad pero de no controlarse la muestra es posible que salgan muy pocos elementos para algunas localidades. Es importante tener en cuenta que si la razón es esta el cálculo del tamaño de la muestra se haga de manera independiente para cada estrato.
+\item Reducción de costos. Por ejemplo, los gastos de desplazamiento pueden llegar a aumentar de manera considerable los costos de un proyecto entonces es posible estratificar por ciudades grandes, intermedias y pequeñas.
+\end{enumerate}
+\end{observacion}
+}
+
+ \frame{
+ \frametitle{Muestreo Estratificado \\ Problemas técnicos de estratificar}
+ \begin{observacion}
+ \begin{enumerate}
+\item La cantidad de estratos es inversamente proporcional a la varianza y proporcional a los costos. En general al llegar a determinado número de estratos no se gana mucho en disminuir varianza y por el contrario se invierte mucho dinero.
+\item Delimitación de los estratos (Hidroglou, Dalenius, Análisis multivariante de clúster).
+\item Variable de estratificación - ¿con respecto a qué variable se debe estratificar?.
+\item Asignación de muestra por estratos.
+\end{enumerate}
+\end{observacion}
+}
+
+ \frame{
+ \frametitle{Muestreo ESTMAS}
+ \begin{ejemplo}
+Un caso particular es cuando se estratifica y cada uno de los estratos se aplica de manera independiente un $MAS(N_h,n_h)$. Encuesta de Anual de servicios, manufacturera y comercio (DANE).
+\begin{itemize}
+\item $\widehat{t}_{yh}=\sum_{sh}\frac{N_h}{n_h}y_k$
+\item $\widehat{t}_{y}=\sum_{h=1}^H\widehat{t}_{yh}=\sum_{h=1}^H\sum_{sh}\frac{N_h}{n_h}y_k$
+\item $\widehat{V}\left(\widehat{t}_{yh}\right)=\frac{N_h^2}{n_h}\left(1-\frac{n_h}{N_h}\right)S^2_{ysh}$
+\item $\widehat{V}\left(\widehat{t}_{y}\right)=\sum_{h=1}^H\widehat{V}\left(\widehat{t}_{yh}\right)=\sum_{h=1}^H\frac{N_h^2}{n_h}\left(1-\frac{n_h}{N_h}\right)S^2_{ysh}$ \end{itemize}
+\end{ejemplo}
+}
+
+ \frame{
+ \frametitle{Ejercicios Muestreo Estratificado}
+ \begin{ejercicio}
+
+Suponga que se planea un muestreo estratificado que permita medir la intención de voto de los colombianos en las próximas elecciones presidenciales. Se ha decidido partir la población en 3 estratos. El analista Estadístico propone hacer en la primera etapa los siguientes diseños muestrales:
+
+\begin{itemize}
+\item Estrato 1: Diseño de inclusión forzosa (censo).
+\item Estrato 2: Diseño de Probabilidad Proporcional al Tamaño (PPT), $x_k$ es la población de 18 años o más en cada ciudad.
+\item Estrato 3: Muestreo Aleatorio Simple.
+\end{itemize}
+\pause
+Para esta etapa, determine las fórmulas necesarias para calcular el total (con su cve) de personas que votarán en las próximas elecciones. ¿Cómo estimaría la proporción de personas que están a favor del candidato $A$?.
+ \end{ejercicio}
+}
+
+ \frame{
+ \frametitle{Ejercicios Muestreo Estratificado}
+ \begin{ejercicio}
+
+Se realizó un muestreo de colegios mediante un diseño ESTMAS estratificando por NSE. Con el objetivo de hacer auditoria de los recusos del estado, se investigó por la cantidad de dinero (en millones de pesos) que el estado había girado a los colegios, los resultados son:
+
+\begin{table}
+\centering
+{\small
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+       NSE &        $N_h$ &        $n_h$ & $\sum_{s_h}y_k$ &   $s^2_{yh}$ \\
+\hline \hline
+         1 &        400 &         98 &     2361,8 &       5575 \\
+\hline
+         2 &         30 &         10 &        256 &       4064 \\
+\hline
+         3 &         61 &         37 &     9901,2 &     347556 \\
+\hline
+         4 &         18 &          6 &       1074 &      22798 \\
+\hline
+         5 &         70 &         39 &    11454,3 &     123578 \\
+\hline
+         6 &        120 &         21 &      697,2 &       9795 \\
+\hline
+\end{tabular}}
+\end{table}
+Estime el total de recursos girados a los colegios de la población y por NSE, calcule intervalos de confianza al 95\% y muestre los cve.
+ \end{ejercicio}
+
+}
+
+
+ \frame{
+ \frametitle{Ejercicios Muestreo Estratificado}
+ \begin{ejercicio}
+
+Se desea lanzar un nuevo producto a un target específico pero se desea saber si la preferencia depende del género para tomar una decisión sobre como enfocar la publicidad. A partir de un muestreo ESTMAS se levantaron los siguientes datos:
+\begin{table}
+\centering
+{\small
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Ciudad} &  $N_h$ &  $n_h$ & {\bf Mujeres (\%)} \\
+\hline \hline
+  Medellín &       9100 &        636 &         38 \\
+\hline
+    Ibagué &       1950 &        451 &         27 \\
+\hline
+Barranquilla &       5500 &        481 &         18 \\
+\hline
+    Bogotá &      10850 &        611 &         19 \\
+\hline
+    Cúcuta &       2100 &        493 &         36 \\
+\hline
+Bucaramanga &       5500 &        575 &         13 \\
+\hline
+      Cali &       9000 &        588 &         26 \\
+\hline
+\end{tabular}}
+\end{table}
+Estime la proporción de mujeres de la población que preferirán el producto, calcule el cve.
+ \end{ejercicio}
+}
+
+ \frame{
+ \frametitle{Ejercicios Muestreo Estratificado}
+ \begin{ejercicio}
+
+Para el ejercicio de los acres del censo de agricultura de Estados Unidos suponga que se hace un muestreo ESTMAS así:
+\begin{table}
+\centering
+{\small
+\begin{tabular}{|r|c|c|}
+\hline
+{\bf Estrato} & {\bf Nro. Granj} & {\bf Muestra} \\
+\hline \hline
+Noroeste (NE) &        220 &         21 \\
+\hline
+Norte-Centro (NC) &       1054 &        103 \\
+\hline
+   Sur (S) &       1382 &        135 \\
+\hline
+ Oeste (W) &        422 &         41 \\
+\hline
+           &       3078 &        300 \\
+\hline
+\end{tabular}
+}
+\end{table}
+\begin{enumerate}
+\item Usando el módulo de muestra complejas extraiga la muestra del archivo \textit{agpop.sav}.
+\item Usando el archivo \textit{agstrat.sav} estime el total de acres dedicados a la agricultura dentro de cada región.
+\item Compare la estrategia de dominios vs estratos usando efecto de diseño. Concluya.
+\end{enumerate}
+ \end{ejercicio}
+}
+
+\end{document}
+
+
+
