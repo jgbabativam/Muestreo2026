@@ -215,8 +215,8 @@ dominio sería tratarlo como un **estrato**: un error.
 ::: {.ejemplo}
 [Ejercicio.]{.callout-label} Suponga que por medio de un muestreo a
 hogares se desea determinar la **estructura del gasto** según los
-ingresos familiares. El marco es una manzana con $N=30$ hogares y el
-archivo `data/EjemploDominios.xlsx` contiene una muestra M.A.S$(30, 10)$
+ingresos familiares. El marco es una manzana con $N=35$ hogares y el
+archivo `data/EjemploDominios.xlsx` contiene una muestra M.A.S$(35, 10)$
 de hogares con las variables:
 
 - `P1`: ingresos del hogar (1. Menos de 2 SMMLV; 2. De 2 a 4 SMMLV;

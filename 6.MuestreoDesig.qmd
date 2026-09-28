@@ -198,7 +198,7 @@ estrategia con el $\pi$-estimador o con el estimador $MCR$.
 
 ## El efecto de diseño (*design effect*)
 
-Bajo el diseño $SI$ (MAS sin reemplazo), con $n$ elementos extraídos de
+Bajo el diseño MAS sin reemplazo, con $n$ elementos extraídos de
 $N$, el $\pi$-estimador del total es la media expandida
 $\widehat t_\pi = N\bar y_s$. Esta estrategia se toma como **referencia**
 para comparar cualquier otro diseño con el mismo tamaño esperado de
