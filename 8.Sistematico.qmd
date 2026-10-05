@@ -1,0 +1,174 @@
+---
+title: "Muestreo Estadístico"
+subtitle: "Semana 4 — Muestreo sistemático"
+author:
+  - name: Giovany Babativa-Márquez, PhD
+    email: jgbabativam@unal.edu.co
+format:
+  gbabativa-revealjs:
+    logo: "images/UNAL.png"
+    footer: "Muestreo Estadístico — Universidad Nacional de Colombia"
+incremental: false
+embed-resources: true
+highlight-style: dracula
+execute:
+  echo: false
+  eval: true
+---
+
+# Muestreo sistemático {background-color="#0077b6"}
+
+## Contenido de la sesión
+
+- Muestreo Sistemático ($SY$): definición, mecanismo, $\pi$-estimador
+- Eficiencia del muestreo sistemático: descomposición $SCT=SCE+SCD$,
+  coeficiente de homogeneidad
+- El problema de estimar la varianza en $SY$
+
+*Texto guía: Särndal, Swensson & Wretman (1992), Capítulo 3, sección 3.4.*
+
+## Muestreo Sistemático: motivación
+
+Cuando no se dispone de un marco muestral explícito, pero se sabe que la
+población está ordenada por un rótulo particular (por ejemplo, hogares
+ordenados por dirección o número de apartamento), el muestreo sistemático
+ofrece ventajas prácticas notables: solo requiere **un** número aleatorio.
+
+## Muestreo Sistemático: definición
+
+::: {.definicion}
+Sea $a$ el **intervalo de muestreo** fijado de antemano, y $N=na+c$ con
+$0\le c<a$. El mecanismo:
+
+1. Seleccione con probabilidad $1/a$ un entero aleatorio $r$,
+   $1\le r\le a$ (el **arranque aleatorio**).
+2. La muestra queda definida por
+   $$s_r=\{k: k=r+(j-1)a \le N;\; j=1,2,\ldots,n_s\}$$
+
+El tamaño de muestra $n_s$ es $n+1$ (si $r\le c$) o $n$ (si $r>c$).
+:::
+
+[Ejemplo: Notas de clase.]{.rojo}
+
+## Muestreo Sistemático: probabilidades de inclusión
+
+Las $a$ posibles muestras $\mathscr S_{SY}=\{s_1,\ldots,s_a\}$ particionan
+completamente a $U$ (no hay traslape entre ellas), y
+
+::: {.resultado}
+$$p(s)=\begin{cases}1/a & \text{si } s\in\mathscr S_{SY}\\ 0 & \text{en otro caso}\end{cases}
+\qquad \pi_k=\frac1a \;\; \text{para todo } k\in U$$
+$$\pi_{kl}=\begin{cases}1/a & \text{si } k \text{ y } l \text{ pertenecen a la misma } s_r\\0 & \text{en otro caso}\end{cases}$$
+:::
+
+::: {.observacion}
+No se cumple la condición deseable $\pi_{kl}>0$ para todo $k\neq l$
+(§2.4): dos elementos de muestras sistemáticas distintas nunca pueden
+coexistir en la misma muestra. Esto tendrá consecuencias para la
+estimación de la varianza.
+:::
+
+## Muestreo Sistemático: el $\pi$-estimador
+
+::: {.resultado}
+$$\widehat{t}_\pi=a\,t_s, \qquad t_s=\sum_s y_k$$
+$$V_{SY}(\widehat t_\pi)=a\sum_{r=1}^a(t_{s_r}-\bar t)^2, \qquad
+\bar t=\frac1a\sum_{r=1}^a t_{s_r}=t/a$$
+:::
+
+Equivalentemente, $V_{SY}(\widehat t_\pi)=a(a-1)S_t^2$, con
+$S_t^2=\dfrac{1}{a-1}\sum_r(t_{s_r}-\bar t)^2$ la varianza de los totales
+de las $a$ muestras posibles: **la varianza es pequeña cuando los totales
+muestrales son parecidos entre sí**.
+
+## Eficiencia del muestreo sistemático
+
+La variación total de la población se descompone en variación **dentro**
+y **entre** muestras sistemáticas (análisis de varianza de una vía):
+
+::: {.resultado}
+$$SCT=SCE+SCD, \qquad SCT=(N-1)S^2_{yU}$$
+$$V_{SY}(\widehat t_\pi)=N\cdot SCE$$
+:::
+
+La varianza depende solo de la variación **entre** muestras ($SCE$):
+como $SCT$ es fijo, $SCE$ es pequeño exactamente cuando $SCD$ es grande.
+
+## Tabla de ANOVA inducida por el muestreo sistemático {style="font-size: 85%;"}
+
+Con $N=na$, las $a$ muestras sistemáticas actúan como los grupos de un
+ANOVA de una vía (Gutiérrez, 2016, Tabla 3.8):
+
+| Fuente | gl | Suma de cuadrados | Cuadrado medio |
+|:------:|:--:|:------------------|:--------------:|
+| Entre  | $a-1$ | $SCE=\displaystyle\sum_{r=1}^a n\left(\bar y_{s_r}-\bar y_U\right)^2$ | $\dfrac{SCE}{a-1}$ |
+| Dentro | $N-a$ | $SCD=\displaystyle\sum_{r=1}^a\sum_{s_r}\left(y_{rk}-\bar y_{s_r}\right)^2$ | $\dfrac{SCD}{N-a}$ |
+| Total  | $N-1$ | $SCT=\displaystyle\sum_U\left(y_k-\bar y_U\right)^2$ | $S^2_{yU}$ |
+
+donde $y_{rk}$ es el valor del $k$-ésimo elemento de la muestra $s_r$ y
+$\bar y_{s_r}$ su media.
+
+## Eficiencia: interpretación
+
+::: {.clave}
+Entre **más homogéneas** sean las muestras sistemáticas internamente
+(es decir, entre más se parezcan sus elementos entre sí), **menos
+eficiente** es el muestreo sistemático: $SCD$ es pequeño, casi toda la
+variación queda **entre** muestras y $SCE$ (y con él $V_{SY}$) es grande.
+:::
+
+::: {.clave}
+Al contrario, si cada muestra sistemática es internamente heterogénea
+(representativa de toda la población), $SCD$ es grande, $SCE\to 0$ y
+$SY$ puede ser mucho más eficiente que M.A.S.
+:::
+
+## Coeficientes de homogeneidad $\rho$ y $\delta$
+
+::: {.definicion}
+$$\rho=1-\frac{n}{n-1}\frac{SCD}{SCT} \qquad\text{(correlación intraclásica)}$$
+$$\delta=1-\frac{N-1}{N-a}\frac{SCD}{SCT} \qquad\text{(homogeneidad de varianza intramuestral)}$$
+:::
+
+Un valor $\delta<0$ (heterogeneidad dentro de las muestras) favorece a
+$SY$ sobre M.A.S; $\delta>0$ (homogeneidad dentro) favorece a M.A.S.
+
+## Varianza y efecto de diseño en términos de $\delta$
+
+Cuando $N=na$:
+
+::: {.resultado}
+$$V_{SY}(\widehat t_\pi)=\frac{N^2S^2_{yU}}{n}\left[\left(1-\frac1a\right)+(n-1)\delta\right]$$
+$$deff(SY,\widehat t_\pi)=\frac{V_{SY}(\widehat t_\pi)}{V_{MAS}(\widehat t_\pi)}=1+\frac{n-1}{1-1/a}\,\delta$$
+:::
+
+::: {.observacion}
+$deff<1$ si y solo si $\delta<0$. El mínimo posible es
+$\delta_{\min}=-\dfrac{1-1/a}{n-1}$ (que da $V_{SY}=0$) y el máximo es
+$\delta_{\max}=1$.
+:::
+
+## La importancia del orden del marco
+
+::: {.clave}
+El muestreo sistemático puede ser **excelente** o **pésimo** según cómo
+esté ordenada la población: hay que conocer o sospechar la estructura del
+marco muestral antes de decidir usarlo.
+:::
+
+## Estimando la varianza en muestreo sistemático
+
+::: {.observacion}
+No existe un estimador insesgado de $V_{SY}(\widehat t_\pi)$: es el
+precio de la simplicidad de $SY$ (solo se observa **una** de las $a$
+muestras posibles, no hay repeticiones para estimar variabilidad
+"entre"). En la práctica se usa, como aproximación, el estimador
+apropiado para M.A.S,
+$$\widehat V = \frac{N^2}{n}\left(1-\frac1a\right)S^2_{ys_r}$$
+Este estimador **sobreestima** $V_{SY}(\widehat t_\pi)$ si $\delta<0$
+(caso favorable a $SY$) y la **subestima** si $\delta>0$. Cuando
+$\delta\approx0$ (población en orden aleatorio), la aproximación es
+razonable.
+:::
+
+{{< include _derechos.qmd >}}
