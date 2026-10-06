@@ -1,0 +1,89 @@
+---
+title: "Muestreo Estadístico"
+subtitle: "Semana 4 — Muestreo Poisson"
+author:
+  - name: Giovany Babativa-Márquez, PhD
+    email: jgbabativam@unal.edu.co
+format:
+  gbabativa-revealjs:
+    logo: "images/UNAL.png"
+    footer: "Muestreo Estadístico — Universidad Nacional de Colombia"
+incremental: false
+embed-resources: true
+highlight-style: dracula
+execute:
+  echo: false
+  eval: true
+---
+
+# Muestreo Poisson {background-color="#0077b6"}
+
+## Contenido de la sesión
+
+- Muestreo Poisson ($PO$): definición y propiedades
+- El $\pi$-estimador y su varianza bajo $PO$
+- Un estimador alternativo más estable
+- La mejor elección de $\pi_k$: la idea del muestreo Proporcional al Tamaño
+
+*Texto guía: Särndal, Swensson & Wretman (1992), Capítulo 3, sección 3.5.*
+
+## Muestreo Poisson ($PO$)
+
+::: {.definicion}
+Sea $\pi_k$ una probabilidad de inclusión predeterminada para el
+elemento $k$ ($k=1,\ldots,N$). En el muestreo Poisson, las indicadoras
+$I_1,\ldots,I_N$ son **independientes**, con
+$$Pr(I_k=1)=\pi_k, \qquad Pr(I_k=0)=1-\pi_k$$
+y la muestra $s$ tiene probabilidad
+$$p(s)=\prod_{k\in s}\pi_k\prod_{k\in U-s}(1-\pi_k)$$
+:::
+
+## Muestreo Poisson: propiedades
+
+Como los $\pi_k$ pueden especificarse de muchas formas, $PO$ corresponde
+a toda una **clase** de diseños: es nuestro primer ejemplo de diseño de
+**probabilidad desigual** (Bernoulli es el caso $\pi_k=\pi$ para todo $k$).
+
+::: {.resultado}
+El tamaño de muestra $n_s$ es **aleatorio**, con
+$$E_{PO}(n_s)=\sum_U\pi_k, \qquad V_{PO}(n_s)=\sum_U\pi_k(1-\pi_k)$$
+:::
+
+## Muestreo Poisson: $\pi$-estimador
+
+::: {.resultado}
+$$\widehat{t}_\pi=\sum_s \breve y_k=\sum_s y_k/\pi_k$$
+$$V_{PO}(\widehat t_\pi)=\sum_U\pi_k(1-\pi_k)\breve y_k^2=\sum_U\left(\frac1{\pi_k}-1\right)y_k^2$$
+$$\widehat V_{PO}(\widehat t_\pi)=\sum_s(1-\pi_k)\breve y_k^2$$
+:::
+
+## Muestreo Poisson: estimador alternativo
+
+::: {.observacion}
+$V_{PO}(\widehat t_\pi)$ puede ser indebidamente grande por la
+variabilidad del tamaño de muestra. Existe una alternativa ligeramente
+sesgada pero más estable (ecuación 3.5.9 de Särndal):
+$$\widehat t_{alt}=N\frac{\sum_s\breve y_k}{\widehat N}, \qquad \widehat N=\sum_s(1/\pi_k)$$
+:::
+
+## Poisson: ¿cuál es la mejor elección de $\pi_k$?
+
+Fijando el tamaño esperado $n=\sum_U\pi_k$, minimizar $V_{PO}(\widehat
+t_\pi)$ (usando la desigualdad de Cauchy-Schwarz) conduce a
+
+::: {.resultado}
+$$\pi_k=n\,y_k\Big/\sum_U y_k \qquad k=1,\ldots,N$$
+:::
+
+## Poisson: de la teoría a la práctica
+
+::: {.clave}
+Esta solución es **puramente académica**: requiere conocer de antemano
+todos los $y_k$. En la práctica se usa una variable auxiliar $x_k$
+(conocida y positiva) aproximadamente proporcional a $y_k$, y se toma
+$$\pi_k=n x_k/\sum_U x_k$$
+Esta es la idea seminal del muestreo **Proporcional al Tamaño**, que
+formalizaremos la próxima sesión (§3.6).
+:::
+
+{{< include _derechos.qmd >}}
