@@ -126,20 +126,21 @@ Antes de abordar los ejercicios computacionales de muestreo, se recomienda revis
 
 ## 📚 Material del curso
 
-| Tema                                           |Material de apoyo                              | Material de clase                                                                |
-| :--------------------------------------------- | :---------------------------------------------| :------------------------------------------------------------------------------- |
-| Programa y aspectos históricos                 | --                                            | [Introducción](https://jgbabativam.github.io/Muestreo2026/1Bienvenida.html)      |
-| Conceptos básicos                              | --                                            | [Conceptos básicos parte 1](https://jgbabativam.github.io/Muestreo2026/2.ConceptosParte1.html) <br> [Conceptos básicos parte 2](https://jgbabativam.github.io/Muestreo2026/2.ConceptosParte2.html)  |
-| Planes de muestreo simples de una etapa                | --                                            | [Muestreo con probabilidades simples](https://jgbabativam.github.io/Muestreo2026/3.MuestrasSimples.html) <br>   [Probabilidades de inclusión](https://jgbabativam.github.io/Muestreo2026/4.ProbInclu.html) <br>   [Estimador de Horvitz Thompson](https://jgbabativam.github.io/Muestreo2026/5.HorvitzThompson.html)  |
-| Planes de muestreo con probabilidades desiguales de una etapa y efecto de diseño                | --                                            | [Estimador de Hansen-Hurwitz](https://jgbabativam.github.io/Muestreo2026/6.MuestreoDesig.html)   |
-| Estimación por dominios                | --                                            | [Dominios](https://jgbabativam.github.io/Muestreo2026/7.EstimDominios.html)   |
-| **Primer examen parcial**                      | [Taller de repaso](https://jgbabativam.github.io/Muestreo2026/docs/1Taller.pdf)                                             | - |                                                                         | Muestreo Sistemático                           | --                                            | [Sistemático](https://jgbabativam.github.io/Muestreo2026/8.Sistematico.html)  |
-| Muestreo Poisson y PiPT                        | --                                            | [Poisson y PiPT](https://jgbabativam.github.io/Muestreo2026/8.Sistematico.html)  |
-| Muestreo estratificado                         | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana5.html)  |
-| Planes de muestreo de varias etapas            | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana6.html)  |
-| **Segundo examen parcial**                     | --                                            | —                                                                        |
-| Estimación de parámetros diferentes a totales  | --                                            | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana7.html) |
-| **Examen Final**                               | --                                            | —                                                                        |
+| Tema | Material de apoyo | Material de clase |
+| :--- | :--- | :--- |
+| Programa y aspectos históricos | -- | [Introducción](https://jgbabativam.github.io/Muestreo2026/1Bienvenida.html) |
+| Conceptos básicos | -- | [Conceptos básicos parte 1](https://jgbabativam.github.io/Muestreo2026/2.ConceptosParte1.html) <br> [Conceptos básicos parte 2](https://jgbabativam.github.io/Muestreo2026/2.ConceptosParte2.html) |
+| Planes de muestreo simples de una etapa | -- | [Muestreo con probabilidades simples](https://jgbabativam.github.io/Muestreo2026/3.MuestrasSimples.html) <br> [Probabilidades de inclusión](https://jgbabativam.github.io/Muestreo2026/4.ProbInclu.html) <br> [Estimador de Horvitz Thompson](https://jgbabativam.github.io/Muestreo2026/5.HorvitzThompson.html) |
+| Planes de muestreo con probabilidades desiguales de una etapa y efecto de diseño | -- | [Estimador de Hansen-Hurwitz](https://jgbabativam.github.io/Muestreo2026/6.MuestreoDesig.html) |
+| Estimación por dominios | -- | [Dominios](https://jgbabativam.github.io/Muestreo2026/7.EstimDominios.html) |
+| **Primer examen parcial** | [Taller de repaso](https://jgbabativam.github.io/Muestreo2026/docs/1Taller.pdf) | - |
+| Muestreo Sistemático | -- | [Sistemático](https://jgbabativam.github.io/Muestreo2026/8.Sistematico.html) |
+| Muestreo Poisson y PiPT | -- | [Poisson y PiPT](https://jgbabativam.github.io/Muestreo2026/8.Sistematico.html) |
+| Muestreo estratificado | -- | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana5.html) |
+| Planes de muestreo de varias etapas | -- | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana6.html) |
+| **Segundo examen parcial** | -- | — |
+| Estimación de parámetros diferentes a totales | -- | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana7.html) |
+| **Examen Final** | -- | — |
 
 > Los enlaces se actualizarán a medida que se publiquen las diapositivas correspondientes.
 
