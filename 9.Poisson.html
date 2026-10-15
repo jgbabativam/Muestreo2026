@@ -1025,7 +1025,7 @@ Giovany Babativa-Márquez, PhD
 </section>
 <section id="muestreo-poisson-propiedades" class="slide level2">
 <h2>Muestreo Poisson: propiedades</h2>
-<p>Como los <span class="math inline">\(\pi_k\)</span> pueden especificarse de muchas formas, <span class="math inline">\(PO\)</span> corresponde a toda una <strong>clase</strong> de diseños: es nuestro primer ejemplo de diseño de <strong>probabilidad desigual</strong> (Bernoulli es el caso <span class="math inline">\(\pi_k=\pi\)</span> para todo <span class="math inline">\(k\)</span>).</p>
+<p>Como los <span class="math inline">\(\pi_k\)</span> pueden especificarse de muchas formas, <span class="math inline">\(PO\)</span> corresponde a la <strong>clase</strong> de diseños con <strong>probabilidad desigual</strong> (Bernoulli es el caso <span class="math inline">\(\pi_k=\pi\)</span> para todo <span class="math inline">\(k\)</span>).</p>
 <div class="resultado">
 <p>El tamaño de muestra <span class="math inline">\(n_s\)</span> es <strong>aleatorio</strong>, con <span class="math display">\[E_{PO}(n_s)=\sum_U\pi_k, \qquad V_{PO}(n_s)=\sum_U\pi_k(1-\pi_k)\]</span></p>
 </div>
@@ -1049,11 +1049,12 @@ t_\pi)\)</span> (usando la desigualdad de Cauchy-Schwarz) conduce a</p>
 <div class="resultado">
 <p><span class="math display">\[\pi_k=n\,y_k\Big/\sum_U y_k \qquad k=1,\ldots,N\]</span></p>
 </div>
+<p><span class="rojo">Notas de clase.</span></p>
 </section>
 <section id="poisson-de-la-teoría-a-la-práctica" class="slide level2">
 <h2>Poisson: de la teoría a la práctica</h2>
 <div class="clave">
-<p>Esta solución es <strong>puramente académica</strong>: requiere conocer de antemano todos los <span class="math inline">\(y_k\)</span>. En la práctica se usa una variable auxiliar <span class="math inline">\(x_k\)</span> (conocida y positiva) aproximadamente proporcional a <span class="math inline">\(y_k\)</span>, y se toma <span class="math display">\[\pi_k=n x_k/\sum_U x_k\]</span> Esta es la idea seminal del muestreo <strong>Proporcional al Tamaño</strong>, que formalizaremos la próxima sesión (§3.6).</p>
+<p>Esta solución es <strong>puramente académica</strong>: requiere conocer de antemano todos los <span class="math inline">\(y_k\)</span>. En la práctica se usa una variable auxiliar <span class="math inline">\(x_k\)</span> (conocida y positiva) aproximadamente proporcional a <span class="math inline">\(y_k\)</span>, y se toma <span class="math display">\[\pi_k=n x_k/\sum_U x_k\]</span> Esta es la idea que conlleva al diseño del muestreo <strong>Proporcional al Tamaño</strong> sin reemplazo.</p>
 </div>
 </section>
 <section id="section" class="slide level2" data-background-color="#0d1b2a">

@@ -41,8 +41,7 @@ $$p(s)=\prod_{k\in s}\pi_k\prod_{k\in U-s}(1-\pi_k)$$
 ## Muestreo Poisson: propiedades
 
 Como los $\pi_k$ pueden especificarse de muchas formas, $PO$ corresponde
-a toda una **clase** de diseños: es nuestro primer ejemplo de diseño de
-**probabilidad desigual** (Bernoulli es el caso $\pi_k=\pi$ para todo $k$).
+a la **clase** de diseños con **probabilidad desigual** (Bernoulli es el caso $\pi_k=\pi$ para todo $k$).
 
 ::: {.resultado}
 El tamaño de muestra $n_s$ es **aleatorio**, con
@@ -75,6 +74,8 @@ t_\pi)$ (usando la desigualdad de Cauchy-Schwarz) conduce a
 $$\pi_k=n\,y_k\Big/\sum_U y_k \qquad k=1,\ldots,N$$
 :::
 
+[Notas de clase.]{.rojo}
+
 ## Poisson: de la teoría a la práctica
 
 ::: {.clave}
@@ -82,8 +83,7 @@ Esta solución es **puramente académica**: requiere conocer de antemano
 todos los $y_k$. En la práctica se usa una variable auxiliar $x_k$
 (conocida y positiva) aproximadamente proporcional a $y_k$, y se toma
 $$\pi_k=n x_k/\sum_U x_k$$
-Esta es la idea seminal del muestreo **Proporcional al Tamaño**, que
-formalizaremos la próxima sesión (§3.6).
+Esta es la idea que conlleva al diseño del muestreo **Proporcional al Tamaño** sin reemplazo.
 :::
 
 {{< include _derechos.qmd >}}
