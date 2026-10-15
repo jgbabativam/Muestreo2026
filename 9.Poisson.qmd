@@ -24,6 +24,7 @@ execute:
 - El $\pi$-estimador y su varianza bajo $PO$
 - Un estimador alternativo más estable
 - La mejor elección de $\pi_k$: la idea del muestreo Proporcional al Tamaño
+- Estimación con R: los paquetes `survey` y `srvyr` (dominios bajo M.A.S, MCR y Bernoulli)
 
 *Texto guía: Särndal, Swensson & Wretman (1992), Capítulo 3, sección 3.5.*
 
@@ -85,5 +86,258 @@ todos los $y_k$. En la práctica se usa una variable auxiliar $x_k$
 $$\pi_k=n x_k/\sum_U x_k$$
 Esta es la idea que conlleva al diseño del muestreo **Proporcional al Tamaño** sin reemplazo.
 :::
+
+# Estimación con R: `survey` y `srvyr` {background-color="#0077b6"}
+
+<style>
+.reveal .slide-logo { max-height: 11% !important; }
+.cuadro-r .gt_table { font-size: 0.62em !important; margin-top: 0 !important; }
+.cuadro-r .gt_table th, .cuadro-r .gt_table td { padding: 2px 6px !important; line-height: 1.15 !important; }
+.cuadro-r .gt_heading { padding-bottom: 2px !important; }
+</style>
+
+## Los paquetes `survey` y `srvyr`
+
+- **`survey`** (Lumley): el paquete de referencia en R para analizar
+  muestras complejas. Calcula $\pi$-estimadores, varianzas, $cve$,
+  intervalos, estimaciones por dominios, etc., **respetando el diseño muestral**.
+- **`srvyr`**: una "capa" sobre `survey` con la sintaxis del `tidyverse`
+  (`|>`, `group_by()`, `summarise()`). Internamente usa `survey`.
+
+::: {.observacion}
+`srvyr` no soporta los diseños `pps` de `survey` (como Poisson): para
+Bernoulli/Poisson usamos directamente `survey`.
+:::
+
+```{r}
+#| echo: true
+library(pacman)
+p_load(tidyverse, readxl, survey, srvyr)
+```
+
+## ¿Qué es un objeto de diseño?
+
+::: {.definicion}
+Un **objeto de diseño** es un objeto de R que guarda, en un solo lugar,
+**los datos de la muestra** y **la información del diseño** con el que
+se obtuvo: conglomerados (`ids`), estratos (`strata`), probabilidades de
+inclusión $\pi_k$ (`probs`) o factores de expansión $d_k=1/\pi_k$
+(`weights`) y la corrección por población finita (`fpc`).
+:::
+
+::: {.clave}
+Se define **una sola vez**; después todas las funciones de estimación
+(`svytotal()`, `svymean()`, `svyby()`, `survey_total()`, ...) lo usan
+para calcular el estimador **y su varianza según el diseño**. Si el
+objeto de diseño está mal definido, todas las varianzas quedan mal.
+:::
+
+## Objeto de diseño según el diseño muestral
+
+::: {style="font-size: 80%"}
+
+| Diseño | `survey::svydesign()` | `srvyr::as_survey_design()` |
+|:--|:--|:--|
+| M.A.S$(N,n)$ | `ids = ~1, fpc = ~N` | `ids = 1, fpc = N` |
+| MCR, $p_k=1/N$ | `ids = ~1, weights = ~fex` | `ids = 1, weights = fex` |
+| Bernoulli / Poisson | `ids = ~1, probs = ~pi_k,` <br> `pps = poisson_sampling(pi_k)` | No disponible |
+
+: {tbl-colwidths="[22,44,34]"}
+
+- `ids = ~1`: no hay conglomerados (se seleccionan elementos).
+- `fpc = ~N`: con $N$ conocido, `survey` deduce $\pi_k=n/N$ y aplica $(1-n/N)$.
+- Sin `fpc`, la varianza se calcula **como si fuera con reemplazo**: es
+  justo lo que necesitamos en MCR con `fex` $=1/(m\,p_k)=N/m$.
+:::
+
+## Retomando el ejercicio: gasto de los hogares
+
+Manzana con $N=35$ hogares, muestra de $n=10$ (ejercicio dominios).
+Los dominios los define `P1` (ingresos del hogar).
+
+```{r}
+#| echo: true
+N <- 35
+hogares <- read_excel("data/EjerDominios.xlsx") |>
+  mutate(Ingresos = factor(P1, levels = 1:3,
+                           labels = c("< 2 SMMLV", "2 a 4 SMMLV", "> 4 SMMLV")),
+         Total = P2 + P3 + P4 + P5 + P6 + P7) |>
+  rename(Vivienda = P2, Alimentacion = P3, Educacion = P4,
+         Transporte = P5, Esparcimiento = P6, Otros = P7)
+n <- nrow(hogares)
+
+rubros <- c("Vivienda", "Alimentacion", "Educacion", "Transporte",
+            "Esparcimiento", "Otros", "Total")
+```
+
+```{r}
+#| label: cuadro-gt
+# Funcion auxiliar (no se muestra): arma el cuadro de salida con gt
+p_load(gt)
+dominios <- levels(hogares$Ingresos)
+
+cuadro_gt <- function(tot_d, cv_d, tot_g, cv_g, subtitulo) {
+  df <- tibble(Gasto = c("Vivienda", "Alimentación", "Educación", "Transporte",
+                         "Esparcimiento", "Otros", "Total"))
+  for (j in seq_along(dominios)) {
+    df[[paste0("d", j, "_t")]] <- as.numeric(tot_d[j, ])
+    df[[paste0("d", j, "_c")]] <- 100 * as.numeric(cv_d[j, ])
+  }
+  df$g_t <- as.numeric(tot_g)
+  df$g_c <- 100 * as.numeric(cv_g)
+  etiquetas <- setNames(as.list(ifelse(grepl("_t$", names(df)[-1]), "Total", "cve (%)")),
+                        names(df)[-1])
+  tab <- gt(df, rowname_col = "Gasto") |>
+    tab_header(title = "Total de gasto de las familias en la población según ingresos familiares",
+               subtitle = subtitulo)
+  for (j in seq_along(dominios)) {
+    tab <- tab_spanner(tab, label = dominios[j],
+                       columns = c(paste0("d", j, "_t"), paste0("d", j, "_c")),
+                       id = paste0("sp", j))
+  }
+  tab |>
+    tab_spanner(label = "Total", columns = c(g_t, g_c), id = "spT") |>
+    cols_label(.list = etiquetas) |>
+    fmt_number(columns = ends_with("_t"), decimals = 1, sep_mark = ".", dec_mark = ",") |>
+    fmt_number(columns = ends_with("_c"), decimals = 1, sep_mark = ".", dec_mark = ",") |>
+    cols_align(align = "center", columns = -Gasto) |>
+    tab_style(style = cell_text(weight = "bold"),
+              locations = list(cells_body(rows = Gasto == "Total"),
+                               cells_stub(rows = Gasto == "Total"))) |>
+    tab_options(table.font.size = px(22), heading.title.font.size = px(24),
+                heading.subtitle.font.size = px(20), data_row.padding = px(3),
+                table.width = pct(100))
+}
+```
+
+## M.A.S: diseño y estimaciones (`srvyr`)
+
+```{r}
+#| echo: true
+dis_mas <- hogares |>
+  mutate(N = N) |>
+  as_survey_design(ids = 1, fpc = N)       # objeto de diseño M.A.S(35, 10)
+
+# Totales por dominio (y_dk = 0 fuera del dominio) y cve
+por_dominio <- dis_mas |>
+  group_by(Ingresos) |>
+  summarise(across(all_of(rubros), ~ survey_total(.x, vartype = "cv")))
+
+# Totales para toda la población
+general <- dis_mas |>
+  summarise(across(all_of(rubros), ~ survey_total(.x, vartype = "cv")))
+```
+
+::: {.observacion}
+`group_by()` trata cada dominio como **subpoblación**: la varianza usa
+las $n=10$ observaciones con $y_{dk}=0$ fuera del dominio (no es un estrato).
+:::
+
+## M.A.S: cuadro de salida
+
+::: {.cuadro-r}
+```{r}
+cuadro_gt(as.matrix(por_dominio[rubros]),
+          as.matrix(por_dominio[paste0(rubros, "_cv")]),
+          unlist(general[rubros]), unlist(general[paste0(rubros, "_cv")]),
+          "Estimación por dominios bajo M.A.S(35, 10)")
+```
+:::
+
+## MCR: diseño y estimaciones (`survey`)
+
+Si la muestra de $m=10$ hogares se hubiera obtenido **con reemplazo**
+con $p_k=1/N$, el factor de expansión es $1/(m\,p_k)=N/m=3{,}5$:
+
+```{r}
+#| echo: true
+hogares <- hogares |> mutate(fex_mcr = 1 / (n * (1 / N)))
+
+dis_mcr <- svydesign(ids = ~1, weights = ~fex_mcr, data = hogares)  # sin fpc
+
+formula_rubros <- reformulate(rubros)    # ~Vivienda + Alimentacion + ... + Total
+
+# Totales por dominio y cve
+res_mcr <- svyby(formula_rubros, ~Ingresos, design = dis_mcr,
+                 FUN = svytotal, vartype = "cv")
+
+# Totales para toda la población
+gen_mcr <- svytotal(formula_rubros, design = dis_mcr)
+```
+
+## MCR: cuadro de salida
+
+::: {.cuadro-r}
+```{r}
+cuadro_gt(res_mcr[rubros], res_mcr[paste0("cv.", rubros)],
+          coef(gen_mcr), cv(gen_mcr),
+          "Estimación por dominios bajo MCR (m = 10, p_k = 1/35)")
+```
+:::
+
+::: {.observacion}
+Los totales coinciden con M.A.S (mismo $d_k=3{,}5$), pero los $cve$ son
+mayores: el diseño con reemplazo no aprovecha la corrección $(1-n/N)$.
+:::
+
+## Bernoulli: diseño y estimaciones (`survey`)
+
+Bernoulli es el caso de Poisson con $\pi_k=\pi=1/3$ para todo $k$. Se declara con `poisson_sampling()`:
+
+```{r}
+#| echo: true
+hogares <- hogares |> mutate(pi_k = 1/3)
+
+dis_ber <- svydesign(ids = ~1, probs = ~pi_k,
+                     pps = poisson_sampling(hogares$pi_k), data = hogares)
+
+# Totales por dominio y cve
+res_ber <- svyby(formula_rubros, ~Ingresos, design = dis_ber,
+                 FUN = svytotal, vartype = "cv")
+
+# Totales para toda la población
+gen_ber <- svytotal(formula_rubros, design = dis_ber)
+```
+
+::: {.resultado}
+Con `poisson_sampling()`, `survey` usa
+$\widehat V_{PO}(\widehat t_\pi)=\sum_s(1-\pi_k)\breve y_k^2$, que con
+$\pi_k=1/3$ es $\sum_s 6\,y_k^2$.
+:::
+
+## Bernoulli: cuadro de salida
+
+::: {.cuadro-r}
+```{r}
+cuadro_gt(res_ber[rubros], res_ber[paste0("cv.", rubros)],
+          coef(gen_ber), cv(gen_ber),
+          paste0("Estimación por dominios bajo Bernoulli (", intToUtf8(960), " = 1/3)"))
+```
+:::
+
+## Comparación de las tres estrategias
+
+::: {.cuadro-r}
+```{r}
+comp <- tibble(
+  Estrategia = c("M.A.S(35, 10)", "MCR (m = 10)", paste0("Bernoulli (", intToUtf8(960), " = 1/3)")),
+  t_total = c(general$Total, coef(gen_mcr)["Total"], coef(gen_ber)["Total"]),
+  c1 = 100 * c(por_dominio$Total_cv[1], res_mcr$cv.Total[1], res_ber$cv.Total[1]),
+  c2 = 100 * c(por_dominio$Total_cv[2], res_mcr$cv.Total[2], res_ber$cv.Total[2]),
+  c3 = 100 * c(por_dominio$Total_cv[3], res_mcr$cv.Total[3], res_ber$cv.Total[3]),
+  cT = 100 * c(general$Total_cv, cv(gen_mcr)["Total"], cv(gen_ber)["Total"]))
+
+gt(comp, rowname_col = "Estrategia") |>
+  tab_header(title = "Gasto total de los hogares: estimación y cve (%) por estrategia") |>
+  tab_spanner(label = "cve (%)", columns = c(c1, c2, c3, cT)) |>
+  cols_label(t_total = "Total estimado", c1 = dominios[1], c2 = dominios[2],
+             c3 = dominios[3], cT = "Total") |>
+  fmt_number(columns = c(t_total, c1, c2, c3, cT), decimals = 1, sep_mark = ".", dec_mark = ",") |>
+  cols_align(align = "center", columns = -Estrategia) |>
+  tab_options(table.font.size = px(22), heading.title.font.size = px(24),
+              data_row.padding = px(4), table.width = pct(100))
+```
+:::
+
 
 {{< include _derechos.qmd >}}
