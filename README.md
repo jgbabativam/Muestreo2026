@@ -137,7 +137,7 @@ Antes de abordar los ejercicios computacionales de muestreo, se recomienda revis
 | Muestreo Sistemático | -- | [Sistemático](https://jgbabativam.github.io/Muestreo2026/8.Sistematico.html) |
 | Muestreo Poisson | -- | [Poisson](https://jgbabativam.github.io/Muestreo2026/9.Poisson.html) |
 | Muestreo piPT | -- | [Pi-PT](https://jgbabativam.github.io/Muestreo2026/10.PiPT.html) |
-| Muestreo estratificado | -- | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana5.html) |
+| Muestreo Estratificado | -- | [Estratificado](https://jgbabativam.github.io/Muestreo2026/11.Estratificado.html) |
 | Planes de muestreo de varias etapas | -- | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana6.html) |
 | **Segundo examen parcial** | -- | — |
 | Estimación de parámetros diferentes a totales | -- | [Ver diapositivas](https://jgbabativam.github.io/Muestreo2026/Semana7.html) |
