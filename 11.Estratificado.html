@@ -3231,6 +3231,694 @@ cve (%)
 <div class="observacion">
 <p>La política de equidad de género define un <strong>dominio</strong>, no un estrato: use <span class="math inline">\(y_{dk}=y_k\)</span> si la empresa tiene la política y <span class="math inline">\(y_{dk}=0\)</span> en otro caso.</p>
 </div>
+</section></section>
+<section>
+<section id="afijación-de-la-muestra" class="title-slide slide level1 center" data-background-color="#0077b6">
+<h1>Afijación de la muestra</h1>
+
+</section>
+<section id="afijación-de-la-muestra-en-los-estratos" class="slide level2" style="font-size: 90%;">
+<h2>Afijación de la muestra en los estratos</h2>
+<p>Definidos los estratos y el diseño dentro de cada uno, falta decidir <strong>cuánta muestra</strong> se selecciona en cada estrato. Si ya se calculó un tamaño de muestra <strong>global</strong> <span class="math inline">\(n\)</span> (para resultados del total de la población), este debe repartirse entre los estratos, <span class="math inline">\(n=\sum_{h=1}^H n_h\)</span>. Este reparto se llama <strong>afijación</strong> (o asignación) de la muestra.</p>
+<div class="observacion">
+<ol type="1">
+<li>La afijación depende del objetivo: precisión del total, comparación entre estratos, costos de recolección.</li>
+<li>Si el objetivo es <strong>comparar</strong> estratos o publicar resultados por estrato con una precisión dada, el tamaño de muestra se calcula de forma <strong>independiente</strong> en cada estrato (como en <span class="math inline">\(MAS\)</span>).</li>
+<li>En <span class="math inline">\(ESTMAS\)</span>, <span class="math inline">\(\pi_k=n_h/N_h\)</span> para <span class="math inline">\(k\in U_h\)</span>: la afijación determina los factores de expansión <span class="math inline">\(d_k=N_h/n_h\)</span>.</li>
+</ol>
+</div>
+</section>
+<section id="planteamiento-del-problema" class="slide level2" style="font-size: 85%;">
+<h2>Planteamiento del problema</h2>
+<p>Suponga que la varianza del <span class="math inline">\(\pi\)</span>-estimador tiene la forma <span class="math display">\[V_{EST}(\widehat t_\pi)=\sum_{h=1}^H\frac{A_h}{n_h}+B\]</span> donde <span class="math inline">\(A_h\)</span> y <span class="math inline">\(B\)</span> <strong>no</strong> dependen de los <span class="math inline">\(n_h\)</span>. Bajo <span class="math inline">\(ESTMAS\)</span>, <span class="math inline">\(A_h=N_h^2S^2_{yU_h}\)</span> y <span class="math inline">\(B=-\sum_{h=1}^H N_hS^2_{yU_h}\)</span>. Suponga además una función de costo lineal <span class="math display">\[C=c_0+\sum_{h=1}^H n_hc_h\]</span> con <span class="math inline">\(c_0\)</span> un costo fijo y <span class="math inline">\(c_h&gt;0\)</span> el costo de encuestar un elemento del estrato <span class="math inline">\(h\)</span>.</p>
+<div class="definicion">
+<p>La <strong>afijación óptima</strong> determina los <span class="math inline">\(n_h\)</span> que minimizan la varianza <span class="math inline">\(V\)</span> sujeto a un costo fijo <span class="math inline">\(C\)</span> o, equivalentemente, los que minimizan el costo <span class="math inline">\(C\)</span> sujeto a una varianza fija <span class="math inline">\(V\)</span>.</p>
+</div>
+</section>
+<section id="afijación-óptima" class="slide level2" style="font-size: 85%;">
+<h2>Afijación óptima</h2>
+<div class="resultado">
+<p>En ambas versiones del problema la solución es <span class="math display">\[n_h\propto\sqrt{A_h/c_h}\]</span></p>
+<ol type="1">
+<li><strong>Costo fijo <span class="math inline">\(C\)</span></strong>: <span class="math display">\[n_h=(C-c_0)\frac{\sqrt{A_h/c_h}}{\sum_{h=1}^H\sqrt{A_hc_h}}, \qquad
+V_{opt}=\frac{1}{C-c_0}\left[\sum_{h=1}^H\sqrt{A_hc_h}\right]^2+B\]</span></li>
+<li><strong>Varianza fija <span class="math inline">\(V\)</span></strong>: <span class="math display">\[n_h=\frac{\sqrt{A_h/c_h}}{V-B}\sum_{h=1}^H\sqrt{A_hc_h}, \qquad
+C_{opt}=c_0+\frac{1}{V-B}\left[\sum_{h=1}^H\sqrt{A_hc_h}\right]^2\]</span></li>
+</ol>
+</div>
+</section>
+<section id="afijación-óptima-demostración" class="slide level2" style="font-size: 80%;">
+<h2>Afijación óptima: demostración</h2>
+<p>Sean <span class="math inline">\(V^*=V-B=\sum_h A_h/n_h\)</span> y <span class="math inline">\(C^*=C-c_0=\sum_h n_hc_h\)</span>. Minimizar <span class="math inline">\(V\)</span> con <span class="math inline">\(C\)</span> fijo (o <span class="math inline">\(C\)</span> con <span class="math inline">\(V\)</span> fijo) equivale a minimizar el producto <span class="math inline">\(V^*C^*\)</span>.</p>
+<div class="fragment">
+<p>Por la desigualdad de Cauchy-Schwarz, <span class="math inline">\(\left(\sum a_h^2\right)\left(\sum b_h^2\right)\ge\left(\sum a_hb_h\right)^2\)</span>, con <span class="math inline">\(a_h=\sqrt{A_h/n_h}\)</span> y <span class="math inline">\(b_h=\sqrt{n_hc_h}\)</span>: <span class="math display">\[V^*C^*=\left(\sum_{h=1}^H\frac{A_h}{n_h}\right)\left(\sum_{h=1}^H n_hc_h\right)\ge\left[\sum_{h=1}^H\sqrt{A_hc_h}\right]^2\]</span> y el lado derecho <strong>no</strong> depende de los <span class="math inline">\(n_h\)</span>.</p>
+</div>
+<div class="fragment">
+<p>La igualdad se cumple si y solo si <span class="math inline">\(b_h/a_h\)</span> es constante: <span class="math display">\[\frac{b_h}{a_h}=n_h\sqrt{\frac{c_h}{A_h}}=\text{constante}
+\quad\Longleftrightarrow\quad n_h\propto\sqrt{A_h/c_h}\]</span></p>
+</div>
+</section>
+<section id="afijación-óptima-bajo-estmas" class="slide level2" style="font-size: 90%;">
+<h2>Afijación óptima bajo <span class="math inline">\(ESTMAS\)</span></h2>
+<p>Con <span class="math inline">\(A_h=N_h^2S^2_{yU_h}\)</span> y costo fijo <span class="math inline">\(C\)</span>:</p>
+<div class="resultado">
+<p><span class="math display">\[n_h=(C-c_0)\frac{N_hS_{yU_h}/\sqrt{c_h}}{\sum_{h=1}^H N_hS_{yU_h}\sqrt{c_h}}\]</span></p>
+</div>
+<div class="clave">
+<p>En un estrato se selecciona una muestra <strong>más grande</strong> si:</p>
+<ol type="1">
+<li>El estrato es grande (<span class="math inline">\(N_h\)</span> grande).</li>
+<li>El estrato es heterogéneo (<span class="math inline">\(S_{yU_h}\)</span> grande): se requiere más muestra para compensar la variabilidad interna.</li>
+<li>Encuestar en el estrato es barato (<span class="math inline">\(c_h\)</span> pequeño).</li>
+</ol>
+</div>
+</section>
+<section id="afijación-de-neyman" class="slide level2" style="font-size: 85%;">
+<h2>Afijación de Neyman</h2>
+<p>Si el costo por elemento es el mismo en todos los estratos (<span class="math inline">\(c_h=c\)</span>), fijar <span class="math inline">\(C\)</span> equivale a fijar <span class="math inline">\(n=\sum_h n_h\)</span>:</p>
+<div class="resultado">
+<p><span class="math display">\[n_h=n\frac{N_hS_{yU_h}}{\sum_{h=1}^H N_hS_{yU_h}}\]</span> y, con <span class="math inline">\(W_h=N_h/N\)</span>, la varianza mínima es <span class="math display">\[V_{ESTMAS,o}(\widehat t_\pi)=\frac{N^2}{n}\left(\sum_{h=1}^H W_hS_{yU_h}\right)^2-N\sum_{h=1}^H W_hS^2_{yU_h}\]</span></p>
+</div>
+<p>Es la afijación <strong>óptima</strong> para costos iguales (Neyman, 1934). Requiere conocer las <span class="math inline">\(S_{yU_h}\)</span>, lo que nunca ocurre en la práctica: se usan aproximaciones de una encuesta anterior, de una prueba piloto o de una variable del marco.</p>
+</section>
+<section id="afijación-x-óptima" class="slide level2" style="font-size: 90%;">
+<h2>Afijación <span class="math inline">\(x\)</span>-óptima</h2>
+<p>Si <span class="math inline">\(x\)</span> es una variable auxiliar <strong>altamente correlacionada</strong> con <span class="math inline">\(y\)</span> y las desviaciones estándar <span class="math inline">\(S_{xU_h}\)</span> se conocen (por ejemplo, desde el marco):</p>
+<div class="definicion">
+<p><span class="math display">\[n_h=n\frac{N_hS_{xU_h}}{\sum_{h=1}^H N_hS_{xU_h}}\]</span></p>
+</div>
+<div class="observacion">
+<ol type="1">
+<li>Si la correlación es perfecta (<span class="math inline">\(y_k=a+bx_k\)</span> para todo <span class="math inline">\(k\)</span>), la afijación <span class="math inline">\(x\)</span>-óptima <strong>es</strong> la de Neyman.</li>
+<li>Si la correlación es fuerte pero no perfecta, sigue siendo casi óptima; es muy usada en la práctica. Ejemplo: en encuestas a empresas se afija con los ingresos del año anterior.</li>
+</ol>
+</div>
+</section>
+<section id="afijación-proporcional" class="slide level2" style="font-size: 80%;">
+<h2>Afijación proporcional</h2>
+<div class="definicion">
+<p><span class="math display">\[n_h=n\frac{N_h}{N}=nW_h\]</span></p>
+</div>
+<p>Entonces <span class="math inline">\(\pi_k=n/N\)</span> para todo <span class="math inline">\(k\)</span>: el diseño es <strong>autoponderado</strong> (<span class="math inline">\(d_k=N/n\)</span>), <span class="math inline">\(\widehat t_\pi=\dfrac{N}{n}\sum_s y_k\)</span> y la muestra es una “versión en miniatura” de la población.</p>
+<div class="resultado">
+<p><span class="math display">\[V_{ESTMAS,p}(\widehat t_\pi)=N^2\left(\frac1n-\frac1N\right)\sum_{h=1}^H W_hS^2_{yU_h}\]</span> <span class="math display">\[V_{ESTMAS,p}-V_{ESTMAS,o}=\frac{N^2}{n}\sum_{h=1}^H W_h\left(S_{yU_h}-\bar S\right)^2\ge0,
+\qquad \bar S=\sum_{h=1}^H W_hS_{yU_h}\]</span></p>
+</div>
+<p>La proporcional es óptima solo si todas las <span class="math inline">\(S_{yU_h}\)</span> son iguales; si difieren mucho, la pérdida de precisión frente a Neyman es grande.</p>
+</section>
+<section id="afijación-proporcional-al-total" class="slide level2" style="font-size: 85%;">
+<h2>Afijación proporcional al total</h2>
+<div class="definicion">
+<p><span class="callout-label">Proporcional al total de <span class="math inline">\(y\)</span>.</span> Con <span class="math inline">\(y_k&gt;0\)</span>: <span class="math display">\[n_h=n\frac{t_{yh}}{t_y}\]</span> Coincide con la de Neyman si el coeficiente de variación <span class="math inline">\(cv_{yU_h}=S_{yU_h}/\bar y_{U_h}\)</span> es <strong>constante</strong> entre estratos, pues entonces <span class="math inline">\(N_hS_{yU_h}=cv\cdot t_{yh}\)</span>. Pero los <span class="math inline">\(t_{yh}\)</span> son desconocidos.</p>
+<p><span class="callout-label">Proporcional al total de <span class="math inline">\(x\)</span>.</span> Con <span class="math inline">\(x_k&gt;0\)</span> conocida en el marco: <span class="math display">\[n_h=n\frac{t_{xh}}{t_x}\]</span> Es casi óptima si <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> están muy correlacionadas y el <span class="math inline">\(cv\)</span> es parecido en todos los estratos. Es común en encuestas a empresas, donde la distribución es muy asimétrica.</p>
+</div>
+</section>
+<section id="afijación-igual-y-afijación-de-potencia" class="slide level2" style="font-size: 90%;">
+<h2>Afijación igual y afijación de potencia</h2>
+<div class="observacion">
+<ol type="1">
+<li>Para <strong>comparar</strong> estratos (por ejemplo, <span class="math inline">\(\bar y_{U_1}-\bar y_{U_2}\)</span>), la afijación óptima es <span class="math inline">\(n_h\propto S_{yU_h}/\sqrt{c_h}\)</span>; con <span class="math inline">\(S_{yU_h}\)</span> y <span class="math inline">\(c_h\)</span> iguales, es la <strong>afijación igual</strong> <span class="math inline">\(n_h=n/H\)</span>.</li>
+<li>Para el <strong>total</strong> de la población conviene <span class="math inline">\(n_h\propto N_hS_{yU_h}\)</span>. Los dos objetivos están en conflicto.</li>
+</ol>
+</div>
+<div class="definicion">
+<p><span class="callout-label">Afijación de potencia (Bankier, 1988).</span> Con <span class="math inline">\(0\le\alpha\le1\)</span>: <span class="math display">\[n_h=n\frac{t_{xh}^{\,\alpha}}{\sum_{h=1}^H t_{xh}^{\,\alpha}}\]</span></p>
+</div>
+<p><span class="math inline">\(\alpha=1\)</span>: proporcional al total de <span class="math inline">\(x\)</span>; <span class="math inline">\(\alpha=0\)</span>: afijación igual; <span class="math inline">\(\alpha=1/2\)</span> es un compromiso muy usado, con <span class="math inline">\(cve\)</span> parecidos en los estratos. Con <span class="math inline">\(N_h\)</span> en lugar de <span class="math inline">\(t_{xh}\)</span>, <span class="math inline">\(\alpha=1\)</span> da la proporcional.</p>
+</section>
+<section id="cuándo-conviene-estratificar" class="slide level2">
+<h2>¿Cuándo conviene estratificar?</h2>
+<div class="resultado">
+<p>Para un mismo <span class="math inline">\(n\)</span>, comparando <span class="math inline">\(MAS\)</span> con <span class="math inline">\(ESTMAS\)</span> con afijación proporcional: <span class="math display">\[\begin{aligned}
+&amp;V_{MAS}(N\bar y_s)-V_{ESTMAS,p}(\widehat t_\pi)=\\
+&amp;\qquad\frac{N^3}{N-1}\left(\frac1n-\frac1N\right)\left[\sum_{h=1}^H W_h(\bar y_{U_h}-\bar y_U)^2-\frac1N\sum_{h=1}^H(1-W_h)S^2_{yU_h}\right]
+\end{aligned}\]</span></p>
+</div>
+<p>Conviene estratificar si las medias <span class="math inline">\(\bar y_{U_h}\)</span> son muy <strong>diferentes</strong> entre estratos: entonces el primer término domina al segundo.</p>
+</section>
+<section id="variabilidad-entre-y-dentro-de-estratos" class="slide level2">
+<h2>Variabilidad entre y dentro de estratos</h2>
+<p>El resultado anterior se obtiene de la descomposición de la variabilidad total: <span class="math display">\[\underbrace{(N-1)S^2_{yU}}_{SCT}=\underbrace{\sum_{h=1}^H N_h(\bar y_{U_h}-\bar y_U)^2}_{SCE}+\underbrace{\sum_{h=1}^H(N_h-1)S^2_{yU_h}}_{SCD}\]</span></p>
+<div class="clave">
+<p>Si <span class="math inline">\(SCE\)</span> (diferencias <strong>entre</strong> las medias de los estratos) es una parte importante de <span class="math inline">\(SCT\)</span>, <span class="math inline">\(ESTMAS\)</span> con afijación proporcional es mucho más eficiente que <span class="math inline">\(MAS\)</span>. Solo si todas las <span class="math inline">\(\bar y_{U_h}\)</span> son casi iguales podría ser ligeramente peor.</p>
+</div>
+</section>
+<section id="consideraciones-prácticas" class="slide level2" style="font-size: 80%;">
+<h2>Consideraciones prácticas</h2>
+<div class="observacion">
+<ol type="1">
+<li><strong>Sobreasignación.</strong> Si alguna afijación da <span class="math inline">\(n_h\ge N_h\)</span>, en ese estrato se hace censo (<span class="math inline">\(n_h=N_h\)</span>, <strong>inclusión forzosa</strong>) y el resto <span class="math inline">\(n-\sum_{\text{censo}}N_h\)</span> se reparte entre los demás estratos con la misma regla; se repite hasta que ningún <span class="math inline">\(n_h\)</span> supere a <span class="math inline">\(N_h\)</span>.</li>
+<li><strong>Mínimo por estrato.</strong> Se necesita <span class="math inline">\(n_h\ge2\)</span> para estimar <span class="math inline">\(S^2_{ys_h}\)</span>; en grandes encuestas se usan mínimos de 3 a 5 por la no respuesta.</li>
+<li><strong>Redondeo.</strong> Al redondear, <span class="math inline">\(\sum_h n_h\)</span> puede diferir de <span class="math inline">\(n\)</span>: se ajusta en los estratos con mayor parte decimal.</li>
+<li><strong>No respuesta.</strong> Si se espera una tasa <span class="math inline">\(r_h\)</span>, se selecciona <span class="math inline">\(n_h/(1-r_h)\)</span>.</li>
+<li><strong>Varias variables de interés.</strong> La afijación óptima para una variable puede ser mala para otra: se buscan compromisos (potencia, mínimos por estrato más reparto proporcional u óptimo del resto).</li>
+<li><strong><span class="math inline">\(S_{yU_h}\)</span> desconocidas.</strong> Se aproximan con una encuesta anterior, una prueba piloto o una variable del marco (<span class="math inline">\(x\)</span>-óptima).</li>
+</ol>
+<p>Las reglas de afijación son <strong>guías</strong>, no recetas.</p>
+</div>
+</section>
+<section id="tamaño-de-muestra-para-un-cve-objetivo" class="slide level2" style="font-size: 85%;">
+<h2>Tamaño de muestra para un <span class="math inline">\(cve\)</span> objetivo</h2>
+<p>Una vez elegida la afijación, sea <span class="math inline">\(a_h=n_h/n\)</span> (por ejemplo, <span class="math inline">\(a_h=W_h\)</span> en la proporcional o <span class="math inline">\(a_h=N_hS_{yU_h}/\sum_h N_hS_{yU_h}\)</span> en la de Neyman). Igualando <span class="math inline">\(V_{ESTMAS}(\widehat t_\pi)=cve_0^2\,t_y^2\)</span>: <span class="math display">\[\sum_{h=1}^H\frac{N_h^2S^2_{yU_h}}{n\,a_h}-\sum_{h=1}^H N_hS^2_{yU_h}=cve_0^2\,t_y^2\]</span></p>
+<div class="fragment">
+<div class="resultado">
+<p><span class="math display">\[n=\frac{\sum_{h=1}^H N_h^2S^2_{yU_h}/a_h}{cve_0^2\,t_y^2+\sum_{h=1}^H N_hS^2_{yU_h}}, \qquad n_h=n\,a_h\]</span></p>
+</div>
+<p>Con <span class="math inline">\(H=1\)</span> se recupera la fórmula de <span class="math inline">\(MAS\)</span>. Para un error relativo <span class="math inline">\(e\)</span> con confianza <span class="math inline">\(1-\alpha\)</span>, use <span class="math inline">\(cve_0=e/z_{1-\alpha/2}\)</span>. Los estratos de inclusión forzosa no aportan varianza: se aplica la fórmula a los demás y se suma <span class="math inline">\(\sum_{\text{censo}}N_h\)</span>.</p>
+</div>
+</section>
+<section id="ejemplo-afijación-en-el-marco-de-empresas" class="slide level2" style="font-size: 85%;">
+<h2>Ejemplo: afijación en el marco de empresas</h2>
+<style>
+.tabla-afij table { font-size: 0.7em !important; }
+.tabla-afij table td, .tabla-afij table th { padding: 1px 10px !important; }
+</style>
+<div class="ejemplo">
+<p>¿Cómo repartir <span class="math inline">\(n=340\)</span> entre los 5 estratos del marco de <span class="math inline">\(N=10.000\)</span> empresas? Se usa <span class="math inline">\(x\)</span> = <code>ingresos_2025</code> (conocida en el marco) como variable de afijación.</p>
+</div>
+<div class="tabla-afij">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a><span class="fu">library</span>(pacman)</span>
+<span id="cb5-2"><a href></a><span class="fu">p_load</span>(tidyverse, readxl)</span>
+<span id="cb5-3"><a href></a></span>
+<span id="cb5-4"><a href></a>marco <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/MarcoEmpresas2026.xlsx&quot;</span>)</span>
+<span id="cb5-5"><a href></a></span>
+<span id="cb5-6"><a href></a>est <span class="ot">&lt;-</span> marco <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href></a>  <span class="fu">group_by</span>(estrato) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href></a>  <span class="fu">summarise</span>(<span class="at">Nh =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-9"><a href></a>            <span class="at">tx =</span> <span class="fu">sum</span>(ingresos_2025), <span class="at">Sx =</span> <span class="fu">sd</span>(ingresos_2025),   <span class="co"># x: ingresos 2025</span></span>
+<span id="cb5-10"><a href></a>            <span class="at">tz =</span> <span class="fu">sum</span>(personal_2025), <span class="at">Sz =</span> <span class="fu">sd</span>(personal_2025))   <span class="co"># z: personal 2025</span></span>
+<span id="cb5-11"><a href></a></span>
+<span id="cb5-12"><a href></a>est <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">cvx =</span> Sx <span class="sc">/</span> (tx <span class="sc">/</span> Nh)) <span class="sc">|&gt;</span> <span class="fu">select</span>(estrato, Nh, tx, Sx, cvx) <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">&quot;.&quot;</span>, <span class="at">decimal.mark =</span> <span class="st">&quot;,&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">estrato</th>
+<th style="text-align: right;">Nh</th>
+<th style="text-align: right;">tx</th>
+<th style="text-align: right;">Sx</th>
+<th style="text-align: right;">cvx</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1. Supergrande</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">58.594.409</td>
+<td style="text-align: right;">1.811.667,41</td>
+<td style="text-align: right;">0,62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2. Grande</td>
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">83.632.874</td>
+<td style="text-align: right;">108.145,87</td>
+<td style="text-align: right;">0,49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3. Mediana</td>
+<td style="text-align: right;">1.100</td>
+<td style="text-align: right;">42.742.656</td>
+<td style="text-align: right;">18.454,39</td>
+<td style="text-align: right;">0,47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4. Pequeña</td>
+<td style="text-align: right;">3.000</td>
+<td style="text-align: right;">17.278.478</td>
+<td style="text-align: right;">3.699,01</td>
+<td style="text-align: right;">0,64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5. Micro</td>
+<td style="text-align: right;">5.500</td>
+<td style="text-align: right;">2.353.958</td>
+<td style="text-align: right;">386,26</td>
+<td style="text-align: right;">0,90</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-función-de-afijación-en-r" class="slide level2">
+<h2>Ejemplo: función de afijación en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href></a><span class="co"># Reparte n proporcional a &#39;peso&#39;; si n_h &gt;= N_h, censo en h y se reparte el resto</span></span>
+<span id="cb6-2"><a href></a>afijar <span class="ot">&lt;-</span> <span class="cf">function</span>(Nh, peso, n) {</span>
+<span id="cb6-3"><a href></a>  nh <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(Nh))</span>
+<span id="cb6-4"><a href></a>  censo <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="fu">length</span>(Nh))</span>
+<span id="cb6-5"><a href></a>  <span class="cf">repeat</span> {</span>
+<span id="cb6-6"><a href></a>    resto <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="fu">sum</span>(Nh[censo])</span>
+<span id="cb6-7"><a href></a>    nh[<span class="sc">!</span>censo] <span class="ot">&lt;-</span> resto <span class="sc">*</span> peso[<span class="sc">!</span>censo] <span class="sc">/</span> <span class="fu">sum</span>(peso[<span class="sc">!</span>censo])</span>
+<span id="cb6-8"><a href></a>    nuevo <span class="ot">&lt;-</span> <span class="sc">!</span>censo <span class="sc">&amp;</span> nh <span class="sc">&gt;=</span> Nh</span>
+<span id="cb6-9"><a href></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(nuevo)) <span class="cf">break</span></span>
+<span id="cb6-10"><a href></a>    censo <span class="ot">&lt;-</span> censo <span class="sc">|</span> nuevo</span>
+<span id="cb6-11"><a href></a>  }</span>
+<span id="cb6-12"><a href></a>  nh[censo] <span class="ot">&lt;-</span> Nh[censo]</span>
+<span id="cb6-13"><a href></a>  nh</span>
+<span id="cb6-14"><a href></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="observacion">
+<p>El argumento <code>peso</code> define la afijación: <code>Nh</code> (proporcional), <code>tx</code> (total de <span class="math inline">\(x\)</span>), <code>sqrt(tx)</code> (potencia <span class="math inline">\(\alpha=1/2\)</span>), <code>Nh * Sx</code> (<span class="math inline">\(x\)</span>-óptima), <code>Nh * Sy / sqrt(ch)</code> (óptima con costos, con <span class="math inline">\(n\)</span> obtenido del presupuesto).</p>
+</div>
+</section>
+<section id="ejemplo-afijaciones-de-n340" class="slide level2" style="font-size: 85%;">
+<h2>Ejemplo: afijaciones de <span class="math inline">\(n=340\)</span></h2>
+<div class="tabla-afij">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a>n <span class="ot">&lt;-</span> <span class="dv">340</span></span>
+<span id="cb7-2"><a href></a>afij <span class="ot">&lt;-</span> est <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href></a>  <span class="fu">transmute</span>(estrato, Nh,</span>
+<span id="cb7-4"><a href></a>            <span class="at">Prop  =</span> <span class="fu">afijar</span>(Nh, Nh, n),          <span class="co"># proporcional</span></span>
+<span id="cb7-5"><a href></a>            <span class="at">TotX  =</span> <span class="fu">afijar</span>(Nh, tx, n),          <span class="co"># proporcional al total de x</span></span>
+<span id="cb7-6"><a href></a>            <span class="at">Pot   =</span> <span class="fu">afijar</span>(Nh, <span class="fu">sqrt</span>(tx), n),    <span class="co"># potencia, alfa = 1/2</span></span>
+<span id="cb7-7"><a href></a>            <span class="at">Xopt  =</span> <span class="fu">afijar</span>(Nh, Nh <span class="sc">*</span> Sx, n),     <span class="co"># x-optima</span></span>
+<span id="cb7-8"><a href></a>            <span class="at">Usada =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">60</span>, <span class="dv">80</span>, <span class="dv">80</span>, <span class="dv">100</span>))     <span class="co"># la del ejemplo ESTMAS</span></span>
+<span id="cb7-9"><a href></a>afij <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">&quot;.&quot;</span>, <span class="at">decimal.mark =</span> <span class="st">&quot;,&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">estrato</th>
+<th style="text-align: right;">Nh</th>
+<th style="text-align: right;">Prop</th>
+<th style="text-align: right;">TotX</th>
+<th style="text-align: right;">Pot</th>
+<th style="text-align: right;">Xopt</th>
+<th style="text-align: right;">Usada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1. Supergrande</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0,68</td>
+<td style="text-align: right;">20,00</td>
+<td style="text-align: right;">20,00</td>
+<td style="text-align: right;">20,00</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2. Grande</td>
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">12,92</td>
+<td style="text-align: right;">183,29</td>
+<td style="text-align: right;">136,92</td>
+<td style="text-align: right;">176,24</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3. Mediana</td>
+<td style="text-align: right;">1.100</td>
+<td style="text-align: right;">37,40</td>
+<td style="text-align: right;">93,68</td>
+<td style="text-align: right;">97,88</td>
+<td style="text-align: right;">87,06</td>
+<td style="text-align: right;">80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4. Pequeña</td>
+<td style="text-align: right;">3.000</td>
+<td style="text-align: right;">102,00</td>
+<td style="text-align: right;">37,87</td>
+<td style="text-align: right;">62,23</td>
+<td style="text-align: right;">47,59</td>
+<td style="text-align: right;">80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5. Micro</td>
+<td style="text-align: right;">5.500</td>
+<td style="text-align: right;">187,00</td>
+<td style="text-align: right;">5,16</td>
+<td style="text-align: right;">22,97</td>
+<td style="text-align: right;">9,11</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="observacion">
+<p>La proporcional da <span class="math inline">\(0{,}68\)</span> supergrandes. En las demás afijaciones las supergrandes resultan <strong>sobreasignadas</strong> (<span class="math inline">\(n_1\ge N_1=20\)</span>): quedan de inclusión forzosa y los 320 restantes se reparten entre los estratos 2 a 5.</p>
+</div>
+</section>
+<section id="ejemplo-qué-tan-buena-es-cada-afijación" class="slide level2" style="font-size: 85%;">
+<h2>Ejemplo: ¿qué tan buena es cada afijación?</h2>
+<div class="tabla-afij">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a>cve <span class="ot">&lt;-</span> <span class="cf">function</span>(nh, S, t) <span class="dv">100</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(est<span class="sc">$</span>Nh<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> nh <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> nh <span class="sc">/</span> est<span class="sc">$</span>Nh) <span class="sc">*</span> S<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">sum</span>(t)</span>
+<span id="cb8-2"><a href></a>redondeo <span class="ot">&lt;-</span> afij <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(Prop<span class="sc">:</span>Usada, \(v) <span class="fu">pmax</span>(<span class="fu">round</span>(v), <span class="dv">2</span>)))   <span class="co"># minimo 2</span></span>
+<span id="cb8-3"><a href></a></span>
+<span id="cb8-4"><a href></a>tab <span class="ot">&lt;-</span> <span class="fu">sapply</span>(redondeo[, <span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)], \(nh) <span class="fu">c</span>(<span class="at">n =</span> <span class="fu">sum</span>(nh),</span>
+<span id="cb8-5"><a href></a>                                         <span class="at">cve_x =</span> <span class="fu">cve</span>(nh, est<span class="sc">$</span>Sx, est<span class="sc">$</span>tx),</span>
+<span id="cb8-6"><a href></a>                                         <span class="at">cve_z =</span> <span class="fu">cve</span>(nh, est<span class="sc">$</span>Sz, est<span class="sc">$</span>tz)))</span>
+<span id="cb8-7"><a href></a>N <span class="ot">&lt;-</span> <span class="fu">sum</span>(est<span class="sc">$</span>Nh)</span>
+<span id="cb8-8"><a href></a>mas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">n =</span> n, <span class="at">cve_x =</span> <span class="dv">100</span> <span class="sc">*</span> <span class="fu">sqrt</span>(N<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> n <span class="sc">/</span> N) <span class="sc">*</span> <span class="fu">var</span>(marco<span class="sc">$</span>ingresos_2025)) <span class="sc">/</span> N <span class="sc">/</span></span>
+<span id="cb8-9"><a href></a>           <span class="fu">mean</span>(marco<span class="sc">$</span>ingresos_2025),</span>
+<span id="cb8-10"><a href></a>         <span class="at">cve_z =</span> <span class="dv">100</span> <span class="sc">*</span> <span class="fu">sqrt</span>(N<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> n <span class="sc">/</span> N) <span class="sc">*</span> <span class="fu">var</span>(marco<span class="sc">$</span>personal_2025)) <span class="sc">/</span> N <span class="sc">/</span></span>
+<span id="cb8-11"><a href></a>           <span class="fu">mean</span>(marco<span class="sc">$</span>personal_2025))</span>
+<span id="cb8-12"><a href></a><span class="fu">cbind</span>(tab, <span class="at">MAS =</span> mas) <span class="sc">|&gt;</span> <span class="fu">t</span>() <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">decimal.mark =</span> <span class="st">&quot;,&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">cve_x</th>
+<th style="text-align: right;">cve_z</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Prop</td>
+<td style="text-align: right;">341</td>
+<td style="text-align: right;">13,19</td>
+<td style="text-align: right;">8,39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TotX</td>
+<td style="text-align: right;">340</td>
+<td style="text-align: right;">1,76</td>
+<td style="text-align: right;">4,77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pot</td>
+<td style="text-align: right;">340</td>
+<td style="text-align: right;">1,82</td>
+<td style="text-align: right;">3,24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Xopt</td>
+<td style="text-align: right;">340</td>
+<td style="text-align: right;">1,73</td>
+<td style="text-align: right;">3,99</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Usada</td>
+<td style="text-align: right;">340</td>
+<td style="text-align: right;">2,68</td>
+<td style="text-align: right;">3,29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MAS</td>
+<td style="text-align: right;">340</td>
+<td style="text-align: right;">41,59</td>
+<td style="text-align: right;">20,54</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-conclusiones" class="slide level2">
+<h2>Ejemplo: conclusiones</h2>
+<div class="clave">
+<ol type="1">
+<li>Con <span class="math inline">\(MAS\)</span> el <span class="math inline">\(cve\)</span> de los ingresos sería de 41,6 %: la estratificación por tamaño explica el 73,6 % de la variabilidad (<span class="math inline">\(SCE/SCT\)</span>).</li>
+<li>La <strong>proporcional</strong> es muy mala en poblaciones asimétricas: deja casi sin muestra a las supergrandes, que concentran el 29 % de los ingresos (<span class="math inline">\(cve\)</span> de 13,2 %).</li>
+<li>La <strong><span class="math inline">\(x\)</span>-óptima</strong> minimiza el <span class="math inline">\(cve\)</span> de <span class="math inline">\(\widehat t_x\)</span> (1,73 %), pero no es la mejor para otra variable (<span class="math inline">\(z\)</span> = personal): las afijaciones <strong>óptimas para una variable</strong> no lo son para todas.</li>
+<li>La de <strong>potencia</strong> (<span class="math inline">\(\alpha=1/2\)</span>) es un buen compromiso para ambas variables; la afijación usada en el ejemplo <span class="math inline">\(ESTMAS\)</span> (20/60/80/80/100) sacrifica precisión en <span class="math inline">\(x\)</span> a cambio de más muestra en las pequeñas y micro (para estimaciones por estrato).</li>
+</ol>
+</div>
+</section>
+<section id="tu-turno-afijación-en-la-auditoría-de-colegios" class="slide level2" style="font-size: 80%;">
+<h2>Tu turno: afijación en la auditoría de colegios</h2>
+<div class="tarea">
+<p>Con los resultados del ejercicio de los colegios (<span class="math inline">\(ESTMAS\)</span> por NSE, <span class="math inline">\(n=211\)</span>), se planea la <strong>siguiente auditoría</strong> con el mismo <span class="math inline">\(n=211\)</span>. Use las <span class="math inline">\(s^2_{yh}\)</span> obtenidas como aproximación de las <span class="math inline">\(S^2_{yU_h}\)</span> y <span class="math inline">\(\widehat t_y=54.496{,}6\)</span> millones como aproximación de <span class="math inline">\(t_y\)</span>.</p>
+<ol type="a">
+<li>Calcule la afijación <strong>proporcional</strong> y la de <strong>Neyman</strong> (cuidado con la sobreasignación) y redondee de modo que <span class="math inline">\(\sum_h n_h=211\)</span>.</li>
+<li>Para la afijación usada, la proporcional y la de Neyman, calcule el <span class="math inline">\(cve\)</span> anticipado de <span class="math inline">\(\widehat t_y\)</span> con <span class="math inline">\(V_{ESTMAS}=\sum_h\dfrac{N_h^2}{n_h}\left(1-\dfrac{n_h}{N_h}\right)s^2_{yh}\)</span>.</li>
+<li>¿Por qué la proporcional resulta tan ineficiente en este caso?</li>
+</ol>
+</div>
+<div style="font-size: 85%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">NSE</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(N_h\)</span></td>
+<td style="text-align: center;">400</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(n_h\)</span> usada</td>
+<td style="text-align: center;">98</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">37</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">39</td>
+<td style="text-align: center;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(s^2_{yh}\)</span></td>
+<td style="text-align: center;">5575</td>
+<td style="text-align: center;">4064</td>
+<td style="text-align: center;">347556</td>
+<td style="text-align: center;">22798</td>
+<td style="text-align: center;">123578</td>
+<td style="text-align: center;">9795</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tu-turno-solución-colegios" class="slide level2" style="font-size: 80%;">
+<h2>Tu turno: solución (colegios)</h2>
+<div style="font-size: 85%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">NSE</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">Total</th>
+<th style="text-align: center;"><span class="math inline">\(cve\)</span> (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(N_hs_{yh}\)</span></td>
+<td style="text-align: center;">29.866</td>
+<td style="text-align: center;">1.912</td>
+<td style="text-align: center;">35.962</td>
+<td style="text-align: center;">2.718</td>
+<td style="text-align: center;">24.608</td>
+<td style="text-align: center;">11.876</td>
+<td style="text-align: center;">106.943</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Usada</td>
+<td style="text-align: center;">98</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">37</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">39</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">211</td>
+<td style="text-align: center;">10,72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Proporcional</td>
+<td style="text-align: center;">121</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">211</td>
+<td style="text-align: center;">16,39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Neyman</td>
+<td style="text-align: center;">63</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"><strong>61</strong></td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">52</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">211</td>
+<td style="text-align: center;">8,41</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="observacion">
+<ol type="1">
+<li>Proporcional: <span class="math inline">\(211\cdot N_h/699=120{,}74;\ 9{,}06;\ 18{,}41;\ 5{,}43;\ 21{,}13;\ 36{,}22\)</span>; al redondear suman 210, y se suma 1 al NSE 4 (mayor parte decimal sin redondear hacia arriba).</li>
+<li>Neyman: <span class="math inline">\(211\cdot35.962/106.943=70{,}95&gt;61\)</span>: el NSE 3 es de <strong>inclusión forzosa</strong> y los <span class="math inline">\(150\)</span> restantes se reparten entre los otros NSE: <span class="math inline">\(63{,}12;\ 4{,}04;\ 5{,}74;\ 52{,}00;\ 25{,}10\)</span>.</li>
+<li>La proporcional asigna poca muestra a los NSE 3 y 5, que tienen las varianzas más grandes (<span class="math inline">\(s_{yh}\)</span> de 590 y 352 frente a 75 en el NSE 1).</li>
+</ol>
+</div>
+</section>
+<section id="tu-turno-planear-la-encuesta-de-microempresas" class="slide level2" style="font-size: 85%;">
+<h2>Tu turno: planear la encuesta de microempresas</h2>
+<div class="tarea">
+<p>Para el próximo año se repetirá la encuesta de ventas de las <span class="math inline">\(N=2.600\)</span> microempresas. Use la muestra de <code>data/EjercicioESTMAS.xlsx</code> como <strong>prueba piloto</strong>: <span class="math inline">\(s_{ys_h}\)</span> aproxima <span class="math inline">\(S_{yU_h}\)</span> y <span class="math inline">\(\widehat t_y\)</span> aproxima <span class="math inline">\(t_y\)</span>.</p>
+<ol type="a">
+<li>Con <span class="math inline">\(n=200\)</span>, calcule las afijaciones <strong>proporcional</strong> y de <strong>Neyman</strong>, y compare su <span class="math inline">\(cve\)</span> anticipado con el de la afijación actual (60/50/50/40).</li>
+<li>Encuestar cuesta <span class="math inline">\(c_h=\)</span> 25, 25, 36 y 49 mil pesos por empresa (estratos 1 a 4). Con el <strong>mismo presupuesto</strong> de la afijación actual (<span class="math inline">\(C-c_0=\sum_h n_hc_h\)</span>), halle la afijación <strong>óptima</strong>: ¿qué <span class="math inline">\(n\)</span> y qué <span class="math inline">\(cve\)</span> se obtienen?</li>
+<li>¿Qué <span class="math inline">\(n\)</span> se requiere para un <span class="math inline">\(cve\)</span> de 3 % con afijación de Neyman? ¿Y con la proporcional?</li>
+</ol>
+</div>
+<p>Resuelva en <strong>Excel</strong> y compruebe con la función <code>afijar()</code> en R.</p>
+</section>
+<section id="tu-turno-solución-microempresas" class="slide level2" style="font-size: 85%;">
+<h2>Tu turno: solución (microempresas)</h2>
+<div class="tabla-afij">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a>emp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/EjercicioESTMAS.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Muestra&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href></a>  <span class="fu">group_by</span>(estrato) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">ybar =</span> <span class="fu">mean</span>(ventas), <span class="at">s =</span> <span class="fu">sd</span>(ventas)) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href></a>  <span class="fu">left_join</span>(<span class="fu">read_excel</span>(<span class="st">&quot;data/EjercicioESTMAS.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Estratos&quot;</span>), <span class="at">by =</span> <span class="st">&quot;estrato&quot;</span>)</span>
+<span id="cb9-4"><a href></a>ty <span class="ot">&lt;-</span> <span class="fu">sum</span>(emp<span class="sc">$</span>Nh <span class="sc">*</span> emp<span class="sc">$</span>ybar)                       <span class="co"># t_y estimado (piloto)</span></span>
+<span id="cb9-5"><a href></a>ch <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">36</span>, <span class="dv">49</span>)                            <span class="co"># costo por encuesta (miles)</span></span>
+<span id="cb9-6"><a href></a>C  <span class="ot">&lt;-</span> <span class="fu">sum</span>(emp<span class="sc">$</span>nh <span class="sc">*</span> ch)                             <span class="co"># presupuesto actual</span></span>
+<span id="cb9-7"><a href></a>cve_y <span class="ot">&lt;-</span> <span class="cf">function</span>(nh) <span class="dv">100</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(emp<span class="sc">$</span>Nh<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> nh <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> nh <span class="sc">/</span> emp<span class="sc">$</span>Nh) <span class="sc">*</span> emp<span class="sc">$</span>s<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> ty</span>
+<span id="cb9-8"><a href></a></span>
+<span id="cb9-9"><a href></a>afm <span class="ot">&lt;-</span> emp <span class="sc">|&gt;</span> <span class="fu">transmute</span>(estrato, Nh, <span class="at">Actual =</span> nh,</span>
+<span id="cb9-10"><a href></a>                        <span class="at">Prop   =</span> <span class="fu">round</span>(<span class="fu">afijar</span>(Nh, Nh, <span class="dv">200</span>)),</span>
+<span id="cb9-11"><a href></a>                        <span class="at">Neyman =</span> <span class="fu">round</span>(<span class="fu">afijar</span>(Nh, Nh <span class="sc">*</span> s, <span class="dv">200</span>)),</span>
+<span id="cb9-12"><a href></a>                        <span class="at">Optima =</span> <span class="fu">round</span>(C <span class="sc">*</span> (Nh <span class="sc">*</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(ch)) <span class="sc">/</span> <span class="fu">sum</span>(Nh <span class="sc">*</span> s <span class="sc">*</span> <span class="fu">sqrt</span>(ch))))</span>
+<span id="cb9-13"><a href></a>resumen <span class="ot">&lt;-</span> <span class="fu">sapply</span>(afm[, <span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)], \(nh) <span class="fu">c</span>(<span class="at">n =</span> <span class="fu">sum</span>(nh), <span class="at">costo =</span> <span class="fu">sum</span>(nh <span class="sc">*</span> ch), <span class="at">cve =</span> <span class="fu">cve_y</span>(nh)))</span>
+<span id="cb9-14"><a href></a>afm <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(); resumen <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">decimal.mark =</span> <span class="st">&quot;,&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">estrato</th>
+<th style="text-align: right;">Nh</th>
+<th style="text-align: right;">Actual</th>
+<th style="text-align: right;">Prop</th>
+<th style="text-align: right;">Neyman</th>
+<th style="text-align: right;">Optima</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1 empleado</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">46</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2 a 3 empleados</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4 a 5 empleados</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6 a 9 empleados</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">39</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Actual</th>
+<th style="text-align: right;">Prop</th>
+<th style="text-align: right;">Neyman</th>
+<th style="text-align: right;">Optima</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">n</td>
+<td style="text-align: right;">200,00</td>
+<td style="text-align: right;">200,00</td>
+<td style="text-align: right;">200,00</td>
+<td style="text-align: right;">199,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">costo</td>
+<td style="text-align: right;">6510,00</td>
+<td style="text-align: right;">5701,00</td>
+<td style="text-align: right;">6781,00</td>
+<td style="text-align: right;">6483,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cve</td>
+<td style="text-align: right;">2,91</td>
+<td style="text-align: right;">3,71</td>
+<td style="text-align: right;">2,83</td>
+<td style="text-align: right;">2,88</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="tu-turno-solución-tamaño-para-cve-de-3" class="slide level2">
+<h2>Tu turno: solución (tamaño para <span class="math inline">\(cve\)</span> de 3 %)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a>tam_cve <span class="ot">&lt;-</span> <span class="cf">function</span>(ah, cve0) {</span>
+<span id="cb10-2"><a href></a>  <span class="fu">sum</span>(emp<span class="sc">$</span>Nh<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> emp<span class="sc">$</span>s<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> ah) <span class="sc">/</span> (cve0<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> ty<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">sum</span>(emp<span class="sc">$</span>Nh <span class="sc">*</span> emp<span class="sc">$</span>s<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb10-3"><a href></a>}</span>
+<span id="cb10-4"><a href></a><span class="fu">c</span>(<span class="at">Neyman       =</span> <span class="fu">tam_cve</span>(emp<span class="sc">$</span>Nh <span class="sc">*</span> emp<span class="sc">$</span>s <span class="sc">/</span> <span class="fu">sum</span>(emp<span class="sc">$</span>Nh <span class="sc">*</span> emp<span class="sc">$</span>s), <span class="fl">0.03</span>),</span>
+<span id="cb10-5"><a href></a>  <span class="at">Proporcional =</span> <span class="fu">tam_cve</span>(emp<span class="sc">$</span>Nh <span class="sc">/</span> <span class="fu">sum</span>(emp<span class="sc">$</span>Nh), <span class="fl">0.03</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Neyman Proporcional 
+    180.9369     291.2062 </code></pre>
+</div>
+</div>
+<div class="clave">
+<p>Con la afijación de Neyman bastan unas <strong>181</strong> empresas para un <span class="math inline">\(cve\)</span> de 3 %; con la proporcional se necesitarían <strong>292</strong>. La afijación actual (60/50/50/40) ya está cerca de la de Neyman: las empresas con más empleados tienen ventas mucho más variables.</p>
+</div>
 </section>
 <section id="section" class="slide level2" data-background-color="#0d1b2a">
 <h2></h2>
