@@ -61,8 +61,9 @@ tapply(base$dk, base$estrato, sum)
 
 dis <- base |> 
        as_survey_design(ids = 1,
-                              strata = estrato,
-                              weights = dk)
+                        strata = estrato,
+                        fpc = Nh,
+                        weights = dk)
 
 dis |> 
   group_by(estrato, registro) |> 
